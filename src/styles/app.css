@@ -322,6 +322,13 @@ button {
   padding: 14px;
 }
 
+.content-panel {
+  background: #fbfbf6;
+  border: 1px solid #d9dfd1;
+  border-radius: 8px;
+  padding: 16px;
+}
+
 .list-header {
   align-items: baseline;
   display: flex;
@@ -379,6 +386,94 @@ button {
 
 .status-dot.removed {
   background: #777;
+}
+
+.inline-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.inline-form input,
+.inline-form select,
+.inline-form button {
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  padding: 8px 9px;
+}
+
+.inline-form button,
+.task-row button {
+  background: #406b4f;
+  color: #fff;
+}
+
+.task-list,
+.calendar-list,
+.timeline {
+  display: grid;
+  gap: 8px;
+}
+
+.task-row,
+.calendar-day,
+.timeline-item {
+  background: #fff;
+  border: 1px solid #d9dfd1;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.task-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.task-row small,
+.timeline-item small {
+  color: #667366;
+  display: block;
+}
+
+.task-row.muted {
+  color: #667366;
+}
+
+.completed-section {
+  margin-top: 14px;
+}
+
+.calendar-day ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.place-match {
+  background: #fff;
+  border: 1px solid #d9dfd1;
+  border-radius: 8px;
+  margin-top: 16px;
+  padding: 10px;
+}
+
+.place-match p {
+  margin: 6px 0 0;
+}
+
+.place-match.good {
+  border-color: #79a66a;
+}
+
+.place-match.possible,
+.place-match.unknown {
+  border-color: #d6b85d;
+}
+
+.place-match.warning {
+  border-color: #c46c5c;
 }
 
 .map-caption p,

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { Bed, GardenState, HistoryEvent, Plant, Task, Zone } from "../domain/models";
+import type { Bed, GardenState, HistoryEvent, Photo, Plant, Task, Zone } from "../domain/models";
 import type { GardenRepository } from "./gardenRepository";
 import { LocalStorageGardenRepository } from "./localStorageGardenRepository";
 
@@ -14,8 +14,10 @@ type GardenActionResult = {
   addZone: (zone: Zone) => void;
   updateZone: (zone: Zone) => void;
   addTask: (task: Task) => void;
+  updateTask: (task: Task) => void;
   completeTask: (taskId: string, completedAt?: string) => void;
   addHistoryEvent: (event: HistoryEvent) => void;
+  addPhoto: (photo: Photo) => void;
 };
 
 const defaultRepository = new LocalStorageGardenRepository();
@@ -93,6 +95,11 @@ export function useGardenState(repository: GardenRepository = defaultRepository)
           zones: state.zones.map((existing) => (existing.id === zone.id ? zone : existing)),
         })),
       addTask: (task: Task) => updateState((state) => ({ ...state, tasks: [...state.tasks, task] })),
+      updateTask: (task: Task) =>
+        updateState((state) => ({
+          ...state,
+          tasks: state.tasks.map((existing) => (existing.id === task.id ? task : existing)),
+        })),
       completeTask: (taskId: string, completedAt = new Date().toISOString()) =>
         updateState((state) => ({
           ...state,
@@ -102,6 +109,7 @@ export function useGardenState(repository: GardenRepository = defaultRepository)
         })),
       addHistoryEvent: (event: HistoryEvent) =>
         updateState((state) => ({ ...state, historyEvents: [...state.historyEvents, event] })),
+      addPhoto: (photo: Photo) => updateState((state) => ({ ...state, photos: [...state.photos, photo] })),
     }),
     [error, gardenState, isLoading, updateState],
   );

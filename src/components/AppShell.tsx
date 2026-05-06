@@ -3,11 +3,13 @@ import type { Bed, GardenState, Plant, Task, Zone } from "../domain/models";
 import type { MapSelection } from "../features/map/mapSelection";
 import { DetailPanel } from "./DetailPanel";
 import { NotificationCenter } from "./NotificationCenter";
-import { Sidebar } from "./Sidebar";
+import { Sidebar, type AppView } from "./Sidebar";
 
 type AppShellProps = {
   children: ReactNode;
+  activeView: AppView;
   gardenState: GardenState | null;
+  onViewChange: (view: AppView) => void;
   onUpdateBed: (bed: Bed) => void;
   onUpdatePlant: (plant: Plant) => void;
   onUpdateZone: (zone: Zone) => void;
@@ -17,16 +19,18 @@ type AppShellProps = {
 
 export function AppShell({
   children,
+  activeView,
   gardenState,
   onUpdateBed,
   onUpdatePlant,
   onUpdateZone,
+  onViewChange,
   selection,
   tasks,
 }: AppShellProps) {
   return (
     <div className="app-shell">
-      <Sidebar />
+      <Sidebar activeView={activeView} onViewChange={onViewChange} />
       <main className="workspace">
         <NotificationCenter tasks={tasks} />
         {children}

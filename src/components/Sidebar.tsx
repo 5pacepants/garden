@@ -1,14 +1,21 @@
-const navigationItems = [
-  "Karta",
-  "Växter",
-  "Uppgifter",
-  "Kalender",
-  "Historik",
-  "Planering",
-  "Inställningar",
+export type AppView = "map" | "plants" | "tasks" | "calendar" | "history" | "planning" | "settings";
+
+const navigationItems: Array<{ id: AppView; label: string }> = [
+  { id: "map", label: "Karta" },
+  { id: "plants", label: "Växter" },
+  { id: "tasks", label: "Uppgifter" },
+  { id: "calendar", label: "Kalender" },
+  { id: "history", label: "Historik" },
+  { id: "planning", label: "Planering" },
+  { id: "settings", label: "Inställningar" },
 ];
 
-export function Sidebar() {
+type SidebarProps = {
+  activeView: AppView;
+  onViewChange: (view: AppView) => void;
+};
+
+export function Sidebar({ activeView, onViewChange }: SidebarProps) {
   return (
     <aside className="sidebar" aria-label="Huvudnavigation">
       <div className="brand">
@@ -20,8 +27,13 @@ export function Sidebar() {
       </div>
       <nav className="nav-list">
         {navigationItems.map((item) => (
-          <button className={item === "Karta" ? "nav-item active" : "nav-item"} key={item} type="button">
-            {item}
+          <button
+            className={activeView === item.id ? "nav-item active" : "nav-item"}
+            key={item.id}
+            onClick={() => onViewChange(item.id)}
+            type="button"
+          >
+            {item.label}
           </button>
         ))}
       </nav>
