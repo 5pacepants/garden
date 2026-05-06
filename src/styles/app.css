@@ -535,3 +535,9 @@ button {
   font-size: 13px;
   margin: 0;
 }
+
+.form-error {
+  color: #9b2c2c;
+  font-size: 13px;
+  margin: 0;
+}

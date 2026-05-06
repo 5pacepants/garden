@@ -11,7 +11,16 @@ import { TaskList } from "./features/tasks/TaskList";
 import { HistoryTimeline } from "./features/history/HistoryTimeline";
 import { PhotoHistory } from "./features/history/PhotoHistory";
 import type { AppView } from "./components/Sidebar";
+import { MockPlantSuggestionService } from "./ai/plantSuggestionService";
+import { OpenAiPlantSuggestionService } from "./ai/openAiPlantSuggestionService";
+import { type AiSettings, SettingsView } from "./features/settings/SettingsView";
 import "./styles/app.css";
+
+const defaultAiSettings: AiSettings = {
+  enabled: false,
+  apiKey: "",
+  model: "gpt-4.1-mini",
+};
 
 function App() {
   const {
@@ -32,6 +41,7 @@ function App() {
   const [activeView, setActiveView] = useState<AppView>("map");
   const [selection, setSelection] = useState<MapSelection>(null);
   const [plantFilters, setPlantFilters] = useState(defaultPlantFilters);
+  const [aiSettings, setAiSettings] = useState<AiSettings>(() => loadAiSettings());
 
   if (isLoading) {
     return <div className="loading-state">Läser trädgårdsdata...</div>;
@@ -44,6 +54,18 @@ function App() {
   const plantIdsWithTasksThisWeek = getPlantIdsWithTasksThisWeek(gardenState.tasks);
   const filteredPlants = filterPlants(gardenState.plants, plantFilters, plantIdsWithTasksThisWeek);
   const visiblePlantIds = useMemo(() => new Set(filteredPlants.map((plant) => plant.id)), [filteredPlants]);
+  const suggestionService = useMemo(
+    () =>
+      aiSettings.enabled && aiSettings.apiKey
+        ? new OpenAiPlantSuggestionService({ apiKey: aiSettings.apiKey, model: aiSettings.model })
+        : new MockPlantSuggestionService(),
+    [aiSettings],
+  );
+
+  function updateAiSettings(settings: AiSettings) {
+    setAiSettings(settings);
+    localStorage.setItem("private-garden-ai-settings", JSON.stringify(settings));
+  }
 
   return (
     <AppShell
@@ -54,6 +76,7 @@ function App() {
       onUpdateZone={updateZone}
       onViewChange={setActiveView}
       selection={selection}
+      suggestionService={suggestionService}
       tasks={gardenState.tasks}
     >
       {(activeView === "map" || activeView === "plants") && <PlantFilters value={plantFilters} onChange={setPlantFilters} />}
@@ -85,9 +108,22 @@ function App() {
       {activeView === "planning" && (
         <PlanningView plants={gardenState.plants} onSelectPlant={(id) => setSelection({ type: "plant", id })} />
       )}
-      {activeView === "settings" && <section className="content-panel"><h2>Inställningar</h2><p>Backup, AI och kartbild kommer i kommande tasks.</p></section>}
+      {activeView === "settings" && <SettingsView aiSettings={aiSettings} onAiSettingsChange={updateAiSettings} />}
     </AppShell>
   );
+}
+
+function loadAiSettings(): AiSettings {
+  const stored = localStorage.getItem("private-garden-ai-settings");
+  if (!stored) {
+    return defaultAiSettings;
+  }
+
+  try {
+    return { ...defaultAiSettings, ...JSON.parse(stored) };
+  } catch {
+    return defaultAiSettings;
+  }
 }
 
 function getPlantIdsWithTasksThisWeek(tasks: Array<{ dueDate?: string; plantId?: string; status: string }>): Set<string> {

@@ -4,6 +4,7 @@ import type { MapSelection } from "../features/map/mapSelection";
 import { PlantCard } from "../features/plants/PlantCard";
 import { PlaceMatchPanel } from "../features/zones/PlaceMatchPanel";
 import { ZoneEditor } from "../features/zones/ZoneEditor";
+import type { PlantSuggestionService } from "../ai/plantSuggestionService";
 
 type DetailPanelProps = {
   gardenState: GardenState | null;
@@ -11,11 +12,12 @@ type DetailPanelProps = {
   onUpdatePlant: (plant: GardenState["plants"][number]) => void;
   onUpdateBed: (bed: GardenState["beds"][number]) => void;
   onUpdateZone: (zone: GardenState["zones"][number]) => void;
+  suggestionService: PlantSuggestionService;
 };
 
-export function DetailPanel({ gardenState, selection, onUpdateBed, onUpdatePlant, onUpdateZone }: DetailPanelProps) {
+export function DetailPanel({ gardenState, selection, onUpdateBed, onUpdatePlant, onUpdateZone, suggestionService }: DetailPanelProps) {
   const selectedObject = getSelectedObject(gardenState, selection);
-  const editor = getEditor(gardenState, selection, onUpdatePlant, onUpdateBed, onUpdateZone);
+  const editor = getEditor(gardenState, selection, onUpdatePlant, onUpdateBed, onUpdateZone, suggestionService);
 
   return (
     <aside className="detail-panel" aria-label="Detaljer">
@@ -43,6 +45,7 @@ function getEditor(
   onUpdatePlant: (plant: GardenState["plants"][number]) => void,
   onUpdateBed: (bed: GardenState["beds"][number]) => void,
   onUpdateZone: (zone: GardenState["zones"][number]) => void,
+  suggestionService: PlantSuggestionService,
 ) {
   if (!gardenState || !selection) {
     return null;
@@ -50,7 +53,7 @@ function getEditor(
 
   if (selection.type === "plant") {
     const plant = gardenState.plants.find((item) => item.id === selection.id);
-    return plant ? <PlantCard plant={plant} onChange={onUpdatePlant} /> : null;
+    return plant ? <PlantCard plant={plant} suggestionService={suggestionService} onChange={onUpdatePlant} /> : null;
   }
 
   if (selection.type === "bed") {

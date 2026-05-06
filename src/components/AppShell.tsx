@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import type { Bed, GardenState, Plant, Task, Zone } from "../domain/models";
 import type { MapSelection } from "../features/map/mapSelection";
+import type { PlantSuggestionService } from "../ai/plantSuggestionService";
 import { DetailPanel } from "./DetailPanel";
 import { NotificationCenter } from "./NotificationCenter";
 import { Sidebar, type AppView } from "./Sidebar";
@@ -14,6 +15,7 @@ type AppShellProps = {
   onUpdatePlant: (plant: Plant) => void;
   onUpdateZone: (zone: Zone) => void;
   selection: MapSelection;
+  suggestionService: PlantSuggestionService;
   tasks: Task[];
 };
 
@@ -26,6 +28,7 @@ export function AppShell({
   onUpdateZone,
   onViewChange,
   selection,
+  suggestionService,
   tasks,
 }: AppShellProps) {
   return (
@@ -41,6 +44,7 @@ export function AppShell({
         onUpdatePlant={onUpdatePlant}
         onUpdateZone={onUpdateZone}
         selection={selection}
+        suggestionService={suggestionService}
       />
     </div>
   );
