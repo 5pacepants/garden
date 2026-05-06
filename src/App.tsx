@@ -43,17 +43,13 @@ function App() {
   const [selection, setSelection] = useState<MapSelection>(null);
   const [plantFilters, setPlantFilters] = useState(defaultPlantFilters);
   const [aiSettings, setAiSettings] = useState<AiSettings>(() => loadAiSettings());
-
-  if (isLoading) {
-    return <div className="loading-state">Läser trädgårdsdata...</div>;
-  }
-
-  if (error || !gardenState) {
-    return <div className="loading-state error-state">{error ?? "Kunde inte läsa trädgårdsdata."}</div>;
-  }
-
-  const plantIdsWithTasksThisWeek = getPlantIdsWithTasksThisWeek(gardenState.tasks);
-  const filteredPlants = filterPlants(gardenState.plants, plantFilters, plantIdsWithTasksThisWeek);
+  const tasks = gardenState?.tasks ?? [];
+  const plants = gardenState?.plants ?? [];
+  const plantIdsWithTasksThisWeek = useMemo(() => getPlantIdsWithTasksThisWeek(tasks), [tasks]);
+  const filteredPlants = useMemo(
+    () => filterPlants(plants, plantFilters, plantIdsWithTasksThisWeek),
+    [plants, plantFilters, plantIdsWithTasksThisWeek],
+  );
   const visiblePlantIds = useMemo(() => new Set(filteredPlants.map((plant) => plant.id)), [filteredPlants]);
   const suggestionService = useMemo(
     () =>
@@ -62,6 +58,14 @@ function App() {
         : new MockPlantSuggestionService(),
     [aiSettings],
   );
+
+  if (isLoading) {
+    return <div className="loading-state">Läser trädgårdsdata...</div>;
+  }
+
+  if (error || !gardenState) {
+    return <div className="loading-state error-state">{error ?? "Kunde inte läsa trädgårdsdata."}</div>;
+  }
 
   function updateAiSettings(settings: AiSettings) {
     setAiSettings(settings);
