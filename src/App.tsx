@@ -1,50 +1,23 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/core";
-import "./App.css";
+import { AppShell } from "./components/AppShell";
+import "./styles/app.css";
 
 function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    setGreetMsg(await invoke("greet", { name }));
-  }
-
   return (
-    <main className="container">
-      <h1>Welcome to Tauri + React</h1>
-
-      <div className="row">
-        <a href="https://vite.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-      <p>{greetMsg}</p>
-    </main>
+    <AppShell>
+      <section className="map-placeholder" aria-label="Trädgårdskarta">
+        <div className="map-grid">
+          <div className="zone zone-sun">Solzon</div>
+          <div className="bed-shape">Framsida rabatt</div>
+          <button className="plant-node existing" type="button" aria-label="Exempelväxt: Röd solhatt" />
+          <button className="plant-node planned" type="button" aria-label="Planerad växt" />
+        </div>
+        <div className="map-caption">
+          <span className="eyebrow">Karta</span>
+          <h2>Din trädgård ovanifrån</h2>
+          <p>Här kommer bakgrundsbild, rabatter, zoner och växtnoder att redigeras.</p>
+        </div>
+      </section>
+    </AppShell>
   );
 }
 
