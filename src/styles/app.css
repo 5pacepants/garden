@@ -154,7 +154,7 @@ button {
   padding: 7px 10px;
 }
 
-.map-placeholder {
+.map-panel {
   background: #f7f7ef;
   border: 1px solid #d5dccd;
   border-radius: 8px;
@@ -164,7 +164,23 @@ button {
   overflow: hidden;
 }
 
-.map-grid {
+.map-toolbar {
+  align-items: center;
+  border-bottom: 1px solid #d5dccd;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 12px;
+}
+
+.layer-toggle {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.map-canvas {
   background:
     linear-gradient(rgba(64, 107, 79, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(64, 107, 79, 0.08) 1px, transparent 1px),
@@ -173,63 +189,54 @@ button {
   position: relative;
 }
 
-.zone,
-.bed-shape,
-.plant-node {
-  position: absolute;
+.map-svg {
+  display: block;
+  height: 100%;
+  min-height: 560px;
+  width: 100%;
 }
 
-.zone-sun {
-  background: rgba(231, 187, 87, 0.32);
-  border: 1px solid rgba(160, 113, 20, 0.35);
-  border-radius: 8px;
-  height: 44%;
-  left: 8%;
-  padding: 12px;
-  top: 10%;
-  width: 52%;
+.map-background {
+  fill: transparent;
 }
 
-.bed-shape {
-  align-items: center;
-  background: rgba(111, 76, 52, 0.18);
-  border: 2px solid rgba(111, 76, 52, 0.55);
-  border-radius: 8px;
-  display: flex;
-  height: 28%;
-  justify-content: center;
-  left: 24%;
-  top: 32%;
-  transform: rotate(-4deg);
-  width: 34%;
+.zone-polygon {
+  cursor: pointer;
+  fill: rgba(231, 187, 87, 0.32);
+  stroke: rgba(160, 113, 20, 0.55);
+  stroke-width: 0.4;
 }
 
-.plant-node {
-  border: 3px solid #fff;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px rgba(32, 50, 41, 0.25);
-  height: 22px;
-  width: 22px;
+.bed-polygon {
+  cursor: pointer;
+  fill: rgba(111, 76, 52, 0.18);
+  stroke: rgba(111, 76, 52, 0.7);
+  stroke-width: 0.55;
 }
 
-.plant-node.existing {
-  background: #4f8f5b;
-  left: 38%;
-  top: 44%;
+.plant-circle {
+  cursor: pointer;
+  fill: #4f8f5b;
+  stroke: #fff;
+  stroke-width: 0.7;
 }
 
-.plant-node.planned {
-  background: #4777a6;
-  left: 50%;
-  top: 50%;
+.plant-circle.planned {
+  fill: #4777a6;
 }
 
-.plant-node.wishlist {
-  background: #9a6aa8;
+.plant-circle.wishlist {
+  fill: #9a6aa8;
 }
 
-.plant-node.removed {
-  background: #9a9a9a;
+.plant-circle.removed {
+  fill: #9a9a9a;
+}
+
+.selected {
+  outline: none;
+  stroke: #1f4f38;
+  stroke-width: 1;
 }
 
 .map-caption {
