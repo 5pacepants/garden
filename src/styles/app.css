@@ -541,3 +541,8 @@ button {
   font-size: 13px;
   margin: 0;
 }
+
+.backup-textarea {
+  min-height: 220px;
+  width: 100%;
+}

@@ -37,6 +37,7 @@ function App() {
     updateBed,
     updatePlant,
     updateZone,
+    replaceState,
   } = useGardenState();
   const [activeView, setActiveView] = useState<AppView>("map");
   const [selection, setSelection] = useState<MapSelection>(null);
@@ -108,7 +109,14 @@ function App() {
       {activeView === "planning" && (
         <PlanningView plants={gardenState.plants} onSelectPlant={(id) => setSelection({ type: "plant", id })} />
       )}
-      {activeView === "settings" && <SettingsView aiSettings={aiSettings} onAiSettingsChange={updateAiSettings} />}
+      {activeView === "settings" && (
+        <SettingsView
+          aiSettings={aiSettings}
+          gardenState={gardenState}
+          onAiSettingsChange={updateAiSettings}
+          onImportGardenState={replaceState}
+        />
+      )}
     </AppShell>
   );
 }

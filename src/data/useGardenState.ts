@@ -18,6 +18,7 @@ type GardenActionResult = {
   completeTask: (taskId: string, completedAt?: string) => void;
   addHistoryEvent: (event: HistoryEvent) => void;
   addPhoto: (photo: Photo) => void;
+  replaceState: (state: GardenState) => void;
 };
 
 const defaultRepository = new LocalStorageGardenRepository();
@@ -110,6 +111,12 @@ export function useGardenState(repository: GardenRepository = defaultRepository)
       addHistoryEvent: (event: HistoryEvent) =>
         updateState((state) => ({ ...state, historyEvents: [...state.historyEvents, event] })),
       addPhoto: (photo: Photo) => updateState((state) => ({ ...state, photos: [...state.photos, photo] })),
+      replaceState: (state: GardenState) => {
+        setGardenState(state);
+        void repository.save(state).catch((saveError: unknown) => {
+          setError(saveError instanceof Error ? saveError.message : "Kunde inte spara trädgårdsdata.");
+        });
+      },
     }),
     [error, gardenState, isLoading, updateState],
   );
