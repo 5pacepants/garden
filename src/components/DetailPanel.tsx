@@ -2,6 +2,7 @@ import type { GardenState } from "../domain/models";
 import { BedEditor } from "../features/beds/BedEditor";
 import type { MapSelection } from "../features/map/mapSelection";
 import { PlantCard } from "../features/plants/PlantCard";
+import { PlaceMatchPanel } from "../features/zones/PlaceMatchPanel";
 import { ZoneEditor } from "../features/zones/ZoneEditor";
 
 type DetailPanelProps = {
@@ -21,6 +22,7 @@ export function DetailPanel({ gardenState, selection, onUpdateBed, onUpdatePlant
       <span className="eyebrow">Valt objekt</span>
       <h2>{selectedObject.title}</h2>
       <p>{selectedObject.description}</p>
+      {gardenState && <PlaceMatchPanel gardenState={gardenState} selection={selection} />}
       {editor}
       {!editor && <div className="detail-section">
         <h3>Kommande innehåll</h3>
