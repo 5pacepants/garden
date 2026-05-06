@@ -173,6 +173,30 @@ button {
   padding: 10px 12px;
 }
 
+.mode-group {
+  display: flex;
+  gap: 6px;
+  margin-right: 8px;
+}
+
+.tool-button {
+  background: #f8f8f3;
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  color: #314036;
+  padding: 6px 9px;
+}
+
+.tool-button:hover,
+.tool-button.active {
+  background: #dfe9d8;
+}
+
+.tool-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 .layer-toggle {
   align-items: center;
   display: inline-flex;
@@ -194,6 +218,12 @@ button {
   height: 100%;
   min-height: 560px;
   width: 100%;
+}
+
+.mode-addPlant,
+.mode-drawBed,
+.mode-drawZone {
+  cursor: crosshair;
 }
 
 .map-background {
@@ -239,6 +269,19 @@ button {
   stroke-width: 1;
 }
 
+.draft-polygon {
+  fill: none;
+  stroke: #1f4f38;
+  stroke-dasharray: 1.5 1.2;
+  stroke-width: 0.7;
+}
+
+.draft-point {
+  fill: #1f4f38;
+  stroke: #fff;
+  stroke-width: 0.4;
+}
+
 .map-caption {
   border-top: 1px solid #d5dccd;
   padding: 16px 18px;
@@ -265,4 +308,41 @@ button {
   color: #526052;
   margin: 0;
   padding-left: 18px;
+}
+
+.editor-form {
+  border-top: 1px solid #d9dfd1;
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 18px;
+}
+
+.editor-form label {
+  color: #405043;
+  display: grid;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 5px;
+}
+
+.editor-form input,
+.editor-form select,
+.editor-form textarea {
+  background: #fff;
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  color: #203229;
+  padding: 8px 9px;
+}
+
+.editor-form textarea {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.helper-text {
+  color: #667366;
+  font-size: 13px;
+  margin: 0;
 }

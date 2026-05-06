@@ -18,7 +18,9 @@ type GardenActionResult = {
   addHistoryEvent: (event: HistoryEvent) => void;
 };
 
-export function useGardenState(repository: GardenRepository = new LocalStorageGardenRepository()): GardenActionResult {
+const defaultRepository = new LocalStorageGardenRepository();
+
+export function useGardenState(repository: GardenRepository = defaultRepository): GardenActionResult {
   const [gardenState, setGardenState] = useState<GardenState | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

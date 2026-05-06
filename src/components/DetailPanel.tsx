@@ -1,20 +1,28 @@
 import type { GardenState } from "../domain/models";
+import { BedEditor } from "../features/beds/BedEditor";
 import type { MapSelection } from "../features/map/mapSelection";
+import { PlantCard } from "../features/plants/PlantCard";
+import { ZoneEditor } from "../features/zones/ZoneEditor";
 
 type DetailPanelProps = {
   gardenState: GardenState | null;
   selection: MapSelection;
+  onUpdatePlant: (plant: GardenState["plants"][number]) => void;
+  onUpdateBed: (bed: GardenState["beds"][number]) => void;
+  onUpdateZone: (zone: GardenState["zones"][number]) => void;
 };
 
-export function DetailPanel({ gardenState, selection }: DetailPanelProps) {
+export function DetailPanel({ gardenState, selection, onUpdateBed, onUpdatePlant, onUpdateZone }: DetailPanelProps) {
   const selectedObject = getSelectedObject(gardenState, selection);
+  const editor = getEditor(gardenState, selection, onUpdatePlant, onUpdateBed, onUpdateZone);
 
   return (
     <aside className="detail-panel" aria-label="Detaljer">
       <span className="eyebrow">Valt objekt</span>
       <h2>{selectedObject.title}</h2>
       <p>{selectedObject.description}</p>
-      <div className="detail-section">
+      {editor}
+      {!editor && <div className="detail-section">
         <h3>Kommande innehåll</h3>
         <ul>
           <li>Växtkort</li>
@@ -22,9 +30,34 @@ export function DetailPanel({ gardenState, selection }: DetailPanelProps) {
           <li>Historik</li>
           <li>Platsmatchning</li>
         </ul>
-      </div>
+      </div>}
     </aside>
   );
+}
+
+function getEditor(
+  gardenState: GardenState | null,
+  selection: MapSelection,
+  onUpdatePlant: (plant: GardenState["plants"][number]) => void,
+  onUpdateBed: (bed: GardenState["beds"][number]) => void,
+  onUpdateZone: (zone: GardenState["zones"][number]) => void,
+) {
+  if (!gardenState || !selection) {
+    return null;
+  }
+
+  if (selection.type === "plant") {
+    const plant = gardenState.plants.find((item) => item.id === selection.id);
+    return plant ? <PlantCard plant={plant} onChange={onUpdatePlant} /> : null;
+  }
+
+  if (selection.type === "bed") {
+    const bed = gardenState.beds.find((item) => item.id === selection.id);
+    return bed ? <BedEditor bed={bed} onChange={onUpdateBed} /> : null;
+  }
+
+  const zone = gardenState.zones.find((item) => item.id === selection.id);
+  return zone ? <ZoneEditor zone={zone} onChange={onUpdateZone} /> : null;
 }
 
 function getSelectedObject(gardenState: GardenState | null, selection: MapSelection): { title: string; description: string } {

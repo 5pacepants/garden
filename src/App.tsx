@@ -6,7 +6,7 @@ import type { MapSelection } from "./features/map/mapSelection";
 import "./styles/app.css";
 
 function App() {
-  const { gardenState, isLoading, error } = useGardenState();
+  const { addBed, addPlant, addZone, gardenState, isLoading, error, updateBed, updatePlant, updateZone } = useGardenState();
   const [selection, setSelection] = useState<MapSelection>(null);
 
   if (isLoading) {
@@ -18,8 +18,22 @@ function App() {
   }
 
   return (
-    <AppShell gardenState={gardenState} selection={selection} tasks={gardenState.tasks}>
-      <GardenMap gardenState={gardenState} onSelectionChange={setSelection} selection={selection} />
+    <AppShell
+      gardenState={gardenState}
+      onUpdateBed={updateBed}
+      onUpdatePlant={updatePlant}
+      onUpdateZone={updateZone}
+      selection={selection}
+      tasks={gardenState.tasks}
+    >
+      <GardenMap
+        gardenState={gardenState}
+        onAddBed={addBed}
+        onAddPlant={addPlant}
+        onAddZone={addZone}
+        onSelectionChange={setSelection}
+        selection={selection}
+      />
     </AppShell>
   );
 }
