@@ -16,6 +16,17 @@ body {
   min-height: 100vh;
 }
 
+.loading-state {
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+.error-state {
+  color: #9b2c2c;
+}
+
 button,
 input,
 select,
@@ -211,6 +222,14 @@ button {
   background: #4777a6;
   left: 50%;
   top: 50%;
+}
+
+.plant-node.wishlist {
+  background: #9a6aa8;
+}
+
+.plant-node.removed {
+  background: #9a9a9a;
 }
 
 .map-caption {
