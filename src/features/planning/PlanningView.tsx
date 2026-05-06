@@ -1,0 +1,39 @@
+import type { Plant } from "../../domain/models";
+
+type PlanningViewProps = {
+  plants: Plant[];
+  onSelectPlant: (plantId: string) => void;
+};
+
+export function PlanningView({ plants, onSelectPlant }: PlanningViewProps) {
+  const plannedPlants = plants.filter((plant) => plant.status === "planned" || plant.status === "wishlist");
+
+  return (
+    <section className="content-panel">
+      <div className="list-header">
+        <span className="eyebrow">Planering</span>
+        <h2>{plannedPlants.length} planerade köp och idéer</h2>
+      </div>
+      <div className="plant-list">
+        {plannedPlants.map((plant) => (
+          <button className="plant-list-item" key={plant.id} onClick={() => onSelectPlant(plant.id)} type="button">
+            <span>
+              <strong>{plant.swedishName}</strong>
+              <small>{plant.latinName ?? plant.type}</small>
+            </span>
+            <span className={`status-dot ${plant.status}`}>{plant.status}</span>
+            <small>
+              {formatPrice(plant.purchaseInfo?.price)} · {plant.purchaseInfo?.store ?? "Ingen butik"} ·{" "}
+              {plant.purchaseInfo?.priority ?? "normal"}
+            </small>
+            {plant.purchaseInfo?.link && <small>{plant.purchaseInfo.link}</small>}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function formatPrice(price: number | undefined): string {
+  return typeof price === "number" ? `${price} kr` : "Inget pris";
+}

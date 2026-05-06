@@ -5,6 +5,7 @@ import { GardenMap } from "./features/map/GardenMap";
 import type { MapSelection } from "./features/map/mapSelection";
 import { defaultPlantFilters, filterPlants, PlantFilters } from "./features/plants/PlantFilters";
 import { PlantList } from "./features/plants/PlantList";
+import { PlanningView } from "./features/planning/PlanningView";
 import { CalendarView } from "./features/tasks/CalendarView";
 import { TaskList } from "./features/tasks/TaskList";
 import { HistoryTimeline } from "./features/history/HistoryTimeline";
@@ -82,11 +83,7 @@ function App() {
         </>
       )}
       {activeView === "planning" && (
-        <PlantList
-          plants={gardenState.plants.filter((plant) => plant.status === "planned" || plant.status === "wishlist")}
-          tasks={gardenState.tasks}
-          onSelectPlant={(id) => setSelection({ type: "plant", id })}
-        />
+        <PlanningView plants={gardenState.plants} onSelectPlant={(id) => setSelection({ type: "plant", id })} />
       )}
       {activeView === "settings" && <section className="content-panel"><h2>Inställningar</h2><p>Backup, AI och kartbild kommer i kommande tasks.</p></section>}
     </AppShell>
