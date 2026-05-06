@@ -121,7 +121,7 @@ button {
 
 .workspace {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr auto;
   min-width: 0;
   padding: 18px;
 }
@@ -162,6 +162,33 @@ button {
   grid-template-rows: 1fr auto;
   min-height: 640px;
   overflow: hidden;
+}
+
+.plant-filters {
+  align-items: center;
+  background: #fbfbf6;
+  border: 1px solid #d9dfd1;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+}
+
+.plant-filters select {
+  background: #fff;
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  color: #314036;
+  padding: 7px 8px;
+}
+
+.checkbox-filter {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+  font-size: 13px;
 }
 
 .map-toolbar {
@@ -285,6 +312,73 @@ button {
 .map-caption {
   border-top: 1px solid #d5dccd;
   padding: 16px 18px;
+}
+
+.plant-list-panel {
+  background: #fbfbf6;
+  border: 1px solid #d9dfd1;
+  border-radius: 8px;
+  margin-top: 16px;
+  padding: 14px;
+}
+
+.list-header {
+  align-items: baseline;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.list-header h2 {
+  font-size: 17px;
+  margin: 0;
+}
+
+.plant-list {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.plant-list-item {
+  align-items: start;
+  background: #fff;
+  border: 1px solid #d9dfd1;
+  border-radius: 8px;
+  color: #203229;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  text-align: left;
+}
+
+.plant-list-item small {
+  color: #667366;
+  display: block;
+}
+
+.status-dot {
+  border-radius: 999px;
+  color: #fff;
+  font-size: 12px;
+  justify-self: start;
+  padding: 3px 7px;
+}
+
+.status-dot.existing {
+  background: #4f8f5b;
+}
+
+.status-dot.planned {
+  background: #4777a6;
+}
+
+.status-dot.wishlist {
+  background: #9a6aa8;
+}
+
+.status-dot.removed {
+  background: #777;
 }
 
 .map-caption p,

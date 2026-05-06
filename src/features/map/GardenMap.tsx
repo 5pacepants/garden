@@ -2,12 +2,15 @@ import { useMemo, useState, type MouseEvent } from "react";
 import { findContainingBed, relativeToWorldPoint, worldToRelativePoint } from "../../domain/geometry";
 import { createId } from "../../domain/ids";
 import type { Bed, GardenState, Plant, Point, Zone } from "../../domain/models";
+import type { PlantFilterState } from "../plants/PlantFilters";
 import { MapToolbar, type LayerVisibility, type MapMode } from "./MapToolbar";
 import { isSelected, type MapSelection } from "./mapSelection";
 import { polygonToSvgPoints, screenToNormalizedPoint } from "./mapTransforms";
 
 type GardenMapProps = {
   gardenState: GardenState;
+  plantFilters: PlantFilterState;
+  visiblePlantIds: Set<string>;
   onAddBed: (bed: Bed) => void;
   onAddPlant: (plant: Plant) => void;
   onAddZone: (zone: Zone) => void;
@@ -23,7 +26,16 @@ const defaultLayers: LayerVisibility = {
   wishlist: true,
 };
 
-export function GardenMap({ gardenState, onAddBed, onAddPlant, onAddZone, onSelectionChange, selection }: GardenMapProps) {
+export function GardenMap({
+  gardenState,
+  plantFilters: _plantFilters,
+  visiblePlantIds,
+  onAddBed,
+  onAddPlant,
+  onAddZone,
+  onSelectionChange,
+  selection,
+}: GardenMapProps) {
   const [layers, setLayers] = useState(defaultLayers);
   const [mode, setMode] = useState<MapMode>("select");
   const [draftPolygon, setDraftPolygon] = useState<Point[]>([]);
@@ -148,7 +160,7 @@ export function GardenMap({ gardenState, onAddBed, onAddPlant, onAddZone, onSele
               />
             ))}
           {plantsWithPositions
-            .filter(({ plant }) => isPlantLayerVisible(plant, layers))
+            .filter(({ plant }) => isPlantLayerVisible(plant, layers) && visiblePlantIds.has(plant.id))
             .map(({ plant, position }) => (
               <circle
                 className={isSelected(selection, "plant", plant.id) ? `plant-circle ${plant.status} selected` : `plant-circle ${plant.status}`}
