@@ -41,6 +41,17 @@ export function moveZoneToDelta(zone: Zone, delta: Point): Zone {
   };
 }
 
-function clamp(value: number): number {
-  return Math.max(0, Math.min(100, value));
+export function updatePolygonVertex(polygon: Polygon, vertexIndex: number, point: Point): Polygon {
+  return polygon.map((vertex, index) =>
+    index === vertexIndex
+      ? {
+          x: clamp(point.x),
+          y: clamp(point.y, 56.82),
+        }
+      : vertex,
+  );
+}
+
+function clamp(value: number, max = 100): number {
+  return Math.max(0, Math.min(max, value));
 }

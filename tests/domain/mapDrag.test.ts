@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Bed, Plant } from "../../src/domain/models";
-import { movePlantToPoint, translatePolygon } from "../../src/features/map/mapDrag";
+import { movePlantToPoint, translatePolygon, updatePolygonVertex } from "../../src/features/map/mapDrag";
 
 const bed: Bed = {
   id: "bed-1",
@@ -44,5 +44,13 @@ describe("map drag helpers", () => {
   it("translates polygon points by a clamped delta", () => {
     expect(translatePolygon(bed.polygon, { x: 5, y: -5 })[0]).toEqual({ x: 15, y: 5 });
     expect(translatePolygon(bed.polygon, { x: -50, y: -50 })[0]).toEqual({ x: 0, y: 0 });
+  });
+
+  it("updates one polygon vertex without moving the rest", () => {
+    const next = updatePolygonVertex(bed.polygon, 1, { x: 99, y: 12 });
+
+    expect(next[1]).toEqual({ x: 99, y: 12 });
+    expect(next[0]).toEqual(bed.polygon[0]);
+    expect(next[2]).toEqual(bed.polygon[2]);
   });
 });

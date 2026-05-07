@@ -305,7 +305,7 @@ button {
   stroke-width: 0.35;
 }
 
-.zone-vertex-handle {
+.polygon-vertex-handle {
   cursor: grab;
   fill: #fff;
   stroke: #1f4f38;
