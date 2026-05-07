@@ -265,6 +265,17 @@ export function GardenMap({
             preserveAspectRatio="none"
           >
             <rect className="map-background" height="100" width="100" x="0" y="0" />
+            {gardenState.map.backgroundImage && (
+              <image
+                className="map-background-image"
+                href={gardenState.map.backgroundImage}
+                height="100"
+                preserveAspectRatio="xMidYMid meet"
+                width="100"
+                x="0"
+                y="0"
+              />
+            )}
             {layers.zones &&
               displayZones.map((zone) => (
                 <polygon

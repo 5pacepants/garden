@@ -8,14 +8,43 @@ describe("garden repository", () => {
     localStorage.clear();
   });
 
-  it("loads a demo state when no stored state exists", async () => {
+  it("loads an empty house map state when no stored state exists", async () => {
     const repository = new LocalStorageGardenRepository("garden-test");
 
     const state = await repository.load();
 
     expect(state.version).toBe(1);
     expect(state.map.name).toBe("Min trädgård");
-    expect(state.plants.length).toBeGreaterThan(0);
+    expect(state.map.backgroundImage).toBe("/hus-test.png");
+    expect(state.plants).toHaveLength(0);
+    expect(state.beds).toHaveLength(0);
+    expect(state.zones).toHaveLength(0);
+  });
+
+  it("removes only known demo map objects when loading stored demo data", async () => {
+    const repository = new LocalStorageGardenRepository("garden-test");
+    const state = createDemoGardenState();
+    state.plants.push({
+      id: "plant-user",
+      swedishName: "Min växt",
+      status: "planned",
+      type: "perennial",
+      placement: { type: "map", position: { x: 12, y: 12 } },
+      needs: {},
+      tags: [],
+      careSchedule: [],
+    });
+
+    localStorage.setItem("garden-test", repository.exportJson(state));
+
+    const loaded = await repository.load();
+
+    expect(loaded.map.backgroundImage).toBe("/hus-test.png");
+    expect(loaded.plants.map((plant) => plant.id)).toEqual(["plant-user"]);
+    expect(loaded.beds).toHaveLength(0);
+    expect(loaded.zones).toHaveLength(0);
+    expect(loaded.tasks).toHaveLength(0);
+    expect(loaded.historyEvents).toHaveLength(0);
   });
 
   it("saves and loads garden state", async () => {

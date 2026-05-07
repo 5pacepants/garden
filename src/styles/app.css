@@ -273,7 +273,11 @@ button {
 }
 
 .map-background {
-  fill: transparent;
+  fill: #f5f2e8;
+}
+
+.map-background-image {
+  pointer-events: none;
 }
 
 .zone-polygon {

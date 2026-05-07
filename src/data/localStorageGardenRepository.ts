@@ -13,7 +13,9 @@ export class LocalStorageGardenRepository implements GardenRepository {
       return createDemoGardenState();
     }
 
-    return this.importJson(stored);
+    const state = applyHouseMapDefaults(this.importJson(stored));
+    localStorage.setItem(this.storageKey, this.exportJson(state));
+    return state;
   }
 
   async save(state: GardenState): Promise<void> {
@@ -27,4 +29,35 @@ export class LocalStorageGardenRepository implements GardenRepository {
   importJson(json: string): GardenState {
     return importGardenState(json);
   }
+}
+
+const demoZoneIds = new Set(["zone_sunny_front", "zone_shady_hedge"]);
+const demoBedIds = new Set(["bed_front_border"]);
+const demoPlantIds = new Set(["plant_echinacea", "plant_lavender_plan", "plant_currant"]);
+const demoTaskIds = new Set(["task_prune_echinacea", "task_plan_lavender"]);
+const demoHistoryIds = new Set(["history_echinacea_planted", "history_front_note"]);
+
+function applyHouseMapDefaults(state: GardenState): GardenState {
+  return {
+    ...state,
+    map: {
+      ...state.map,
+      backgroundImage: "/hus-test.png",
+    },
+    zones: state.zones.filter((zone) => !demoZoneIds.has(zone.id)),
+    beds: state.beds.filter((bed) => !demoBedIds.has(bed.id)),
+    plants: state.plants.filter((plant) => !demoPlantIds.has(plant.id)),
+    tasks: state.tasks.filter(
+      (task) =>
+        !demoTaskIds.has(task.id) &&
+        !demoPlantIds.has(task.plantId ?? "") &&
+        !demoBedIds.has(task.bedId ?? ""),
+    ),
+    historyEvents: state.historyEvents.filter(
+      (event) =>
+        !demoHistoryIds.has(event.id) &&
+        !demoPlantIds.has(event.plantId ?? "") &&
+        !demoBedIds.has(event.bedId ?? ""),
+    ),
+  };
 }
