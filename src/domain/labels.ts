@@ -96,6 +96,7 @@ const priorityLabels = {
 const commonTagLabels: Record<string, string> = {
   edible: "Ätbar",
   pollinator: "Pollinatörsvänlig",
+  "pollinator-friendly": "Pollinatörsvänlig",
   pollinator_friendly: "Pollinatörsvänlig",
   evergreen: "Vintergrön",
   fragrant: "Doftande",

@@ -1,3 +1,4 @@
+import { plantStatusLabel, plantTypeLabel, priorityLabel } from "../../domain/labels";
 import type { Plant } from "../../domain/models";
 
 type PlanningViewProps = {
@@ -19,12 +20,12 @@ export function PlanningView({ plants, onSelectPlant }: PlanningViewProps) {
           <button className="plant-list-item" key={plant.id} onClick={() => onSelectPlant(plant.id)} type="button">
             <span>
               <strong>{plant.swedishName}</strong>
-              <small>{plant.latinName ?? plant.type}</small>
+              <small>{plant.latinName ?? plantTypeLabel(plant.type)}</small>
             </span>
-            <span className={`status-dot ${plant.status}`}>{plant.status}</span>
+            <span className={`status-dot ${plant.status}`}>{plantStatusLabel(plant.status)}</span>
             <small>
               {formatPrice(plant.purchaseInfo?.price)} · {plant.purchaseInfo?.store ?? "Ingen butik"} ·{" "}
-              {plant.purchaseInfo?.priority ?? "normal"}
+              {priorityLabel(plant.purchaseInfo?.priority ?? "normal")}
             </small>
             {plant.purchaseInfo?.link && <small>{plant.purchaseInfo.link}</small>}
           </button>

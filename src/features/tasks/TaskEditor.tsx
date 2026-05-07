@@ -1,3 +1,4 @@
+import { careActionLabel, priorityLabel } from "../../domain/labels";
 import { createId } from "../../domain/ids";
 import type { CareActionType, Task } from "../../domain/models";
 
@@ -31,13 +32,13 @@ export function TaskEditor({ onAddTask }: TaskEditorProps) {
       <input name="dueDate" type="date" />
       <select name="actionType" defaultValue="water">
         {actionTypes.map((type) => (
-          <option key={type} value={type}>{type}</option>
+          <option key={type} value={type}>{careActionLabel(type)}</option>
         ))}
       </select>
       <select name="priority" defaultValue="normal">
-        <option value="low">låg</option>
-        <option value="normal">normal</option>
-        <option value="high">hög</option>
+        <option value="low">{priorityLabel("low")}</option>
+        <option value="normal">{priorityLabel("normal")}</option>
+        <option value="high">{priorityLabel("high")}</option>
       </select>
       <button type="submit">Lägg till</button>
     </form>

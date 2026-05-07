@@ -1,3 +1,4 @@
+import { plantStatusLabel, plantTypeLabel } from "../../domain/labels";
 import type { Plant, Task } from "../../domain/models";
 
 type PlantListProps = {
@@ -18,9 +19,9 @@ export function PlantList({ plants, tasks, onSelectPlant }: PlantListProps) {
           <button className="plant-list-item" key={plant.id} onClick={() => onSelectPlant(plant.id)} type="button">
             <span>
               <strong>{plant.swedishName}</strong>
-              <small>{plant.latinName ?? plant.type}</small>
+              <small>{plant.latinName ?? plantTypeLabel(plant.type)}</small>
             </span>
-            <span className={`status-dot ${plant.status}`}>{plant.status}</span>
+            <span className={`status-dot ${plant.status}`}>{plantStatusLabel(plant.status)}</span>
             <small>{getNextTaskLabel(plant.id, tasks)}</small>
           </button>
         ))}

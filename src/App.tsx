@@ -34,6 +34,7 @@ function App() {
     gardenState,
     isLoading,
     error,
+    savePlant,
     updateBed,
     updatePlant,
     updateZone,
@@ -77,7 +78,7 @@ function App() {
       activeView={activeView}
       gardenState={gardenState}
       onSaveBed={updateBed}
-      onSavePlant={updatePlant}
+      onSavePlant={savePlant}
       onSaveZone={updateZone}
       onViewChange={setActiveView}
       selection={selection}
@@ -109,7 +110,14 @@ function App() {
       {activeView === "calendar" && <CalendarView tasks={gardenState.tasks} />}
       {activeView === "history" && (
         <>
-          <HistoryTimeline events={gardenState.historyEvents} onAddEvent={addHistoryEvent} />
+          <HistoryTimeline
+            events={gardenState.historyEvents}
+            onAddEvent={addHistoryEvent}
+            onSelectLinkedObject={(nextSelection) => {
+              setSelection(nextSelection);
+              setActiveView("map");
+            }}
+          />
           <PhotoHistory photos={gardenState.photos} onAddPhoto={addPhoto} />
         </>
       )}

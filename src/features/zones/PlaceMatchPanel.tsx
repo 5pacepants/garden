@@ -1,4 +1,5 @@
 import { findZonesAtPoint, relativeToWorldPoint } from "../../domain/geometry";
+import { placeMatchStateLabel } from "../../domain/labels";
 import { getPlacementWarning, rankPlantsForConditions } from "../../domain/placeMatching";
 import type { GardenState, Plant, Point, Zone } from "../../domain/models";
 import type { MapSelection } from "../map/mapSelection";
@@ -20,7 +21,7 @@ export function PlaceMatchPanel({ gardenState, selection }: PlaceMatchPanelProps
     const match = getPlacementWarning(plant, zones);
     return (
       <div className={`place-match ${match.state}`}>
-        <strong>{formatState(match.state)}</strong>
+        <strong>{placeMatchStateLabel(match.state)}</strong>
         {match.reasons.map((reason) => (
           <p key={reason}>{reason}</p>
         ))}
@@ -36,7 +37,7 @@ export function PlaceMatchPanel({ gardenState, selection }: PlaceMatchPanelProps
       <div className="place-match">
         <strong>Växter som passar här</strong>
         {ranked.map(({ plant, match }) => (
-          <p key={plant.id}>{plant.swedishName}: {formatState(match.state)}</p>
+          <p key={plant.id}>{plant.swedishName}: {placeMatchStateLabel(match.state)}</p>
         ))}
       </div>
     );
@@ -63,14 +64,4 @@ function zoneToConditions(zone: Zone) {
     moisture: zone.moisture,
     soilTraits: zone.soilTraits,
   };
-}
-
-function formatState(state: string): string {
-  const labels: Record<string, string> = {
-    good: "Bra match",
-    possible: "Möjlig match",
-    warning: "Varning",
-    unknown: "Okänt",
-  };
-  return labels[state] ?? state;
 }

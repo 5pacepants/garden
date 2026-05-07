@@ -1,3 +1,4 @@
+import { lightConditionLabel, moistureConditionLabel, plantStatusLabel, plantTypeLabel, tagLabel } from "../../domain/labels";
 import type { LightCondition, MoistureCondition, Plant, PlantStatus, PlantType } from "../../domain/models";
 
 export type PlantFilterState = {
@@ -37,14 +38,14 @@ export function PlantFilters({ value, onChange }: PlantFiltersProps) {
       <select value={value.status} onChange={(event) => onChange({ ...value, status: event.target.value as PlantFilterState["status"] })}>
         {statuses.map((status) => (
           <option key={status} value={status}>
-            {status === "all" ? "Alla statusar" : status}
+            {status === "all" ? "Alla statusar" : plantStatusLabel(status)}
           </option>
         ))}
       </select>
       <select value={value.type} onChange={(event) => onChange({ ...value, type: event.target.value as PlantFilterState["type"] })}>
         {types.map((type) => (
           <option key={type} value={type}>
-            {type === "all" ? "Alla typer" : type}
+            {type === "all" ? "Alla typer" : plantTypeLabel(type)}
           </option>
         ))}
       </select>
@@ -67,14 +68,14 @@ export function PlantFilters({ value, onChange }: PlantFiltersProps) {
       <select value={value.tag} onChange={(event) => onChange({ ...value, tag: event.target.value as PlantFilterState["tag"] })}>
         {tagOptions.map((tag) => (
           <option key={tag} value={tag}>
-            {tag === "all" ? "Alla taggar" : tag}
+            {tag === "all" ? "Alla taggar" : tagLabel(tag)}
           </option>
         ))}
       </select>
       <select value={value.light} onChange={(event) => onChange({ ...value, light: event.target.value as PlantFilterState["light"] })}>
         {lightOptions.map((light) => (
           <option key={light} value={light}>
-            {light === "all" ? "Alla ljuslägen" : light}
+            {light === "all" ? "Alla ljuslägen" : lightConditionLabel(light)}
           </option>
         ))}
       </select>
@@ -84,7 +85,7 @@ export function PlantFilters({ value, onChange }: PlantFiltersProps) {
       >
         {moistureOptions.map((moisture) => (
           <option key={moisture} value={moisture}>
-            {moisture === "all" ? "Alla fuktlägen" : moisture}
+            {moisture === "all" ? "Alla fuktlägen" : moistureConditionLabel(moisture)}
           </option>
         ))}
       </select>

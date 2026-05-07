@@ -448,6 +448,18 @@ button {
   padding: 10px;
 }
 
+.timeline-button {
+  color: #203229;
+  cursor: pointer;
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.timeline-button:hover {
+  border-color: #8ea37f;
+}
+
 .task-row {
   align-items: center;
   display: flex;

@@ -1,3 +1,4 @@
+import { careActionLabel, priorityLabel } from "../../domain/labels";
 import type { Task } from "../../domain/models";
 import { TaskEditor } from "./TaskEditor";
 
@@ -23,7 +24,7 @@ export function TaskList({ tasks, onAddTask, onCompleteTask }: TaskListProps) {
           <article className="task-row" key={task.id}>
             <div>
               <strong>{task.title}</strong>
-              <small>{task.dueDate ?? "Inget datum"} · {task.actionType} · {task.priority}</small>
+              <small>{task.dueDate ?? "Inget datum"} · {careActionLabel(task.actionType)} · {priorityLabel(task.priority)}</small>
             </div>
             <button onClick={() => onCompleteTask(task.id)} type="button">Klar</button>
           </article>

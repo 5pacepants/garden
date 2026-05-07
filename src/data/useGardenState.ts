@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Bed, GardenState, HistoryEvent, Photo, Plant, Task, Zone } from "../domain/models";
+import { createPlantingHistoryEventIfNeeded } from "../domain/plantHistory";
 import type { GardenRepository } from "./gardenRepository";
 import { LocalStorageGardenRepository } from "./localStorageGardenRepository";
 
@@ -9,6 +10,7 @@ type GardenActionResult = {
   error: string | null;
   addPlant: (plant: Plant) => void;
   updatePlant: (plant: Plant) => void;
+  savePlant: (plant: Plant) => void;
   addBed: (bed: Bed) => void;
   updateBed: (bed: Bed) => void;
   addZone: (zone: Zone) => void;
@@ -83,6 +85,25 @@ export function useGardenState(repository: GardenRepository = defaultRepository)
           ...state,
           plants: state.plants.map((existing) => (existing.id === plant.id ? plant : existing)),
         })),
+      savePlant: (plant: Plant) =>
+        updateState((state) => {
+          const previousPlant = state.plants.find((existing) => existing.id === plant.id) ?? null;
+          const plants = previousPlant
+            ? state.plants.map((existing) => (existing.id === plant.id ? plant : existing))
+            : [...state.plants, plant];
+          const plantingEvent = createPlantingHistoryEventIfNeeded(
+            previousPlant,
+            plant,
+            state.historyEvents,
+            new Date().toISOString().slice(0, 10),
+          );
+
+          return {
+            ...state,
+            plants,
+            historyEvents: plantingEvent ? [...state.historyEvents, plantingEvent] : state.historyEvents,
+          };
+        }),
       addBed: (bed: Bed) => updateState((state) => ({ ...state, beds: [...state.beds, bed] })),
       updateBed: (bed: Bed) =>
         updateState((state) => ({
