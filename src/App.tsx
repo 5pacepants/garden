@@ -93,6 +93,9 @@ function App() {
           onAddBed={addBed}
           onAddPlant={addPlant}
           onAddZone={addZone}
+          onUpdateBed={updateBed}
+          onUpdatePlant={updatePlant}
+          onUpdateZone={updateZone}
           onSelectionChange={setSelection}
           selection={selection}
         />

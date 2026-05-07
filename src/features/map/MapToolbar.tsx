@@ -12,10 +12,18 @@ type MapToolbarProps = {
   layers: LayerVisibility;
   mode: MapMode;
   canFinishPolygon: boolean;
+  canZoomIn: boolean;
+  canZoomOut: boolean;
+  pendingMove: boolean;
   onToggleLayer: (layer: keyof LayerVisibility) => void;
   onModeChange: (mode: MapMode) => void;
   onFinishPolygon: () => void;
   onCancelPolygon: () => void;
+  onZoomIn: () => void;
+  onZoomOut: () => void;
+  onResetZoom: () => void;
+  onSaveMove: () => void;
+  onUndoMove: () => void;
 };
 
 const layerLabels: Array<[keyof LayerVisibility, string]> = [
@@ -23,7 +31,7 @@ const layerLabels: Array<[keyof LayerVisibility, string]> = [
   ["beds", "Rabatter"],
   ["existing", "Befintliga"],
   ["planned", "Planerade"],
-  ["wishlist", "Wishlist"],
+  ["wishlist", "Önskelista"],
 ];
 
 const modeLabels: Array<[MapMode, string]> = [
@@ -37,10 +45,18 @@ export function MapToolbar({
   layers,
   mode,
   canFinishPolygon,
+  canZoomIn,
+  canZoomOut,
+  pendingMove,
   onToggleLayer,
   onModeChange,
   onFinishPolygon,
   onCancelPolygon,
+  onZoomIn,
+  onZoomOut,
+  onResetZoom,
+  onSaveMove,
+  onUndoMove,
 }: MapToolbarProps) {
   return (
     <div className="map-toolbar" aria-label="Kartlager">
@@ -61,6 +77,17 @@ export function MapToolbar({
           </>
         )}
       </div>
+      <div className="mode-group" aria-label="Zoom">
+        <button className="tool-button" disabled={!canZoomOut} onClick={onZoomOut} title="Zooma ut" type="button">-</button>
+        <button className="tool-button" disabled={!canZoomIn} onClick={onZoomIn} title="Zooma in" type="button">+</button>
+        <button className="tool-button" onClick={onResetZoom} type="button">Anpassa</button>
+      </div>
+      {pendingMove && (
+        <div className="mode-group pending-move-actions" aria-label="Osparad kartflytt">
+          <button className="tool-button primary" onClick={onSaveMove} type="button">Spara flytt</button>
+          <button className="tool-button" onClick={onUndoMove} type="button">Ångra</button>
+        </div>
+      )}
       {layerLabels.map(([key, label]) => (
         <label className="layer-toggle" key={key}>
           <input checked={layers[key]} onChange={() => onToggleLayer(key)} type="checkbox" />
