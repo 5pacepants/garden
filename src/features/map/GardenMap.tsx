@@ -4,6 +4,7 @@ import { findContainingBed, relativeToWorldPoint, worldToRelativePoint } from ".
 import { createId } from "../../domain/ids";
 import type { Bed, GardenState, Plant, Point, Zone } from "../../domain/models";
 import type { PlantFilterState } from "../plants/PlantFilters";
+import { getPlantNodeStrokeWidth, getZoneStyle } from "./mapDisplay";
 import { moveBedToDelta, movePlantToPoint, moveZoneToDelta } from "./mapDrag";
 import { MapToolbar, type LayerVisibility, type MapMode } from "./MapToolbar";
 import { isSelected, type MapSelection } from "./mapSelection";
@@ -27,6 +28,13 @@ type DragDraft =
   | { type: "plant"; id: string; original: Plant; draft: Plant; startPoint: Point; hasMoved: boolean }
   | { type: "bed"; id: string; original: Bed; draft: Bed; startPoint: Point; hasMoved: boolean }
   | { type: "zone"; id: string; original: Zone; draft: Zone; startPoint: Point; hasMoved: boolean };
+
+type ZoneVertexEdit = {
+  original: Zone;
+  draft: Zone;
+  activeIndex: number | null;
+  hasMoved: boolean;
+};
 
 const defaultLayers: LayerVisibility = {
   zones: true,
@@ -59,14 +67,19 @@ export function GardenMap({
   const [draftPolygon, setDraftPolygon] = useState<Point[]>([]);
   const [zoom, setZoom] = useState(1);
   const [dragDraft, setDragDraft] = useState<DragDraft | null>(null);
+  const [zoneVertexEdit, setZoneVertexEdit] = useState<ZoneVertexEdit | null>(null);
 
   const displayBeds = useMemo(
     () => gardenState.beds.map((bed) => (dragDraft?.type === "bed" && dragDraft.id === bed.id ? dragDraft.draft : bed)),
     [dragDraft, gardenState.beds],
   );
   const displayZones = useMemo(
-    () => gardenState.zones.map((zone) => (dragDraft?.type === "zone" && dragDraft.id === zone.id ? dragDraft.draft : zone)),
-    [dragDraft, gardenState.zones],
+    () =>
+      gardenState.zones.map((zone) => {
+        if (zoneVertexEdit?.draft.id === zone.id) return zoneVertexEdit.draft;
+        return dragDraft?.type === "zone" && dragDraft.id === zone.id ? dragDraft.draft : zone;
+      }),
+    [dragDraft, gardenState.zones, zoneVertexEdit],
   );
   const displayPlants = useMemo(
     () => gardenState.plants.map((plant) => (dragDraft?.type === "plant" && dragDraft.id === plant.id ? dragDraft.draft : plant)),
@@ -93,6 +106,7 @@ export function GardenMap({
     setMode(nextMode);
     setDraftPolygon([]);
     setDragDraft(null);
+    setZoneVertexEdit(null);
   }
 
   function handleCanvasClick(event: MouseEvent<SVGSVGElement>) {
@@ -181,6 +195,16 @@ export function GardenMap({
   }
 
   function updateDrag(event: PointerEvent<SVGSVGElement>) {
+    if (zoneVertexEdit?.activeIndex !== null && zoneVertexEdit?.activeIndex !== undefined) {
+      const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.getBoundingClientRect());
+      setZoneVertexEdit((current) => {
+        if (!current || current.activeIndex === null) return current;
+        const polygon = current.draft.polygon.map((vertex, index) => (index === current.activeIndex ? point : vertex));
+        return { ...current, draft: { ...current.draft, polygon }, hasMoved: true };
+      });
+      return;
+    }
+
     if (!dragDraft || mode !== "select") {
       return;
     }
@@ -215,12 +239,23 @@ export function GardenMap({
   }
 
   function endDrag() {
+    if (zoneVertexEdit?.activeIndex !== null && zoneVertexEdit?.activeIndex !== undefined) {
+      setZoneVertexEdit((current) => (current ? { ...current, activeIndex: null } : current));
+      return;
+    }
+
     if (dragDraft && !dragDraft.hasMoved) {
       setDragDraft(null);
     }
   }
 
   function saveMove() {
+    if (zoneVertexEdit?.hasMoved) {
+      onUpdateZone(zoneVertexEdit.draft);
+      setZoneVertexEdit(null);
+      return;
+    }
+
     if (!dragDraft) {
       return;
     }
@@ -236,6 +271,19 @@ export function GardenMap({
     setDragDraft(null);
   }
 
+  function handleAdapt() {
+    if (selection?.type === "zone") {
+      const zone = gardenState.zones.find((item) => item.id === selection.id);
+      if (zone) {
+        setDragDraft(null);
+        setZoneVertexEdit({ original: zone, draft: zone, activeIndex: null, hasMoved: false });
+        return;
+      }
+    }
+
+    setZoom(1);
+  }
+
   return (
     <section className="map-panel" aria-label="Trädgårdskarta">
       <MapToolbar
@@ -244,14 +292,17 @@ export function GardenMap({
         canZoomOut={zoom > minZoom}
         layers={layers}
         mode={mode}
-        pendingMove={Boolean(dragDraft?.hasMoved)}
+        pendingMove={Boolean(dragDraft?.hasMoved || zoneVertexEdit?.hasMoved)}
         onCancelPolygon={() => setDraftPolygon([])}
         onFinishPolygon={finishPolygon}
         onModeChange={handleModeChange}
-        onResetZoom={() => setZoom(1)}
+        onResetZoom={handleAdapt}
         onSaveMove={saveMove}
         onToggleLayer={toggleLayer}
-        onUndoMove={() => setDragDraft(null)}
+        onUndoMove={() => {
+          setDragDraft(null);
+          setZoneVertexEdit(null);
+        }}
         onZoomIn={() => setZoom((current) => Math.min(maxZoom, current + zoomStep))}
         onZoomOut={() => setZoom((current) => Math.max(minZoom, current - zoomStep))}
       />
@@ -284,6 +335,7 @@ export function GardenMap({
                   className={isSelected(selection, "zone", zone.id) ? "zone-polygon selected" : "zone-polygon"}
                   key={zone.id}
                   points={polygonToSvgPoints(zone.polygon)}
+                  style={getZoneStyle(zone.light)}
                   onClick={(event) => {
                     if (mode !== "select") return;
                     event.stopPropagation();
@@ -293,6 +345,22 @@ export function GardenMap({
                     const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.ownerSVGElement?.getBoundingClientRect() ?? new DOMRect());
                     startDrag(event, { type: "zone", id: zone.id, original: zone, draft: zone, startPoint: point, hasMoved: false });
                   }}
+                />
+              ))}
+            {zoneVertexEdit &&
+              zoneVertexEdit.draft.polygon.map((point, index) => (
+                <circle
+                  className="zone-vertex-handle"
+                  cx={point.x}
+                  cy={point.y}
+                  key={`${zoneVertexEdit.draft.id}-${index}`}
+                  onPointerDown={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    event.currentTarget.setPointerCapture(event.pointerId);
+                    setZoneVertexEdit((current) => (current ? { ...current, activeIndex: index } : current));
+                  }}
+                  r="0.9"
                 />
               ))}
             {layers.beds &&
@@ -330,6 +398,7 @@ export function GardenMap({
                     startDrag(event, { type: "plant", id: plant.id, original: plant, draft: plant, startPoint: point, hasMoved: false });
                   }}
                   r={getPlantMapRadius(plant)}
+                  strokeWidth={getPlantNodeStrokeWidth(getPlantMapRadius(plant))}
                 >
                   <title>{plant.swedishName}</title>
                 </circle>
@@ -376,3 +445,4 @@ function getPlantWorldPosition(plant: Plant, gardenState: GardenState): Point {
     gardenState.beds.find((bed) => bed.id === bedPlacement.bedId)?.polygon ?? [],
   );
 }
+

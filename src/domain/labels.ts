@@ -29,7 +29,8 @@ const plantTypeLabels: Record<PlantType, string> = {
 };
 
 const lightConditionLabels: Record<LightCondition, string> = {
-  full_sun: "Full sol",
+  sun: "Sol",
+  half_sun: "Halvsol",
   part_shade: "Halvskugga",
   shade: "Skugga",
 };
@@ -149,3 +150,4 @@ export function priorityLabel(value: keyof typeof priorityLabels): string {
 export function tagLabel(value: string): string {
   return commonTagLabels[value] ?? value;
 }
+

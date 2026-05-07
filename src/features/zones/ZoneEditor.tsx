@@ -7,7 +7,7 @@ type ZoneEditorProps = {
   onSave: (zone: Zone) => void;
 };
 
-const lightOptions: Array<LightCondition | ""> = ["", "full_sun", "part_shade", "shade"];
+const lightOptions: Array<LightCondition | ""> = ["", "sun", "half_sun", "part_shade", "shade"];
 const moistureOptions: Array<MoistureCondition | ""> = ["", "dry", "normal", "moist"];
 
 export function ZoneEditor({ zone, onSave }: ZoneEditorProps) {
@@ -63,3 +63,4 @@ export function ZoneEditor({ zone, onSave }: ZoneEditorProps) {
 function emptyToUndefined(value: string): string | undefined {
   return value === "" ? undefined : value;
 }
+

@@ -1,5 +1,6 @@
 import { relativeToWorldPoint } from "./geometry";
 import type { GardenState, Plant } from "./models";
+import { generateTasksFromCareSchedule } from "./careSchedule";
 
 const defaultPlantMapRadius = 1.8;
 const minPlantMapRadius = 0.8;
@@ -63,6 +64,37 @@ export function getPlantMapRadius(plant: Plant): number {
   return plant.mapRadius ?? defaultPlantMapRadius;
 }
 
+export function savePlantAndSyncCareTasks(
+  state: GardenState,
+  plant: Plant,
+  fromDate = new Date(),
+  toDate = addDays(fromDate, 90),
+): GardenState {
+  const plants = state.plants.some((existing) => existing.id === plant.id)
+    ? state.plants.map((existing) => (existing.id === plant.id ? plant : existing))
+    : [...state.plants, plant];
+  const careRuleIds = new Set(plant.careSchedule.map((rule) => rule.id));
+  const retainedTasks = state.tasks.filter(
+    (task) => task.plantId !== plant.id || !task.sourceCareRuleId || careRuleIds.has(task.sourceCareRuleId),
+  );
+  const generatedTasks = generateTasksFromCareSchedule(plant, fromDate, toDate);
+  const existingTaskIds = new Set(retainedTasks.map((task) => task.id));
+  const tasks = [...retainedTasks, ...generatedTasks.filter((task) => !existingTaskIds.has(task.id))];
+
+  return {
+    ...state,
+    plants,
+    tasks,
+  };
+}
+
 function clampRadius(value: number): number {
   return Math.max(minPlantMapRadius, Math.min(maxPlantMapRadius, value));
 }
+
+function addDays(date: Date, days: number): Date {
+  const next = new Date(date);
+  next.setDate(next.getDate() + days);
+  return next;
+}
+

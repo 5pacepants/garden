@@ -11,7 +11,7 @@ export class MockPlantSuggestionService implements PlantSuggestionService {
       latinName: input.name.toLowerCase().includes("solhatt") ? "Echinacea purpurea" : undefined,
       type: "perennial",
       needs: {
-        light: ["full_sun"],
+        light: ["sun"],
         moisture: ["normal", "dry"],
         soilTraits: ["well_drained"],
       },
@@ -33,3 +33,4 @@ export class MockPlantSuggestionService implements PlantSuggestionService {
     };
   }
 }
+

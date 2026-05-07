@@ -28,7 +28,7 @@ export const defaultPlantFilters: PlantFilterState = {
 
 const statuses: Array<"all" | PlantStatus> = ["all", "existing", "planned", "wishlist", "removed"];
 const types: Array<"all" | PlantType> = ["all", "perennial", "shrub", "tree", "vegetable", "herb", "bulb", "grass", "other"];
-const lightOptions: Array<"all" | LightCondition> = ["all", "full_sun", "part_shade", "shade"];
+const lightOptions: Array<"all" | LightCondition> = ["all", "sun", "half_sun", "part_shade", "shade"];
 const moistureOptions: Array<"all" | MoistureCondition> = ["all", "dry", "normal", "moist"];
 const tagOptions: PlantFilterState["tag"][] = ["all", "edible", "pollinator-friendly", "evergreen"];
 
@@ -130,3 +130,4 @@ export function filterPlants(plants: Plant[], filters: PlantFilterState, plantId
     return true;
   });
 }
+

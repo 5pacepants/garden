@@ -168,8 +168,12 @@ function formatLightList(values: LightCondition[]): string {
 }
 
 function formatLight(value: LightCondition): string {
-  if (value === "full_sun") {
-    return "full sun";
+  if (value === "sun") {
+    return "sol";
+  }
+
+  if (value === "half_sun") {
+    return "halvsol";
   }
 
   if (value === "part_shade") {
@@ -178,3 +182,4 @@ function formatLight(value: LightCondition): string {
 
   return "skugga";
 }
+

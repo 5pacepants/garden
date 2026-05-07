@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { deleteBed, deletePlant, deleteZone } from "../domain/gardenEdits";
+import { deleteBed, deletePlant, deleteZone, savePlantAndSyncCareTasks } from "../domain/gardenEdits";
 import type { Bed, GardenState, HistoryEvent, Photo, Plant, Task, Zone } from "../domain/models";
 import { createPlantingHistoryEventIfNeeded } from "../domain/plantHistory";
 import type { GardenRepository } from "./gardenRepository";
@@ -92,20 +92,17 @@ export function useGardenState(repository: GardenRepository = defaultRepository)
       savePlant: (plant: Plant) =>
         updateState((state) => {
           const previousPlant = state.plants.find((existing) => existing.id === plant.id) ?? null;
-          const plants = previousPlant
-            ? state.plants.map((existing) => (existing.id === plant.id ? plant : existing))
-            : [...state.plants, plant];
           const plantingEvent = createPlantingHistoryEventIfNeeded(
             previousPlant,
             plant,
             state.historyEvents,
             new Date().toISOString().slice(0, 10),
           );
+          const syncedState = savePlantAndSyncCareTasks(state, plant);
 
           return {
-            ...state,
-            plants,
-            historyEvents: plantingEvent ? [...state.historyEvents, plantingEvent] : state.historyEvents,
+            ...syncedState,
+            historyEvents: plantingEvent ? [...syncedState.historyEvents, plantingEvent] : syncedState.historyEvents,
           };
         }),
       deletePlant: (plantId: string) => updateState((state) => deletePlant(state, plantId)),
@@ -149,3 +146,4 @@ export function useGardenState(repository: GardenRepository = defaultRepository)
     [error, gardenState, isLoading, updateState],
   );
 }
+

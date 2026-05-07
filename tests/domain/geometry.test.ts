@@ -90,7 +90,7 @@ describe("geometry", () => {
       {
         id: "sun",
         name: "Sun",
-        light: "full_sun",
+        light: "sun",
         polygon: [
           { x: 0, y: 0 },
           { x: 50, y: 0 },
@@ -114,3 +114,4 @@ describe("geometry", () => {
     expect(findZonesAtPoint({ x: 30, y: 30 }, zones).map((zone) => zone.id)).toEqual(["sun", "dry"]);
   });
 });
+

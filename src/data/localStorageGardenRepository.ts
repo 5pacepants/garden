@@ -1,5 +1,5 @@
 import { createDemoGardenState } from "../domain/fixtures";
-import type { GardenState } from "../domain/models";
+import type { GardenState, LightCondition } from "../domain/models";
 import type { GardenRepository } from "./gardenRepository";
 import { exportGardenState, importGardenState } from "./importExport";
 
@@ -44,9 +44,19 @@ function applyHouseMapDefaults(state: GardenState): GardenState {
       ...state.map,
       backgroundImage: "/bakgrund.png",
     },
-    zones: state.zones.filter((zone) => !demoZoneIds.has(zone.id)),
+    zones: state.zones
+      .filter((zone) => !demoZoneIds.has(zone.id))
+      .map((zone) => ({ ...zone, light: normalizeLightCondition(zone.light) })),
     beds: state.beds.filter((bed) => !demoBedIds.has(bed.id)),
-    plants: state.plants.filter((plant) => !demoPlantIds.has(plant.id)),
+    plants: state.plants
+      .filter((plant) => !demoPlantIds.has(plant.id))
+      .map((plant) => ({
+        ...plant,
+        needs: {
+          ...plant.needs,
+          light: plant.needs.light?.map(normalizeLightCondition).filter((value): value is LightCondition => Boolean(value)),
+        },
+      })),
     tasks: state.tasks.filter(
       (task) =>
         !demoTaskIds.has(task.id) &&
@@ -61,3 +71,8 @@ function applyHouseMapDefaults(state: GardenState): GardenState {
     ),
   };
 }
+
+function normalizeLightCondition(value: LightCondition | "full_sun" | undefined): LightCondition | undefined {
+  return value === "full_sun" ? "sun" : value;
+}
+

@@ -9,8 +9,8 @@ import type { Plant, Zone } from "../../src/domain/models";
 describe("place matching", () => {
   it("returns good when plant needs match zone conditions", () => {
     const result = matchPlantToConditions(
-      { light: ["full_sun"], moisture: ["normal"], soilTraits: ["well_drained"] },
-      { light: "full_sun", moisture: "normal", soilTraits: ["well_drained"] },
+      { light: ["sun"], moisture: ["normal"], soilTraits: ["well_drained"] },
+      { light: "sun", moisture: "normal", soilTraits: ["well_drained"] },
     );
 
     expect(result.state).toBe("good");
@@ -19,16 +19,16 @@ describe("place matching", () => {
 
   it("warns when a full sun plant is placed in part shade", () => {
     const result = matchPlantToConditions(
-      { light: ["full_sun"], moisture: ["normal"] },
+      { light: ["sun"], moisture: ["normal"] },
       { light: "part_shade", moisture: "normal" },
     );
 
     expect(result.state).toBe("warning");
-    expect(result.reasons[0]).toContain("full sun");
+    expect(result.reasons[0]).toContain("sol");
   });
 
   it("returns unknown when plant needs are missing", () => {
-    const result = matchPlantToConditions({}, { light: "full_sun", moisture: "normal" });
+    const result = matchPlantToConditions({}, { light: "sun", moisture: "normal" });
 
     expect(result.state).toBe("unknown");
     expect(result.reasons).toContain("Växtens krav saknas.");
@@ -36,9 +36,9 @@ describe("place matching", () => {
 
   it("returns possible when overlapping zone data conflicts", () => {
     const result = getPlacementWarning(
-      plantWithNeeds({ light: ["full_sun"], moisture: ["normal"] }),
+      plantWithNeeds({ light: ["sun"], moisture: ["normal"] }),
       [
-        zoneWithConditions("sun", { light: "full_sun", moisture: "normal" }),
+        zoneWithConditions("sun", { light: "sun", moisture: "normal" }),
         zoneWithConditions("shade", { light: "shade", moisture: "normal" }),
       ],
     );
@@ -50,11 +50,11 @@ describe("place matching", () => {
   it("ranks plants that fit a place before possible matches and warnings", () => {
     const plants = [
       plantWithNeeds({ id: "shade", light: ["shade"], moisture: ["moist"] }),
-      plantWithNeeds({ id: "sun", light: ["full_sun"], moisture: ["normal"] }),
+      plantWithNeeds({ id: "sun", light: ["sun"], moisture: ["normal"] }),
       plantWithNeeds({ id: "unknown" }),
     ];
 
-    const ranked = rankPlantsForConditions(plants, { light: "full_sun", moisture: "normal" });
+    const ranked = rankPlantsForConditions(plants, { light: "sun", moisture: "normal" });
 
     expect(ranked.map((item) => item.plant.id)).toEqual(["sun", "unknown", "shade"]);
     expect(ranked.map((item) => item.match.state)).toEqual(["good", "unknown", "warning"]);
@@ -86,3 +86,4 @@ function zoneWithConditions(id: string, conditions: Pick<Zone, "light" | "moistu
     ...conditions,
   };
 }
+

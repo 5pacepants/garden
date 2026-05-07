@@ -283,14 +283,18 @@ button {
 .zone-polygon {
   cursor: pointer;
   fill: rgba(231, 187, 87, 0.32);
-  stroke: rgba(160, 113, 20, 0.55);
-  stroke-width: 0.4;
+  stroke: rgba(160, 113, 20, 0.28);
+  stroke-width: 0.12;
+}
+
+.zone-polygon.selected {
+  stroke-width: 0.2;
 }
 
 .bed-polygon {
   cursor: pointer;
-  fill: rgba(111, 76, 52, 0.18);
-  stroke: rgba(111, 76, 52, 0.7);
+  fill: rgb(111, 76, 52);
+  stroke: rgb(111, 76, 52);
   stroke-width: 0.55;
 }
 
@@ -298,7 +302,14 @@ button {
   cursor: pointer;
   fill: #4f8f5b;
   stroke: #fff;
-  stroke-width: 0.7;
+  stroke-width: 0.35;
+}
+
+.zone-vertex-handle {
+  cursor: grab;
+  fill: #fff;
+  stroke: #1f4f38;
+  stroke-width: 0.22;
 }
 
 .map-svg.has-pending-move .selected {
@@ -617,6 +628,45 @@ button {
   color: #314036;
   min-width: 32px;
   padding: 6px 8px;
+}
+
+.care-schedule-list {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.care-schedule-row {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.care-schedule-row button {
+  background: #f8f8f3;
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  color: #314036;
+  padding: 5px 7px;
+}
+
+.care-schedule-form {
+  display: grid;
+  gap: 8px;
+}
+
+.care-schedule-form input,
+.care-schedule-form select,
+.care-schedule-form button {
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  padding: 7px 8px;
+}
+
+.care-schedule-form button {
+  background: #406b4f;
+  color: #fff;
 }
 
 .helper-text {

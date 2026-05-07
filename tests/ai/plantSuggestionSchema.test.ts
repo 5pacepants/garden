@@ -7,7 +7,7 @@ describe("plant suggestion schema", () => {
       swedishName: "Röd solhatt",
       latinName: "Echinacea purpurea",
       type: "perennial",
-      needs: { light: ["full_sun"] },
+      needs: { light: ["sun"] },
       tags: ["pollinator-friendly"],
       careSchedule: [],
     });
@@ -19,3 +19,4 @@ describe("plant suggestion schema", () => {
     expect(() => parsePlantSuggestion({ swedishName: "Saknar krav" })).toThrow("Invalid plant suggestion");
   });
 });
+

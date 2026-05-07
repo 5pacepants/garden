@@ -20,7 +20,8 @@ describe("Swedish labels", () => {
 
   it("labels common garden values in Swedish", () => {
     expect(plantTypeLabel("perennial")).toBe("Perenner");
-    expect(lightConditionLabel("full_sun")).toBe("Full sol");
+    expect(lightConditionLabel("sun")).toBe("Sol");
+    expect(lightConditionLabel("half_sun")).toBe("Halvsol");
     expect(moistureConditionLabel("moist")).toBe("Fuktig");
     expect(priorityLabel("high")).toBe("Hög");
     expect(careActionLabel("plant")).toBe("Plantera");
@@ -28,3 +29,4 @@ describe("Swedish labels", () => {
     expect(historyEventTypeLabel("planted")).toBe("Planterad");
   });
 });
+

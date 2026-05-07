@@ -19,7 +19,7 @@ export type PlantType =
   | "grass"
   | "other";
 
-export type LightCondition = "full_sun" | "part_shade" | "shade";
+export type LightCondition = "sun" | "half_sun" | "part_shade" | "shade";
 
 export type MoistureCondition = "dry" | "normal" | "moist";
 
@@ -219,3 +219,4 @@ export type GardenState = {
   historyEvents: HistoryEvent[];
   photos: Photo[];
 };
+

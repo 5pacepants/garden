@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Plant, PlantStatus, PlantType } from "../../domain/models";
+import type { CareActionType, Plant, PlantStatus, PlantType } from "../../domain/models";
 import { createId } from "../../domain/ids";
 import type { PlantSuggestionService } from "../../ai/plantSuggestionService";
 import { resizePlantMapNode } from "../../domain/gardenEdits";
@@ -13,6 +13,8 @@ type PlantCardProps = {
 
 const plantStatuses: PlantStatus[] = ["existing", "planned", "wishlist", "removed"];
 const plantTypes: PlantType[] = ["perennial", "shrub", "tree", "vegetable", "herb", "bulb", "grass", "other"];
+const careActionTypes: CareActionType[] = ["water", "prune", "fertilize", "plant", "move", "divide", "harvest", "weed", "inspect", "custom"];
+const months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
 
 export function PlantCard({ plant, suggestionService, onSave }: PlantCardProps) {
   const [draft, setDraft] = useState(plant);
@@ -50,8 +52,43 @@ export function PlantCard({ plant, suggestionService, onSave }: PlantCardProps) 
     }
   }
 
+  function addCareScheduleRow(formData: FormData) {
+    const actionType = String(formData.get("actionType")) as CareActionType;
+    const mode = String(formData.get("timingMode"));
+    const instructions = String(formData.get("instructions") ?? "").trim();
+    if (!instructions) return;
+
+    setDraft((current) => ({
+      ...current,
+      careSchedule: [
+        ...current.careSchedule,
+        {
+          id: createId("care"),
+          plantId: current.id,
+          actionType,
+          timing:
+            mode === "weekly"
+              ? {
+                  type: "weekly",
+                  startMonth: 1,
+                  endMonth: 12,
+                  intervalWeeks: Math.max(1, Math.round(Number(formData.get("intervalDays") ?? 7) / 7)),
+                }
+              : {
+                  type: "month",
+                  month: Number(formData.get("month") ?? 5),
+                },
+          instructions,
+          priority: "normal",
+          taskMode: "automatic",
+          source: "manual",
+        },
+      ],
+    }));
+  }
+
   return (
-    <form className="editor-form">
+    <div className="editor-form">
       <button onClick={applyAiSuggestion} type="button">Föreslå växtdata</button>
       {suggestionError && <p className="form-error">{suggestionError}</p>}
       <label>
@@ -98,10 +135,51 @@ export function PlantCard({ plant, suggestionService, onSave }: PlantCardProps) 
       </div>
       <div className="detail-section compact">
         <h3>Skötselschema</h3>
-        {draft.careSchedule.map((rule) => (
-          <p className="helper-text" key={rule.id}>{careActionLabel(rule.actionType)}: {rule.instructions}</p>
-        ))}
+        <div className="care-schedule-list">
+          {draft.careSchedule.map((rule) => (
+            <div className="care-schedule-row" key={rule.id}>
+              <p className="helper-text">{careActionLabel(rule.actionType)}: {rule.instructions}</p>
+              <button
+                onClick={() =>
+                  setDraft((current) => ({
+                    ...current,
+                    careSchedule: current.careSchedule.filter((item) => item.id !== rule.id),
+                  }))
+                }
+                type="button"
+              >
+                Ta bort
+              </button>
+            </div>
+          ))}
+        </div>
+        <form
+          className="care-schedule-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            addCareScheduleRow(new FormData(event.currentTarget));
+            event.currentTarget.reset();
+          }}
+        >
+          <select name="actionType" defaultValue="water">
+            {careActionTypes.map((type) => (
+              <option key={type} value={type}>{careActionLabel(type)}</option>
+            ))}
+          </select>
+          <select name="timingMode" defaultValue="month">
+            <option value="month">I månad</option>
+            <option value="weekly">Var 7:e dag</option>
+          </select>
+          <select name="month" defaultValue="5">
+            {months.map((month, index) => (
+              <option key={month} value={index + 1}>{month}</option>
+            ))}
+          </select>
+          <input min="7" name="intervalDays" step="7" type="number" defaultValue="7" />
+          <input name="instructions" placeholder="Ex. Beskär i maj" />
+          <button type="submit">Lägg till skötselrad</button>
+        </form>
       </div>
-    </form>
+    </div>
   );
 }
