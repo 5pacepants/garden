@@ -145,6 +145,7 @@ export type Plant = {
   floweringMonths?: number[];
   pruningMonths?: number[];
   size?: PlantSize;
+  mapRadius?: number;
   tags: string[];
   notes?: string;
   purchaseInfo?: PurchaseInfo;

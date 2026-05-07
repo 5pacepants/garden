@@ -14,6 +14,7 @@ type AppShellProps = {
   onSaveBed: (bed: Bed) => void;
   onSavePlant: (plant: Plant) => void;
   onSaveZone: (zone: Zone) => void;
+  onDeleteSelection: (selection: NonNullable<MapSelection>) => void;
   selection: MapSelection;
   suggestionService: PlantSuggestionService;
   tasks: Task[];
@@ -24,6 +25,7 @@ export function AppShell({
   activeView,
   gardenState,
   onSaveBed,
+  onDeleteSelection,
   onSavePlant,
   onSaveZone,
   onViewChange,
@@ -40,6 +42,7 @@ export function AppShell({
       </main>
       <DetailPanel
         gardenState={gardenState}
+        onDeleteSelection={onDeleteSelection}
         onSaveBed={onSaveBed}
         onSavePlant={onSavePlant}
         onSaveZone={onSaveZone}

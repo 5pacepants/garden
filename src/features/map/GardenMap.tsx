@@ -1,4 +1,5 @@
 import { useMemo, useState, type CSSProperties, type MouseEvent, type PointerEvent } from "react";
+import { getPlantMapRadius } from "../../domain/gardenEdits";
 import { findContainingBed, relativeToWorldPoint, worldToRelativePoint } from "../../domain/geometry";
 import { createId } from "../../domain/ids";
 import type { Bed, GardenState, Plant, Point, Zone } from "../../domain/models";
@@ -125,6 +126,7 @@ export function GardenMap({
       swedishName: "Ny växt",
       status: "planned",
       type: "perennial",
+      mapRadius: 1.8,
       placement: containingBed
         ? { type: "bed", bedId: containingBed.id, relativePosition: worldToRelativePoint(point, containingBed.polygon) }
         : { type: "map", position: point },
@@ -261,15 +263,15 @@ export function GardenMap({
             onPointerMove={updateDrag}
             onPointerUp={endDrag}
             role="img"
-            viewBox="0 0 100 100"
+            viewBox="0 0 100 56.25"
             preserveAspectRatio="none"
           >
-            <rect className="map-background" height="100" width="100" x="0" y="0" />
+            <rect className="map-background" height="56.25" width="100" x="0" y="0" />
             {gardenState.map.backgroundImage && (
               <image
                 className="map-background-image"
                 href={gardenState.map.backgroundImage}
-                height="100"
+                height="56.25"
                 preserveAspectRatio="xMidYMid meet"
                 width="100"
                 x="0"
@@ -327,7 +329,7 @@ export function GardenMap({
                     const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.ownerSVGElement?.getBoundingClientRect() ?? new DOMRect());
                     startDrag(event, { type: "plant", id: plant.id, original: plant, draft: plant, startPoint: point, hasMoved: false });
                   }}
-                  r="1.8"
+                  r={getPlantMapRadius(plant)}
                 >
                   <title>{plant.swedishName}</title>
                 </circle>

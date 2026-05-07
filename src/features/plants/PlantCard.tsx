@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Plant, PlantStatus, PlantType } from "../../domain/models";
 import { createId } from "../../domain/ids";
 import type { PlantSuggestionService } from "../../ai/plantSuggestionService";
+import { resizePlantMapNode } from "../../domain/gardenEdits";
 import { careActionLabel, plantStatusLabel, plantTypeLabel } from "../../domain/labels";
 
 type PlantCardProps = {
@@ -85,6 +86,12 @@ export function PlantCard({ plant, suggestionService, onSave }: PlantCardProps) 
         Anteckningar
         <textarea value={draft.notes ?? ""} onChange={(event) => setDraft({ ...draft, notes: event.target.value })} />
       </label>
+      <div className="node-size-controls">
+        <span>Nodstorlek</span>
+        <button onClick={() => setDraft(resizePlantMapNode(draft, -1))} type="button">-</button>
+        <strong>{(draft.mapRadius ?? 1.8).toFixed(1)}</strong>
+        <button onClick={() => setDraft(resizePlantMapNode(draft, 1))} type="button">+</button>
+      </div>
       <div className="editor-actions">
         <button onClick={() => onSave(draft)} type="button">Spara</button>
         <button className="secondary" onClick={() => setDraft(plant)} type="button">Avbryt</button>

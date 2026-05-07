@@ -31,6 +31,9 @@ function App() {
     addTask,
     addZone,
     completeTask,
+    deleteBed,
+    deletePlant,
+    deleteZone,
     gardenState,
     isLoading,
     error,
@@ -77,6 +80,16 @@ function App() {
     <AppShell
       activeView={activeView}
       gardenState={gardenState}
+      onDeleteSelection={(nextSelection) => {
+        if (nextSelection.type === "plant") {
+          deletePlant(nextSelection.id);
+        } else if (nextSelection.type === "bed") {
+          deleteBed(nextSelection.id);
+        } else {
+          deleteZone(nextSelection.id);
+        }
+        setSelection(null);
+      }}
       onSaveBed={updateBed}
       onSavePlant={savePlant}
       onSaveZone={updateZone}

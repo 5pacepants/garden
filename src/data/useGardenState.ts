@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { deleteBed, deletePlant, deleteZone } from "../domain/gardenEdits";
 import type { Bed, GardenState, HistoryEvent, Photo, Plant, Task, Zone } from "../domain/models";
 import { createPlantingHistoryEventIfNeeded } from "../domain/plantHistory";
 import type { GardenRepository } from "./gardenRepository";
@@ -11,10 +12,13 @@ type GardenActionResult = {
   addPlant: (plant: Plant) => void;
   updatePlant: (plant: Plant) => void;
   savePlant: (plant: Plant) => void;
+  deletePlant: (plantId: string) => void;
   addBed: (bed: Bed) => void;
   updateBed: (bed: Bed) => void;
+  deleteBed: (bedId: string) => void;
   addZone: (zone: Zone) => void;
   updateZone: (zone: Zone) => void;
+  deleteZone: (zoneId: string) => void;
   addTask: (task: Task) => void;
   updateTask: (task: Task) => void;
   completeTask: (taskId: string, completedAt?: string) => void;
@@ -104,18 +108,21 @@ export function useGardenState(repository: GardenRepository = defaultRepository)
             historyEvents: plantingEvent ? [...state.historyEvents, plantingEvent] : state.historyEvents,
           };
         }),
+      deletePlant: (plantId: string) => updateState((state) => deletePlant(state, plantId)),
       addBed: (bed: Bed) => updateState((state) => ({ ...state, beds: [...state.beds, bed] })),
       updateBed: (bed: Bed) =>
         updateState((state) => ({
           ...state,
           beds: state.beds.map((existing) => (existing.id === bed.id ? bed : existing)),
         })),
+      deleteBed: (bedId: string) => updateState((state) => deleteBed(state, bedId)),
       addZone: (zone: Zone) => updateState((state) => ({ ...state, zones: [...state.zones, zone] })),
       updateZone: (zone: Zone) =>
         updateState((state) => ({
           ...state,
           zones: state.zones.map((existing) => (existing.id === zone.id ? zone : existing)),
         })),
+      deleteZone: (zoneId: string) => updateState((state) => deleteZone(state, zoneId)),
       addTask: (task: Task) => updateState((state) => ({ ...state, tasks: [...state.tasks, task] })),
       updateTask: (task: Task) =>
         updateState((state) => ({

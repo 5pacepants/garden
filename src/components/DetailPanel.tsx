@@ -12,10 +12,11 @@ type DetailPanelProps = {
   onSavePlant: (plant: GardenState["plants"][number]) => void;
   onSaveBed: (bed: GardenState["beds"][number]) => void;
   onSaveZone: (zone: GardenState["zones"][number]) => void;
+  onDeleteSelection: (selection: NonNullable<MapSelection>) => void;
   suggestionService: PlantSuggestionService;
 };
 
-export function DetailPanel({ gardenState, selection, onSaveBed, onSavePlant, onSaveZone, suggestionService }: DetailPanelProps) {
+export function DetailPanel({ gardenState, selection, onDeleteSelection, onSaveBed, onSavePlant, onSaveZone, suggestionService }: DetailPanelProps) {
   const selectedObject = getSelectedObject(gardenState, selection);
   const editor = getEditor(gardenState, selection, onSavePlant, onSaveBed, onSaveZone, suggestionService);
 
@@ -24,6 +25,19 @@ export function DetailPanel({ gardenState, selection, onSaveBed, onSavePlant, on
       <span className="eyebrow">Valt objekt</span>
       <h2>{selectedObject.title}</h2>
       <p>{selectedObject.description}</p>
+      {selection && (
+        <button
+          className="delete-object-button"
+          onClick={() => {
+            if (window.confirm(`Ta bort ${selectedObject.title}?`)) {
+              onDeleteSelection(selection);
+            }
+          }}
+          type="button"
+        >
+          Ta bort
+        </button>
+      )}
       {gardenState && <PlaceMatchPanel gardenState={gardenState} selection={selection} />}
       {editor}
       {!editor && <div className="detail-section">

@@ -250,8 +250,8 @@ button {
 }
 
 .map-stage {
-  aspect-ratio: 16 / 10;
-  height: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
   min-height: 360px;
   min-width: 100%;
   transform: scale(var(--map-zoom));
@@ -261,7 +261,7 @@ button {
 
 .map-svg {
   display: block;
-  height: 100%;
+  height: auto;
   width: 100%;
   touch-action: none;
 }
@@ -527,6 +527,16 @@ button {
   padding-top: 18px;
 }
 
+.delete-object-button {
+  background: #9b2c2c;
+  border: 1px solid #9b2c2c;
+  border-radius: 6px;
+  color: #fff;
+  margin-top: 14px;
+  padding: 8px 10px;
+  width: 100%;
+}
+
 .detail-section h3 {
   font-size: 15px;
   margin: 0 0 10px;
@@ -586,6 +596,27 @@ button {
   background: #f8f8f3;
   border-color: #cbd5c4;
   color: #314036;
+}
+
+.node-size-controls {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.node-size-controls span {
+  color: #405043;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.node-size-controls button {
+  background: #f8f8f3;
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  color: #314036;
+  min-width: 32px;
+  padding: 6px 8px;
 }
 
 .helper-text {
