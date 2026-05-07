@@ -1,29 +1,37 @@
+import { useEffect, useState } from "react";
 import type { LightCondition, MoistureCondition, Zone } from "../../domain/models";
+import { lightConditionLabel, moistureConditionLabel } from "../../domain/labels";
 
 type ZoneEditorProps = {
   zone: Zone;
-  onChange: (zone: Zone) => void;
+  onSave: (zone: Zone) => void;
 };
 
 const lightOptions: Array<LightCondition | ""> = ["", "full_sun", "part_shade", "shade"];
 const moistureOptions: Array<MoistureCondition | ""> = ["", "dry", "normal", "moist"];
 
-export function ZoneEditor({ zone, onChange }: ZoneEditorProps) {
+export function ZoneEditor({ zone, onSave }: ZoneEditorProps) {
+  const [draft, setDraft] = useState(zone);
+
+  useEffect(() => {
+    setDraft(zone);
+  }, [zone]);
+
   return (
     <form className="editor-form">
       <label>
         Namn
-        <input value={zone.name} onChange={(event) => onChange({ ...zone, name: event.target.value })} />
+        <input value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} />
       </label>
       <label>
         Ljus
         <select
-          value={zone.light ?? ""}
-          onChange={(event) => onChange({ ...zone, light: emptyToUndefined(event.target.value) as LightCondition | undefined })}
+          value={draft.light ?? ""}
+          onChange={(event) => setDraft({ ...draft, light: emptyToUndefined(event.target.value) as LightCondition | undefined })}
         >
           {lightOptions.map((value) => (
             <option key={value || "none"} value={value}>
-              {value || "Okänt"}
+              {value ? lightConditionLabel(value) : "Okänt"}
             </option>
           ))}
         </select>
@@ -31,18 +39,22 @@ export function ZoneEditor({ zone, onChange }: ZoneEditorProps) {
       <label>
         Fukt
         <select
-          value={zone.moisture ?? ""}
+          value={draft.moisture ?? ""}
           onChange={(event) =>
-            onChange({ ...zone, moisture: emptyToUndefined(event.target.value) as MoistureCondition | undefined })
+            setDraft({ ...draft, moisture: emptyToUndefined(event.target.value) as MoistureCondition | undefined })
           }
         >
           {moistureOptions.map((value) => (
             <option key={value || "none"} value={value}>
-              {value || "Okänt"}
+              {value ? moistureConditionLabel(value) : "Okänt"}
             </option>
           ))}
         </select>
       </label>
+      <div className="editor-actions">
+        <button onClick={() => onSave(draft)} type="button">Spara</button>
+        <button className="secondary" onClick={() => setDraft(zone)} type="button">Avbryt</button>
+      </div>
       <p className="helper-text">{zone.polygon.length} punkter i polygonen.</p>
     </form>
   );

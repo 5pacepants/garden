@@ -1,26 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Plant, PlantStatus, PlantType } from "../../domain/models";
 import { createId } from "../../domain/ids";
 import type { PlantSuggestionService } from "../../ai/plantSuggestionService";
+import { careActionLabel, plantStatusLabel, plantTypeLabel } from "../../domain/labels";
 
 type PlantCardProps = {
   plant: Plant;
   suggestionService: PlantSuggestionService;
-  onChange: (plant: Plant) => void;
+  onSave: (plant: Plant) => void;
 };
 
 const plantStatuses: PlantStatus[] = ["existing", "planned", "wishlist", "removed"];
 const plantTypes: PlantType[] = ["perennial", "shrub", "tree", "vegetable", "herb", "bulb", "grass", "other"];
 
-export function PlantCard({ plant, suggestionService, onChange }: PlantCardProps) {
+export function PlantCard({ plant, suggestionService, onSave }: PlantCardProps) {
+  const [draft, setDraft] = useState(plant);
   const [suggestionError, setSuggestionError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setDraft(plant);
+  }, [plant]);
 
   async function applyAiSuggestion() {
     try {
       setSuggestionError(null);
-      const suggestion = await suggestionService.suggestPlant({ name: plant.swedishName });
-      onChange({
-        ...plant,
+      const suggestion = await suggestionService.suggestPlant({ name: draft.swedishName });
+      setDraft((current) => ({
+        ...current,
         swedishName: suggestion.swedishName,
         latinName: suggestion.latinName,
         type: suggestion.type,
@@ -37,7 +43,7 @@ export function PlantCard({ plant, suggestionService, onChange }: PlantCardProps
           id: createId("care"),
           plantId: plant.id,
         })),
-      });
+      }));
     } catch (error) {
       setSuggestionError(error instanceof Error ? error.message : "Kunde inte hämta växtförslag.");
     }
@@ -49,40 +55,44 @@ export function PlantCard({ plant, suggestionService, onChange }: PlantCardProps
       {suggestionError && <p className="form-error">{suggestionError}</p>}
       <label>
         Svenskt namn
-        <input value={plant.swedishName} onChange={(event) => onChange({ ...plant, swedishName: event.target.value })} />
+        <input value={draft.swedishName} onChange={(event) => setDraft({ ...draft, swedishName: event.target.value })} />
       </label>
       <label>
         Latinskt namn
-        <input value={plant.latinName ?? ""} onChange={(event) => onChange({ ...plant, latinName: event.target.value })} />
+        <input value={draft.latinName ?? ""} onChange={(event) => setDraft({ ...draft, latinName: event.target.value })} />
       </label>
       <label>
         Status
-        <select value={plant.status} onChange={(event) => onChange({ ...plant, status: event.target.value as PlantStatus })}>
+        <select value={draft.status} onChange={(event) => setDraft({ ...draft, status: event.target.value as PlantStatus })}>
           {plantStatuses.map((status) => (
             <option key={status} value={status}>
-              {status}
+              {plantStatusLabel(status)}
             </option>
           ))}
         </select>
       </label>
       <label>
         Typ
-        <select value={plant.type} onChange={(event) => onChange({ ...plant, type: event.target.value as PlantType })}>
+        <select value={draft.type} onChange={(event) => setDraft({ ...draft, type: event.target.value as PlantType })}>
           {plantTypes.map((type) => (
             <option key={type} value={type}>
-              {type}
+              {plantTypeLabel(type)}
             </option>
           ))}
         </select>
       </label>
       <label>
         Anteckningar
-        <textarea value={plant.notes ?? ""} onChange={(event) => onChange({ ...plant, notes: event.target.value })} />
+        <textarea value={draft.notes ?? ""} onChange={(event) => setDraft({ ...draft, notes: event.target.value })} />
       </label>
+      <div className="editor-actions">
+        <button onClick={() => onSave(draft)} type="button">Spara</button>
+        <button className="secondary" onClick={() => setDraft(plant)} type="button">Avbryt</button>
+      </div>
       <div className="detail-section compact">
         <h3>Skötselschema</h3>
-        {plant.careSchedule.map((rule) => (
-          <p className="helper-text" key={rule.id}>{rule.actionType}: {rule.instructions}</p>
+        {draft.careSchedule.map((rule) => (
+          <p className="helper-text" key={rule.id}>{careActionLabel(rule.actionType)}: {rule.instructions}</p>
         ))}
       </div>
     </form>

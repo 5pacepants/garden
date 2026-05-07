@@ -9,15 +9,15 @@ import type { PlantSuggestionService } from "../ai/plantSuggestionService";
 type DetailPanelProps = {
   gardenState: GardenState | null;
   selection: MapSelection;
-  onUpdatePlant: (plant: GardenState["plants"][number]) => void;
-  onUpdateBed: (bed: GardenState["beds"][number]) => void;
-  onUpdateZone: (zone: GardenState["zones"][number]) => void;
+  onSavePlant: (plant: GardenState["plants"][number]) => void;
+  onSaveBed: (bed: GardenState["beds"][number]) => void;
+  onSaveZone: (zone: GardenState["zones"][number]) => void;
   suggestionService: PlantSuggestionService;
 };
 
-export function DetailPanel({ gardenState, selection, onUpdateBed, onUpdatePlant, onUpdateZone, suggestionService }: DetailPanelProps) {
+export function DetailPanel({ gardenState, selection, onSaveBed, onSavePlant, onSaveZone, suggestionService }: DetailPanelProps) {
   const selectedObject = getSelectedObject(gardenState, selection);
-  const editor = getEditor(gardenState, selection, onUpdatePlant, onUpdateBed, onUpdateZone, suggestionService);
+  const editor = getEditor(gardenState, selection, onSavePlant, onSaveBed, onSaveZone, suggestionService);
 
   return (
     <aside className="detail-panel" aria-label="Detaljer">
@@ -42,9 +42,9 @@ export function DetailPanel({ gardenState, selection, onUpdateBed, onUpdatePlant
 function getEditor(
   gardenState: GardenState | null,
   selection: MapSelection,
-  onUpdatePlant: (plant: GardenState["plants"][number]) => void,
-  onUpdateBed: (bed: GardenState["beds"][number]) => void,
-  onUpdateZone: (zone: GardenState["zones"][number]) => void,
+  onSavePlant: (plant: GardenState["plants"][number]) => void,
+  onSaveBed: (bed: GardenState["beds"][number]) => void,
+  onSaveZone: (zone: GardenState["zones"][number]) => void,
   suggestionService: PlantSuggestionService,
 ) {
   if (!gardenState || !selection) {
@@ -53,16 +53,16 @@ function getEditor(
 
   if (selection.type === "plant") {
     const plant = gardenState.plants.find((item) => item.id === selection.id);
-    return plant ? <PlantCard plant={plant} suggestionService={suggestionService} onChange={onUpdatePlant} /> : null;
+    return plant ? <PlantCard plant={plant} suggestionService={suggestionService} onSave={onSavePlant} /> : null;
   }
 
   if (selection.type === "bed") {
     const bed = gardenState.beds.find((item) => item.id === selection.id);
-    return bed ? <BedEditor bed={bed} onChange={onUpdateBed} /> : null;
+    return bed ? <BedEditor bed={bed} onSave={onSaveBed} /> : null;
   }
 
   const zone = gardenState.zones.find((item) => item.id === selection.id);
-  return zone ? <ZoneEditor zone={zone} onChange={onUpdateZone} /> : null;
+  return zone ? <ZoneEditor zone={zone} onSave={onSaveZone} /> : null;
 }
 
 function getSelectedObject(gardenState: GardenState | null, selection: MapSelection): { title: string; description: string } {

@@ -76,9 +76,9 @@ function App() {
     <AppShell
       activeView={activeView}
       gardenState={gardenState}
-      onUpdateBed={updateBed}
-      onUpdatePlant={updatePlant}
-      onUpdateZone={updateZone}
+      onSaveBed={updateBed}
+      onSavePlant={updatePlant}
+      onSaveZone={updateZone}
       onViewChange={setActiveView}
       selection={selection}
       suggestionService={suggestionService}

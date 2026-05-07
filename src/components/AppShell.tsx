@@ -11,9 +11,9 @@ type AppShellProps = {
   activeView: AppView;
   gardenState: GardenState | null;
   onViewChange: (view: AppView) => void;
-  onUpdateBed: (bed: Bed) => void;
-  onUpdatePlant: (plant: Plant) => void;
-  onUpdateZone: (zone: Zone) => void;
+  onSaveBed: (bed: Bed) => void;
+  onSavePlant: (plant: Plant) => void;
+  onSaveZone: (zone: Zone) => void;
   selection: MapSelection;
   suggestionService: PlantSuggestionService;
   tasks: Task[];
@@ -23,9 +23,9 @@ export function AppShell({
   children,
   activeView,
   gardenState,
-  onUpdateBed,
-  onUpdatePlant,
-  onUpdateZone,
+  onSaveBed,
+  onSavePlant,
+  onSaveZone,
   onViewChange,
   selection,
   suggestionService,
@@ -40,9 +40,9 @@ export function AppShell({
       </main>
       <DetailPanel
         gardenState={gardenState}
-        onUpdateBed={onUpdateBed}
-        onUpdatePlant={onUpdatePlant}
-        onUpdateZone={onUpdateZone}
+        onSaveBed={onSaveBed}
+        onSavePlant={onSavePlant}
+        onSaveZone={onSaveZone}
         selection={selection}
         suggestionService={suggestionService}
       />

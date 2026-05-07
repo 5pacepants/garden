@@ -1,21 +1,32 @@
+import { useEffect, useState } from "react";
 import type { Bed } from "../../domain/models";
 
 type BedEditorProps = {
   bed: Bed;
-  onChange: (bed: Bed) => void;
+  onSave: (bed: Bed) => void;
 };
 
-export function BedEditor({ bed, onChange }: BedEditorProps) {
+export function BedEditor({ bed, onSave }: BedEditorProps) {
+  const [draft, setDraft] = useState(bed);
+
+  useEffect(() => {
+    setDraft(bed);
+  }, [bed]);
+
   return (
     <form className="editor-form">
       <label>
         Namn
-        <input value={bed.name} onChange={(event) => onChange({ ...bed, name: event.target.value })} />
+        <input value={draft.name} onChange={(event) => setDraft({ ...draft, name: event.target.value })} />
       </label>
       <label>
         Anteckningar
-        <textarea value={bed.notes ?? ""} onChange={(event) => onChange({ ...bed, notes: event.target.value })} />
+        <textarea value={draft.notes ?? ""} onChange={(event) => setDraft({ ...draft, notes: event.target.value })} />
       </label>
+      <div className="editor-actions">
+        <button onClick={() => onSave(draft)} type="button">Spara</button>
+        <button className="secondary" onClick={() => setDraft(bed)} type="button">Avbryt</button>
+      </div>
       <p className="helper-text">{bed.polygon.length} punkter i polygonen.</p>
     </form>
   );

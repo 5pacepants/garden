@@ -530,6 +530,25 @@ button {
   resize: vertical;
 }
 
+.editor-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.editor-actions button {
+  background: #406b4f;
+  border: 1px solid #406b4f;
+  border-radius: 6px;
+  color: #fff;
+  padding: 8px 10px;
+}
+
+.editor-actions button.secondary {
+  background: #f8f8f3;
+  border-color: #cbd5c4;
+  color: #314036;
+}
+
 .helper-text {
   color: #667366;
   font-size: 13px;
