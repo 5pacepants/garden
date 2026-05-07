@@ -1,6 +1,6 @@
 import type { Point } from "../../domain/models";
 
-const mapHeight = 56.25;
+const mapHeight = 56.82;
 
 export function screenToNormalizedPoint(point: Point, bounds: DOMRect): Point {
   return {

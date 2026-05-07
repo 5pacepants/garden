@@ -42,7 +42,7 @@ function applyHouseMapDefaults(state: GardenState): GardenState {
     ...state,
     map: {
       ...state.map,
-      backgroundImage: "/hus-test.png",
+      backgroundImage: "/bakgrund.png",
     },
     zones: state.zones.filter((zone) => !demoZoneIds.has(zone.id)),
     beds: state.beds.filter((bed) => !demoBedIds.has(bed.id)),

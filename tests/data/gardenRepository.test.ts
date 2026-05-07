@@ -15,7 +15,7 @@ describe("garden repository", () => {
 
     expect(state.version).toBe(1);
     expect(state.map.name).toBe("Min trädgård");
-    expect(state.map.backgroundImage).toBe("/hus-test.png");
+    expect(state.map.backgroundImage).toBe("/bakgrund.png");
     expect(state.plants).toHaveLength(0);
     expect(state.beds).toHaveLength(0);
     expect(state.zones).toHaveLength(0);
@@ -39,7 +39,7 @@ describe("garden repository", () => {
 
     const loaded = await repository.load();
 
-    expect(loaded.map.backgroundImage).toBe("/hus-test.png");
+    expect(loaded.map.backgroundImage).toBe("/bakgrund.png");
     expect(loaded.plants.map((plant) => plant.id)).toEqual(["plant-user"]);
     expect(loaded.beds).toHaveLength(0);
     expect(loaded.zones).toHaveLength(0);

@@ -6,7 +6,7 @@ export function createDemoGardenState(): GardenState {
     map: {
       id: "map_main",
       name: "Min trädgård",
-      backgroundImage: "/hus-test.png",
+      backgroundImage: "/bakgrund.png",
     },
     zones: [],
     beds: [],

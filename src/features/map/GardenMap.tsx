@@ -263,15 +263,15 @@ export function GardenMap({
             onPointerMove={updateDrag}
             onPointerUp={endDrag}
             role="img"
-            viewBox="0 0 100 56.25"
+            viewBox="0 0 100 56.82"
             preserveAspectRatio="none"
           >
-            <rect className="map-background" height="56.25" width="100" x="0" y="0" />
+            <rect className="map-background" height="56.82" width="100" x="0" y="0" />
             {gardenState.map.backgroundImage && (
               <image
                 className="map-background-image"
                 href={gardenState.map.backgroundImage}
-                height="56.25"
+                height="56.82"
                 preserveAspectRatio="xMidYMid meet"
                 width="100"
                 x="0"
