@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Bed, GardenState, Plant, Task, Zone } from "../domain/models";
+import type { Bed, GardenState, Photo, Plant, Task, Zone } from "../domain/models";
 import type { MapSelection } from "../features/map/mapSelection";
 import type { PlantSuggestionService } from "../ai/plantSuggestionService";
 import { WeatherPanel } from "../features/weather/WeatherPanel";
@@ -13,6 +13,7 @@ type AppShellProps = {
   gardenState: GardenState | null;
   onViewChange: (view: AppView) => void;
   onSaveBed: (bed: Bed) => void;
+  onAddPhoto: (photo: Photo) => void;
   onSavePlant: (plant: Plant) => void;
   onSaveZone: (zone: Zone) => void;
   onDeleteSelection: (selection: NonNullable<MapSelection>) => void;
@@ -26,6 +27,7 @@ export function AppShell({
   activeView,
   gardenState,
   onSaveBed,
+  onAddPhoto,
   onDeleteSelection,
   onSavePlant,
   onSaveZone,
@@ -44,6 +46,7 @@ export function AppShell({
       </main>
       <DetailPanel
         gardenState={gardenState}
+        onAddPhoto={onAddPhoto}
         onDeleteSelection={onDeleteSelection}
         onSaveBed={onSaveBed}
         onSavePlant={onSavePlant}

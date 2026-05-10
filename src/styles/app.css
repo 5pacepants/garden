@@ -230,6 +230,23 @@ button {
   font-size: 13px;
 }
 
+.placement-warning {
+  background: #fff7ed;
+  border: 1px solid #d99b4a;
+  border-left: 4px solid #c77822;
+  border-radius: 8px;
+  color: #5f3b13;
+  display: grid;
+  gap: 3px;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+}
+
+.placement-warning strong,
+.placement-warning span {
+  font-size: 13px;
+}
+
 .map-panel {
   background: #f7f7ef;
   border: 1px solid #d5dccd;
@@ -665,6 +682,55 @@ button {
   border-radius: 6px;
   color: #fff;
   padding: 8px 10px;
+}
+
+.plant-photo-header {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.plant-photo-header h3 {
+  margin: 0;
+}
+
+.plant-photo-header button {
+  background: #406b4f;
+  border: 1px solid #406b4f;
+  border-radius: 6px;
+  color: #fff;
+  padding: 7px 9px;
+}
+
+.plant-photo-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 10px;
+}
+
+.plant-photo {
+  background: #fff;
+  border: 1px solid #d9dfd1;
+  border-radius: 6px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.plant-photo img,
+.plant-photo-placeholder {
+  aspect-ratio: 4 / 3;
+  background: #eef0e5;
+  display: block;
+  object-fit: cover;
+  width: 100%;
+}
+
+.plant-photo figcaption {
+  color: #526052;
+  font-size: 12px;
+  padding: 6px 7px;
 }
 
 .plant-chip-grid {

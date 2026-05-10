@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createDemoGardenState } from "../../domain/fixtures";
 import type { GardenState } from "../../domain/models";
 import { exportGardenState, importGardenState } from "../../data/importExport";
+import { TauriMediaService, type MediaService } from "../../data/mediaService";
 
 export type AiSettings = {
   enabled: boolean;
@@ -10,11 +11,20 @@ export type AiSettings = {
 type SettingsViewProps = {
   aiSettings: AiSettings;
   gardenState: GardenState;
+  mediaService?: MediaService;
   onAiSettingsChange: (settings: AiSettings) => void;
   onImportGardenState: (state: GardenState) => void;
 };
 
-export function SettingsView({ aiSettings, gardenState, onAiSettingsChange, onImportGardenState }: SettingsViewProps) {
+const defaultMediaService = new TauriMediaService();
+
+export function SettingsView({
+  aiSettings,
+  gardenState,
+  mediaService = defaultMediaService,
+  onAiSettingsChange,
+  onImportGardenState,
+}: SettingsViewProps) {
   const [backupText, setBackupText] = useState("");
   const [message, setMessage] = useState<string | null>(null);
 
@@ -29,6 +39,24 @@ export function SettingsView({ aiSettings, gardenState, onAiSettingsChange, onIm
       setMessage("Backup importerad.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Kunde inte importera backup.");
+    }
+  }
+
+  async function updateMapBackground() {
+    try {
+      const media = await mediaService.pickAndStoreImage();
+      if (!media) {
+        setMessage("Ingen bild vald.");
+        return;
+      }
+
+      onImportGardenState({
+        ...gardenState,
+        map: { ...gardenState.map, backgroundImage: media.reference },
+      });
+      setMessage("Kartbild uppdaterad.");
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Kunde inte uppdatera kartbild.");
     }
   }
 
@@ -52,6 +80,14 @@ export function SettingsView({ aiSettings, gardenState, onAiSettingsChange, onIm
           API-anrop kan kosta pengar via ditt OpenAI API-konto.
         </p>
       </form>
+      <div className="editor-form">
+        <h3>Kartbild</h3>
+        <p className="helper-text">Välj en egen bild över trädgården. Bilden kopieras till appens datamapp.</p>
+        <div className="inline-form">
+          <button onClick={updateMapBackground} type="button">Byt kartbild</button>
+        </div>
+        {gardenState.map.backgroundImage && <p className="helper-text">Nuvarande: {gardenState.map.backgroundImage}</p>}
+      </div>
       <div className="editor-form">
         <h3>Backup</h3>
         <div className="inline-form">

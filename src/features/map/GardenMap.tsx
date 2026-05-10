@@ -1,4 +1,5 @@
-import { useMemo, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent, type PointerEvent } from "react";
+import { TauriMediaService, type MediaService } from "../../data/mediaService";
 import { getPlantMapRadius } from "../../domain/gardenEdits";
 import { findContainingBed, relativeToWorldPoint, worldToRelativePoint } from "../../domain/geometry";
 import { createId } from "../../domain/ids";
@@ -9,6 +10,7 @@ import { moveBedToDelta, movePlantToPoint, moveZoneToDelta, updatePolygonVertex 
 import { MapToolbar, type LayerVisibility, type MapMode } from "./MapToolbar";
 import { isSelected, type MapSelection } from "./mapSelection";
 import { polygonToSvgPoints, screenToNormalizedPoint } from "./mapTransforms";
+import { getProposedPlacementWarning } from "./placementWarning";
 
 type GardenMapProps = {
   gardenState: GardenState;
@@ -22,6 +24,7 @@ type GardenMapProps = {
   onUpdateZone: (zone: Zone) => void;
   onSelectionChange: (selection: MapSelection) => void;
   selection: MapSelection;
+  mediaService?: MediaService;
 };
 
 type DragDraft =
@@ -57,6 +60,7 @@ const minZoom = 1;
 const maxZoom = 3;
 const zoomStep = 0.25;
 const dragThreshold = 0.5;
+const defaultMediaService = new TauriMediaService();
 
 export function GardenMap({
   gardenState,
@@ -70,6 +74,7 @@ export function GardenMap({
   onUpdateZone,
   onSelectionChange,
   selection,
+  mediaService = defaultMediaService,
 }: GardenMapProps) {
   const [layers, setLayers] = useState(defaultLayers);
   const [mode, setMode] = useState<MapMode>("select");
@@ -77,6 +82,7 @@ export function GardenMap({
   const [zoom, setZoom] = useState(1);
   const [dragDraft, setDragDraft] = useState<DragDraft | null>(null);
   const [polygonVertexEdit, setPolygonVertexEdit] = useState<PolygonVertexEdit | null>(null);
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState<string | undefined>(gardenState.map.backgroundImage);
   const dragMovedRef = useRef(false);
   const isPointerDraggingRef = useRef(false);
   const vertexMovedRef = useRef(false);
@@ -113,6 +119,43 @@ export function GardenMap({
       })),
     [displayPlants, displayState],
   );
+  const proposedPlacementWarning = useMemo(() => {
+    if (dragDraft?.type !== "plant" || !dragDraft.hasMoved) {
+      return null;
+    }
+
+    return getProposedPlacementWarning(
+      dragDraft.draft,
+      getPlantWorldPosition(dragDraft.draft, displayState),
+      displayState.zones,
+    );
+  }, [displayState, dragDraft]);
+
+  useEffect(() => {
+    let isActive = true;
+
+    if (!gardenState.map.backgroundImage) {
+      setBackgroundImageUrl(undefined);
+      return;
+    }
+
+    mediaService
+      .resolveMediaUrl(gardenState.map.backgroundImage)
+      .then((url) => {
+        if (isActive) {
+          setBackgroundImageUrl(url);
+        }
+      })
+      .catch(() => {
+        if (isActive) {
+          setBackgroundImageUrl(undefined);
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [gardenState.map.backgroundImage, mediaService]);
 
   function toggleLayer(layer: keyof LayerVisibility) {
     setLayers((current) => ({ ...current, [layer]: !current[layer] }));
@@ -372,6 +415,15 @@ export function GardenMap({
         onZoomIn={() => setZoom((current) => Math.min(maxZoom, current + zoomStep))}
         onZoomOut={() => setZoom((current) => Math.max(minZoom, current - zoomStep))}
       />
+      {proposedPlacementWarning && (
+        <div className="placement-warning" role="status">
+          <strong>Platsvarning</strong>
+          <span>{proposedPlacementWarning.message}</span>
+          {proposedPlacementWarning.reasons.map((reason) => (
+            <span key={reason}>{reason}</span>
+          ))}
+        </div>
+      )}
       <div className="map-viewport">
         <div className="map-stage" style={{ "--map-zoom": zoom } as CSSProperties}>
           <svg
@@ -384,10 +436,10 @@ export function GardenMap({
             preserveAspectRatio="none"
           >
             <rect className="map-background" height="56.82" width="100" x="0" y="0" />
-            {gardenState.map.backgroundImage && (
+            {backgroundImageUrl && (
               <image
                 className="map-background-image"
-                href={gardenState.map.backgroundImage}
+                href={backgroundImageUrl}
                 height="56.82"
                 preserveAspectRatio="xMidYMid meet"
                 width="100"

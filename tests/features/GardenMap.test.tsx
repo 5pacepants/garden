@@ -179,4 +179,58 @@ describe("GardenMap", () => {
     expect(plantNode.getAttribute("cx")).toBe("60");
     expect(plantNode.getAttribute("cy")).toBe("34.092");
   });
+
+  it("shows a non-blocking warning when a moved plant does not match the target zone", () => {
+    render(
+      <GardenMap
+        gardenState={{
+          ...gardenState,
+          zones: [
+            {
+              id: "zone-shade",
+              name: "Skugga",
+              polygon: [
+                { x: 40, y: 20 },
+                { x: 70, y: 20 },
+                { x: 70, y: 45 },
+                { x: 40, y: 45 },
+              ],
+              light: "shade",
+            },
+          ],
+          plants: [{ ...plant, needs: { light: ["sun"] } }],
+        }}
+        plantFilters={defaultPlantFilters}
+        visiblePlantIds={new Set(["plant-1"])}
+        onAddBed={vi.fn()}
+        onAddPlant={vi.fn()}
+        onAddZone={vi.fn()}
+        onUpdateBed={vi.fn()}
+        onUpdatePlant={vi.fn()}
+        onUpdateZone={vi.fn()}
+        onSelectionChange={vi.fn()}
+        selection={{ type: "plant", id: "plant-1" }}
+      />,
+    );
+
+    const svg = screen.getByRole("img");
+    vi.spyOn(svg, "getBoundingClientRect").mockReturnValue({
+      left: 0,
+      top: 0,
+      width: 1000,
+      height: 568.2,
+      bottom: 568.2,
+      right: 1000,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    } as DOMRect);
+
+    const plantNode = svg.querySelector(".plant-circle") as SVGCircleElement;
+    fireEvent.pointerDown(plantNode, { clientX: 100, clientY: 100, pointerId: 1 });
+    fireEvent.pointerUp(svg, { clientX: 500, clientY: 284.1, pointerId: 1 });
+
+    expect(screen.getByText(/Lavendel verkar inte passa perfekt/)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Spara flytt" })).toBeInTheDocument();
+  });
 });

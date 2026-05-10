@@ -1,4 +1,4 @@
-import type { GardenState } from "../domain/models";
+import type { GardenState, Photo } from "../domain/models";
 import { BedEditor } from "../features/beds/BedEditor";
 import type { MapSelection } from "../features/map/mapSelection";
 import { PlantCard } from "../features/plants/PlantCard";
@@ -10,15 +10,16 @@ type DetailPanelProps = {
   gardenState: GardenState | null;
   selection: MapSelection;
   onSavePlant: (plant: GardenState["plants"][number]) => void;
+  onAddPhoto: (photo: Photo) => void;
   onSaveBed: (bed: GardenState["beds"][number]) => void;
   onSaveZone: (zone: GardenState["zones"][number]) => void;
   onDeleteSelection: (selection: NonNullable<MapSelection>) => void;
   suggestionService: PlantSuggestionService;
 };
 
-export function DetailPanel({ gardenState, selection, onDeleteSelection, onSaveBed, onSavePlant, onSaveZone, suggestionService }: DetailPanelProps) {
+export function DetailPanel({ gardenState, selection, onAddPhoto, onDeleteSelection, onSaveBed, onSavePlant, onSaveZone, suggestionService }: DetailPanelProps) {
   const selectedObject = getSelectedObject(gardenState, selection);
-  const editor = getEditor(gardenState, selection, onSavePlant, onSaveBed, onSaveZone, suggestionService);
+  const editor = getEditor(gardenState, selection, onSavePlant, onAddPhoto, onSaveBed, onSaveZone, suggestionService);
 
   return (
     <aside className="detail-panel" aria-label="Detaljer">
@@ -57,6 +58,7 @@ function getEditor(
   gardenState: GardenState | null,
   selection: MapSelection,
   onSavePlant: (plant: GardenState["plants"][number]) => void,
+  onAddPhoto: (photo: Photo) => void,
   onSaveBed: (bed: GardenState["beds"][number]) => void,
   onSaveZone: (zone: GardenState["zones"][number]) => void,
   suggestionService: PlantSuggestionService,
@@ -67,7 +69,16 @@ function getEditor(
 
   if (selection.type === "plant") {
     const plant = gardenState.plants.find((item) => item.id === selection.id);
-    return plant ? <PlantCard gardenState={gardenState} plant={plant} suggestionService={suggestionService} onSave={onSavePlant} /> : null;
+    return plant ? (
+      <PlantCard
+        gardenState={gardenState}
+        photos={gardenState.photos}
+        plant={plant}
+        suggestionService={suggestionService}
+        onAddPhoto={onAddPhoto}
+        onSave={onSavePlant}
+      />
+    ) : null;
   }
 
   if (selection.type === "bed") {

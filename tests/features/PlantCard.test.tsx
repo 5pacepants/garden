@@ -296,4 +296,38 @@ describe("PlantCard", () => {
       }),
     );
   });
+
+  it("adds a stored photo linked to the plant", async () => {
+    const user = userEvent.setup();
+    const onAddPhoto = vi.fn();
+
+    render(
+      <PlantCard
+        plant={plant}
+        gardenState={gardenState}
+        photos={[]}
+        mediaService={{
+          pickAndStoreImage: async () => ({
+            reference: "appmedia://lavendel.jpg",
+            fileName: "lavendel.jpg",
+            url: "asset://localhost/lavendel.jpg",
+          }),
+          resolveMediaUrl: async () => "asset://localhost/lavendel.jpg",
+        }}
+        suggestionService={{ suggestPlant: vi.fn() }}
+        onAddPhoto={onAddPhoto}
+        onSave={vi.fn()}
+      />,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Lägg till foto" }));
+
+    expect(onAddPhoto).toHaveBeenCalledWith(
+      expect.objectContaining({
+        label: "lavendel.jpg",
+        filePath: "appmedia://lavendel.jpg",
+        plantId: "plant-1",
+      }),
+    );
+  });
 });

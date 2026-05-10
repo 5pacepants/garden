@@ -88,6 +88,7 @@ function App() {
         }
         setSelection(null);
       }}
+      onAddPhoto={addPhoto}
       onSaveBed={updateBed}
       onSavePlant={savePlant}
       onSaveZone={updateZone}

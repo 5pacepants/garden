@@ -7,6 +7,7 @@ import type {
   GardenState,
   LightCondition,
   MoistureCondition,
+  Photo,
   Plant,
   PlantStatus,
   PlantType,
@@ -16,11 +17,15 @@ import type { PlantSuggestionService } from "../../ai/plantSuggestionService";
 import type { PlantRecommendation } from "../../ai/plantSuggestionSchema";
 import { resizePlantMapNode } from "../../domain/gardenEdits";
 import { careActionLabel, lightConditionLabel, moistureConditionLabel, plantStatusLabel, plantTypeLabel, soilTraitLabel, tagLabel } from "../../domain/labels";
+import { TauriMediaService, type MediaService } from "../../data/mediaService";
 
 type PlantCardProps = {
   gardenState: GardenState;
   plant: Plant;
+  photos?: Photo[];
+  mediaService?: MediaService;
   suggestionService: PlantSuggestionService;
+  onAddPhoto?: (photo: Photo) => void;
   onSave: (plant: Plant) => void;
 };
 
@@ -34,8 +39,17 @@ const moistureOptions: MoistureCondition[] = ["dry", "normal", "moist"];
 const tagOptions = ["edible", "pollinator-friendly", "evergreen", "fragrant"];
 const months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
 const shortMonths = ["jan", "feb", "mar", "apr", "maj", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+const defaultMediaService = new TauriMediaService();
 
-export function PlantCard({ gardenState, plant, suggestionService, onSave }: PlantCardProps) {
+export function PlantCard({
+  gardenState,
+  plant,
+  photos = [],
+  mediaService = defaultMediaService,
+  suggestionService,
+  onAddPhoto,
+  onSave,
+}: PlantCardProps) {
   const [draft, setDraft] = useState(plant);
   const draftRef = useRef(plant);
   const [isEditing, setIsEditing] = useState(false);
@@ -44,6 +58,7 @@ export function PlantCard({ gardenState, plant, suggestionService, onSave }: Pla
   const [nameSuggestions, setNameSuggestions] = useState<string[]>([]);
   const [recommendations, setRecommendations] = useState<PlantRecommendation[]>([]);
   const [isRecommending, setIsRecommending] = useState(false);
+  const [photoError, setPhotoError] = useState<string | null>(null);
 
   useEffect(() => {
     draftRef.current = plant;
@@ -207,7 +222,33 @@ export function PlantCard({ gardenState, plant, suggestionService, onSave }: Pla
     setIsEditing(false);
   }
 
+  async function addPlantPhoto() {
+    if (!onAddPhoto) {
+      return;
+    }
+
+    try {
+      setPhotoError(null);
+      const media = await mediaService.pickAndStoreImage();
+      if (!media) {
+        return;
+      }
+
+      onAddPhoto({
+        id: createId("photo"),
+        date: new Date().toISOString().slice(0, 10),
+        label: media.fileName,
+        filePath: media.reference,
+        plantId: plant.id,
+      });
+    } catch (error) {
+      setPhotoError(error instanceof Error ? error.message : "Kunde inte lägga till foto.");
+    }
+  }
+
   if (!isEditing) {
+    const plantPhotos = photos.filter((photo) => photo.plantId === plant.id);
+
     return (
       <div className="plant-summary">
         <div className="plant-summary-header">
@@ -226,6 +267,15 @@ export function PlantCard({ gardenState, plant, suggestionService, onSave }: Pla
           <PlantInfoChip label="Blomning" value={formatMonthList(plant.floweringMonths)} />
           {plant.tags.includes("edible") && <PlantInfoChip label="Ätmognad" value={formatMonthList(plant.harvestMonths)} />}
           <PlantInfoChip label="Taggar" value={formatList(plant.tags.map(tagLabel))} />
+        </div>
+
+        <div className="detail-section compact">
+          <div className="plant-photo-header">
+            <h3>Foton</h3>
+            {onAddPhoto && <button onClick={addPlantPhoto} type="button">Lägg till foto</button>}
+          </div>
+          {photoError && <p className="form-error">{photoError}</p>}
+          <PlantPhotoGrid photos={plantPhotos} mediaService={mediaService} />
         </div>
 
         {plant.plantInfo && (
@@ -515,6 +565,54 @@ export function PlantCard({ gardenState, plant, suggestionService, onSave }: Pla
           Avbryt
         </button>
       </div>
+    </div>
+  );
+}
+
+function PlantPhotoGrid({ photos, mediaService }: { photos: Photo[]; mediaService: MediaService }) {
+  const [urls, setUrls] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    let isActive = true;
+
+    Promise.all(
+      photos.map(async (photo) => {
+        const source = photo.dataUrl ?? photo.filePath;
+        if (!source) {
+          return [photo.id, ""] as const;
+        }
+
+        return [photo.id, await mediaService.resolveMediaUrl(source)] as const;
+      }),
+    )
+      .then((entries) => {
+        if (isActive) {
+          setUrls(Object.fromEntries(entries));
+        }
+      })
+      .catch(() => {
+        if (isActive) {
+          setUrls({});
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, [mediaService, photos]);
+
+  if (photos.length === 0) {
+    return <p className="helper-text">Inga foton ännu.</p>;
+  }
+
+  return (
+    <div className="plant-photo-grid">
+      {photos.map((photo) => (
+        <figure className="plant-photo" key={photo.id}>
+          {urls[photo.id] ? <img alt={photo.label} src={urls[photo.id]} /> : <div className="plant-photo-placeholder" />}
+          <figcaption>{photo.label}</figcaption>
+        </figure>
+      ))}
     </div>
   );
 }
