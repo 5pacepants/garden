@@ -1031,3 +1031,42 @@ button {
   height: auto;
   width: 100%;
 }
+
+.map-builder-element {
+  cursor: pointer;
+  stroke: #526052;
+  stroke-width: 0.18;
+}
+
+.map-builder-element.selected {
+  stroke: #1f6f4d;
+  stroke-width: 0.42;
+}
+
+.map-builder-label {
+  dominant-baseline: middle;
+  fill: #203229;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 2.2px;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+.map-builder-edge-hit {
+  cursor: copy;
+  pointer-events: stroke;
+  stroke: transparent;
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+
+.map-builder-vertex {
+  cursor: grab;
+  fill: #fffaf0;
+  stroke: #1f6f4d;
+  stroke-width: 0.32;
+}
+
+.map-builder-vertex:active {
+  cursor: grabbing;
+}

@@ -35,4 +35,21 @@ describe("MapBuilderView", () => {
       }),
     );
   });
+
+  it("edits the plot shape with handles instead of coordinate fields", async () => {
+    const user = userEvent.setup();
+
+    const { container } = render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
+
+    expect(screen.queryByLabelText("X")).not.toBeInTheDocument();
+    expect(screen.queryByLabelText("Y")).not.toBeInTheDocument();
+    expect(container.querySelectorAll(".map-builder-vertex")).toHaveLength(4);
+
+    const firstEdge = container.querySelector(".map-builder-edge-hit");
+    expect(firstEdge).toBeInTheDocument();
+
+    await user.dblClick(firstEdge!);
+
+    expect(container.querySelectorAll(".map-builder-vertex")).toHaveLength(5);
+  });
 });

@@ -1,4 +1,6 @@
 import { createId } from "../../domain/ids";
+import type { Point } from "../../domain/models";
+import { polygonToSvgPoints } from "../map/mapTransforms";
 
 export type GardenMapElementType =
   | "plot"
@@ -13,17 +15,11 @@ export type GardenMapElementType =
   | "water"
   | "other";
 
-export type GardenMapElementShape = "rectangle" | "ellipse";
-
 export type GardenMapElement = {
   id: string;
   type: GardenMapElementType;
   name: string;
-  shape: GardenMapElementShape;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  points: Point[];
   color: string;
 };
 
@@ -33,21 +29,18 @@ export type GardenMapLayout = {
   elements: GardenMapElement[];
 };
 
-const elementDefaults: Record<
-  GardenMapElementType,
-  Omit<GardenMapElement, "id" | "type">
-> = {
-  plot: { name: "Tomtgräns", shape: "rectangle", x: 8, y: 8, width: 84, height: 44, color: "#d9c8a4" },
-  lawn: { name: "Gräsmatta", shape: "rectangle", x: 12, y: 12, width: 76, height: 36, color: "#b8d79c" },
-  house: { name: "Hus", shape: "rectangle", x: 38, y: 18, width: 24, height: 14, color: "#d7d1c5" },
-  path: { name: "Gång", shape: "rectangle", x: 45, y: 32, width: 10, height: 18, color: "#d8d0bd" },
-  fence: { name: "Staket", shape: "rectangle", x: 8, y: 6, width: 84, height: 2, color: "#8d7358" },
-  stone: { name: "Sten", shape: "ellipse", x: 20, y: 34, width: 7, height: 5, color: "#9b9b92" },
-  tree: { name: "Träd", shape: "ellipse", x: 65, y: 30, width: 10, height: 10, color: "#6f9d5c" },
-  shrub: { name: "Buske", shape: "ellipse", x: 26, y: 24, width: 8, height: 6, color: "#7fa86a" },
-  deck: { name: "Altan", shape: "rectangle", x: 38, y: 32, width: 24, height: 8, color: "#c7a579" },
-  water: { name: "Vatten", shape: "ellipse", x: 66, y: 38, width: 12, height: 7, color: "#8bbbd0" },
-  other: { name: "Annat", shape: "rectangle", x: 20, y: 20, width: 12, height: 8, color: "#d6c37f" },
+const elementDefaults: Record<GardenMapElementType, Omit<GardenMapElement, "id" | "type">> = {
+  plot: { name: "Tomtgräns", points: rectanglePoints(8, 8, 84, 44), color: "#d9c8a4" },
+  lawn: { name: "Gräsmatta", points: rectanglePoints(12, 12, 76, 36), color: "#b8d79c" },
+  house: { name: "Hus", points: rectanglePoints(38, 18, 24, 14), color: "#d7d1c5" },
+  path: { name: "Gång", points: rectanglePoints(45, 32, 10, 18), color: "#d8d0bd" },
+  fence: { name: "Staket", points: rectanglePoints(8, 6, 84, 2), color: "#8d7358" },
+  stone: { name: "Sten", points: ellipsePoints(23.5, 36.5, 3.5, 2.5), color: "#9b9b92" },
+  tree: { name: "Träd", points: ellipsePoints(70, 35, 5, 5), color: "#6f9d5c" },
+  shrub: { name: "Buske", points: ellipsePoints(30, 27, 4, 3), color: "#7fa86a" },
+  deck: { name: "Altan", points: rectanglePoints(38, 32, 24, 8), color: "#c7a579" },
+  water: { name: "Vatten", points: ellipsePoints(72, 41.5, 6, 3.5), color: "#8bbbd0" },
+  other: { name: "Annat", points: rectanglePoints(20, 20, 12, 8), color: "#d6c37f" },
 };
 
 export function createStarterMapLayout(): GardenMapLayout {
@@ -59,10 +52,13 @@ export function createStarterMapLayout(): GardenMapLayout {
 }
 
 export function createMapElement(type: GardenMapElementType): GardenMapElement {
+  const defaults = elementDefaults[type];
+
   return {
     id: createId("map_element"),
     type,
-    ...elementDefaults[type],
+    ...defaults,
+    points: defaults.points.map((point) => ({ ...point })),
   };
 }
 
@@ -70,6 +66,48 @@ export function updateMapElement(layout: GardenMapLayout, element: GardenMapElem
   return {
     ...layout,
     elements: layout.elements.map((existing) => (existing.id === element.id ? element : existing)),
+  };
+}
+
+export function moveMapElementPoint(element: GardenMapElement, pointIndex: number, point: Point): GardenMapElement {
+  return {
+    ...element,
+    points: element.points.map((existing, index) =>
+      index === pointIndex
+        ? {
+            x: clamp(point.x),
+            y: clamp(point.y, 56.82),
+          }
+        : existing,
+    ),
+  };
+}
+
+export function insertMapElementPoint(element: GardenMapElement, edgeStartIndex: number, point: Point): GardenMapElement {
+  const insertAfter = Math.max(0, Math.min(edgeStartIndex, element.points.length - 1));
+  const nextPoint = {
+    x: clamp(point.x),
+    y: clamp(point.y, 56.82),
+  };
+
+  return {
+    ...element,
+    points: [...element.points.slice(0, insertAfter + 1), nextPoint, ...element.points.slice(insertAfter + 1)],
+  };
+}
+
+export function getMapElementCenter(element: GardenMapElement): Point {
+  const total = element.points.reduce(
+    (sum, point) => ({
+      x: sum.x + point.x,
+      y: sum.y + point.y,
+    }),
+    { x: 0, y: 0 },
+  );
+
+  return {
+    x: total.x / element.points.length,
+    y: total.y / element.points.length,
   };
 }
 
@@ -91,17 +129,11 @@ export function renderGardenMapLayoutSvg(layout: GardenMapLayout): string {
 function renderElement(element: GardenMapElement): string {
   const label = escapeXml(element.name);
   const fill = escapeXml(element.color);
-
-  if (element.shape === "ellipse") {
-    return [
-      `<ellipse cx="${element.x + element.width / 2}" cy="${element.y + element.height / 2}" rx="${element.width / 2}" ry="${element.height / 2}" fill="${fill}" stroke="#526052" stroke-width="0.18"/>`,
-      renderLabel(label, element.x + element.width / 2, element.y + element.height / 2),
-    ].join("");
-  }
+  const center = getMapElementCenter(element);
 
   return [
-    `<rect x="${element.x}" y="${element.y}" width="${element.width}" height="${element.height}" rx="0.8" fill="${fill}" stroke="#526052" stroke-width="0.18"/>`,
-    renderLabel(label, element.x + element.width / 2, element.y + element.height / 2),
+    `<polygon points="${polygonToSvgPoints(element.points)}" fill="${fill}" stroke="#526052" stroke-width="0.18"/>`,
+    renderLabel(label, center.x, center.y),
   ].join("");
 }
 
@@ -115,4 +147,28 @@ function escapeXml(value: string): string {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+function rectanglePoints(x: number, y: number, width: number, height: number): Point[] {
+  return [
+    { x, y },
+    { x: x + width, y },
+    { x: x + width, y: y + height },
+    { x, y: y + height },
+  ];
+}
+
+function ellipsePoints(cx: number, cy: number, rx: number, ry: number): Point[] {
+  return Array.from({ length: 8 }, (_, index) => {
+    const angle = (Math.PI * 2 * index) / 8;
+
+    return {
+      x: cx + Math.cos(angle) * rx,
+      y: cy + Math.sin(angle) * ry,
+    };
+  });
+}
+
+function clamp(value: number, max = 100): number {
+  return Math.max(0, Math.min(max, value));
 }

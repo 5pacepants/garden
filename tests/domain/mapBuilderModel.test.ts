@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import {
   createMapElement,
   createStarterMapLayout,
+  insertMapElementPoint,
+  moveMapElementPoint,
   renderGardenMapLayoutDataUrl,
   renderGardenMapLayoutSvg,
   updateMapElement,
@@ -12,20 +14,41 @@ describe("map builder model", () => {
     const layout = createStarterMapLayout();
 
     expect(layout.elements.map((element) => element.type)).toEqual(["plot", "lawn"]);
+    expect(layout.elements[0].points).toHaveLength(4);
   });
 
-  it("creates useful default elements", () => {
+  it("creates useful default elements as editable point shapes", () => {
     const element = createMapElement("house");
 
     expect(element).toEqual(
       expect.objectContaining({
         type: "house",
         name: "Hus",
-        shape: "rectangle",
-        x: expect.any(Number),
-        y: expect.any(Number),
+        points: [
+          { x: expect.any(Number), y: expect.any(Number) },
+          { x: expect.any(Number), y: expect.any(Number) },
+          { x: expect.any(Number), y: expect.any(Number) },
+          { x: expect.any(Number), y: expect.any(Number) },
+        ],
       }),
     );
+  });
+
+  it("moves one editable point without moving the rest", () => {
+    const element = createMapElement("house");
+    const moved = moveMapElementPoint(element, 1, { x: 110, y: -5 });
+
+    expect(moved.points[1]).toEqual({ x: 100, y: 0 });
+    expect(moved.points[0]).toBe(element.points[0]);
+    expect(moved.points[2]).toBe(element.points[2]);
+  });
+
+  it("inserts a new point after a double-clicked edge, including the plot shape", () => {
+    const plot = createMapElement("plot");
+    const updated = insertMapElementPoint(plot, 0, { x: 50, y: 4 });
+
+    expect(updated.points).toHaveLength(5);
+    expect(updated.points[1]).toEqual({ x: 50, y: 4 });
   });
 
   it("updates one element without replacing the whole layout", () => {
@@ -45,6 +68,7 @@ describe("map builder model", () => {
     const svg = renderGardenMapLayoutSvg(layout);
 
     expect(svg).toContain("<svg");
+    expect(svg).toContain("<polygon");
     expect(svg).toContain("Hus &amp; garage");
     expect(renderGardenMapLayoutDataUrl(layout)).toMatch(/^data:image\/svg\+xml,/);
   });
