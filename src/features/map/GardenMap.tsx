@@ -28,9 +28,9 @@ type GardenMapProps = {
 };
 
 type DragDraft =
-  | { type: "plant"; id: string; original: Plant; draft: Plant; startPoint: Point; hasMoved: boolean }
-  | { type: "bed"; id: string; original: Bed; draft: Bed; startPoint: Point; hasMoved: boolean }
-  | { type: "zone"; id: string; original: Zone; draft: Zone; startPoint: Point; hasMoved: boolean };
+  | { type: "plant"; id: string; original: Plant; draft: Plant; startPoint: Point; startClient: Point; hasMoved: boolean }
+  | { type: "bed"; id: string; original: Bed; draft: Bed; startPoint: Point; startClient: Point; hasMoved: boolean }
+  | { type: "zone"; id: string; original: Zone; draft: Zone; startPoint: Point; startClient: Point; hasMoved: boolean };
 
 type PolygonVertexEdit =
   | {
@@ -59,7 +59,7 @@ const defaultLayers: LayerVisibility = {
 const minZoom = 1;
 const maxZoom = 3;
 const zoomStep = 0.25;
-const dragThreshold = 0.5;
+const dragThresholdPx = 4;
 const defaultMediaService = new TauriMediaService();
 
 export function GardenMap({
@@ -276,11 +276,15 @@ export function GardenMap({
     const delta = { x: point.x - dragDraft.startPoint.x, y: point.y - dragDraft.startPoint.y };
     if (event.buttons === 0) {
       isPointerDraggingRef.current = false;
-      finishDragDraftAtPoint(dragDraft, point, delta);
+      finishDragDraftAtPoint(dragDraft, point, delta, getClientDelta(event, dragDraft.startClient));
       return;
     }
 
-    const hasMoved = dragDraft.hasMoved || Math.abs(delta.x) > dragThreshold || Math.abs(delta.y) > dragThreshold;
+    const clientDelta = getClientDelta(event, dragDraft.startClient);
+    const hasMoved =
+      dragDraft.hasMoved ||
+      Math.abs(clientDelta.x) > dragThresholdPx ||
+      Math.abs(clientDelta.y) > dragThresholdPx;
     if (hasMoved) {
       dragMovedRef.current = true;
     }
@@ -328,11 +332,15 @@ export function GardenMap({
     isPointerDraggingRef.current = false;
     const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.getBoundingClientRect());
     const delta = { x: point.x - dragDraft.startPoint.x, y: point.y - dragDraft.startPoint.y };
-    finishDragDraftAtPoint(dragDraft, point, delta);
+    finishDragDraftAtPoint(dragDraft, point, delta, getClientDelta(event, dragDraft.startClient));
   }
 
-  function finishDragDraftAtPoint(currentDraft: DragDraft, point: Point, delta: Point) {
-    const hasMoved = currentDraft.hasMoved || dragMovedRef.current || Math.abs(delta.x) > dragThreshold || Math.abs(delta.y) > dragThreshold;
+  function finishDragDraftAtPoint(currentDraft: DragDraft, point: Point, delta: Point, clientDelta: Point) {
+    const hasMoved =
+      currentDraft.hasMoved ||
+      dragMovedRef.current ||
+      Math.abs(clientDelta.x) > dragThresholdPx ||
+      Math.abs(clientDelta.y) > dragThresholdPx;
 
     if (!hasMoved) {
       setDragDraft(null);
@@ -461,7 +469,15 @@ export function GardenMap({
                   }}
                   onPointerDown={(event) => {
                     const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.ownerSVGElement?.getBoundingClientRect() ?? new DOMRect());
-                    startDrag(event, { type: "zone", id: zone.id, original: zone, draft: zone, startPoint: point, hasMoved: false });
+                    startDrag(event, {
+                      type: "zone",
+                      id: zone.id,
+                      original: zone,
+                      draft: zone,
+                      startPoint: point,
+                      startClient: { x: event.clientX, y: event.clientY },
+                      hasMoved: false,
+                    });
                   }}
                 />
               ))}
@@ -478,7 +494,15 @@ export function GardenMap({
                   }}
                   onPointerDown={(event) => {
                     const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.ownerSVGElement?.getBoundingClientRect() ?? new DOMRect());
-                    startDrag(event, { type: "bed", id: bed.id, original: bed, draft: bed, startPoint: point, hasMoved: false });
+                    startDrag(event, {
+                      type: "bed",
+                      id: bed.id,
+                      original: bed,
+                      draft: bed,
+                      startPoint: point,
+                      startClient: { x: event.clientX, y: event.clientY },
+                      hasMoved: false,
+                    });
                   }}
                 />
               ))}
@@ -514,7 +538,15 @@ export function GardenMap({
                   }}
                   onPointerDown={(event) => {
                     const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.ownerSVGElement?.getBoundingClientRect() ?? new DOMRect());
-                    startDrag(event, { type: "plant", id: plant.id, original: plant, draft: plant, startPoint: point, hasMoved: false });
+                    startDrag(event, {
+                      type: "plant",
+                      id: plant.id,
+                      original: plant,
+                      draft: plant,
+                      startPoint: point,
+                      startClient: { x: event.clientX, y: event.clientY },
+                      hasMoved: false,
+                    });
                   }}
                   r={getPlantMapRadius(plant)}
                   strokeWidth={getPlantNodeStrokeWidth(getPlantMapRadius(plant))}
@@ -551,6 +583,13 @@ function isPlantLayerVisible(plant: Plant, layers: LayerVisibility): boolean {
   }
 
   return layers[plant.status];
+}
+
+function getClientDelta(event: PointerEvent<SVGSVGElement>, startClient: Point): Point {
+  return {
+    x: event.clientX - startClient.x,
+    y: event.clientY - startClient.y,
+  };
 }
 
 function createDragDraftAtPoint(dragDraft: DragDraft, point: Point, delta: Point, beds: Bed[]): DragDraft {

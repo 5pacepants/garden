@@ -50,6 +50,53 @@ describe("GardenMap", () => {
     expect(screen.queryByRole("button", { name: "Spara flytt" })).not.toBeInTheDocument();
   });
 
+  it("does not move a plant when layout changes between pointer down and pointer up without pointer movement", () => {
+    render(
+      <GardenMap
+        gardenState={gardenState}
+        plantFilters={defaultPlantFilters}
+        visiblePlantIds={new Set(["plant-1"])}
+        onAddBed={vi.fn()}
+        onAddPlant={vi.fn()}
+        onAddZone={vi.fn()}
+        onUpdateBed={vi.fn()}
+        onUpdatePlant={vi.fn()}
+        onUpdateZone={vi.fn()}
+        onSelectionChange={vi.fn()}
+        selection={{ type: "plant", id: "plant-1" }}
+      />,
+    );
+
+    const svg = screen.getByRole("img");
+    const firstRect = {
+      left: 0,
+      top: 0,
+      width: 1000,
+      height: 568.2,
+      bottom: 568.2,
+      right: 1000,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    } as DOMRect;
+    const shiftedRect = {
+      ...firstRect,
+      top: -100,
+      bottom: 468.2,
+      y: -100,
+    } as DOMRect;
+    const rectSpy = vi.spyOn(svg, "getBoundingClientRect");
+    rectSpy.mockReturnValueOnce(firstRect).mockReturnValue(shiftedRect);
+
+    const plantNode = svg.querySelector(".plant-circle") as SVGCircleElement;
+    fireEvent.pointerDown(plantNode, { clientX: 100, clientY: 100, pointerId: 1 });
+    fireEvent.pointerUp(svg, { clientX: 100, clientY: 100, pointerId: 1 });
+
+    expect(screen.queryByRole("button", { name: "Spara flytt" })).not.toBeInTheDocument();
+    expect(plantNode.getAttribute("cx")).toBe("10");
+    expect(plantNode.getAttribute("cy")).toBe("10");
+  });
+
   it("keeps a dragged plant at the release point until the move is saved", () => {
     const onUpdatePlant = vi.fn();
     const onSelectionChange = vi.fn();
