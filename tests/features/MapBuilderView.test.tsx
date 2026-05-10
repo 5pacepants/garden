@@ -62,6 +62,15 @@ describe("MapBuilderView", () => {
     expect(lawnShape.compareDocumentPosition(firstPlotVertex) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
+  it("keeps every edge hit area below every vertex handle", () => {
+    const { container } = render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
+
+    const lastEdge = Array.from(container.querySelectorAll(".map-builder-edge-hit")).at(-1)!;
+    const firstVertex = container.querySelector(".map-builder-vertex")!;
+
+    expect(lastEdge.compareDocumentPosition(firstVertex) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it("moves existing vertices and whole objects by dragging", async () => {
     const user = userEvent.setup();
     const { container } = render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);

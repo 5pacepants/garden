@@ -118,30 +118,36 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
   }
 
   function renderElementControls(element: GardenMapElement) {
-    return element.points.map((point, index) => {
-      const next = element.points[(index + 1) % element.points.length];
-      const midpoint = { x: (point.x + next.x) / 2, y: (point.y + next.y) / 2 };
+    return (
+      <>
+        {element.points.map((point, index) => {
+          const next = element.points[(index + 1) % element.points.length];
+          const midpoint = { x: (point.x + next.x) / 2, y: (point.y + next.y) / 2 };
 
-      return (
-        <g key={`${element.id}-${index}`}>
-          <line
-            aria-label={`Lägg till punkt efter ${index + 1} för ${element.name}`}
-            className="map-builder-edge-hit"
-            onDoubleClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-              insertPoint(element.id, index, pointFromPointer(event, midpoint));
-            }}
-            x1={point.x}
-            x2={next.x}
-            y1={point.y}
-            y2={next.y}
-          />
+          return (
+            <line
+              aria-label={`Lägg till punkt efter ${index + 1} för ${element.name}`}
+              className="map-builder-edge-hit"
+              key={`${element.id}-edge-${index}`}
+              onDoubleClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                insertPoint(element.id, index, pointFromPointer(event, midpoint));
+              }}
+              x1={point.x}
+              x2={next.x}
+              y1={point.y}
+              y2={next.y}
+            />
+          );
+        })}
+        {element.points.map((point, index) => (
           <circle
             aria-label={`Punkt ${index + 1} för ${element.name}`}
             className="map-builder-vertex"
             cx={point.x}
             cy={point.y}
+            key={`${element.id}-vertex-${index}`}
             onPointerDown={(event) => {
               event.preventDefault();
               event.stopPropagation();
@@ -154,9 +160,9 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
             }}
             r="1.1"
           />
-        </g>
-      );
-    });
+        ))}
+      </>
+    );
   }
 
   return (
