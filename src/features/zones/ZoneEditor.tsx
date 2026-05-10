@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import type { LightCondition, MoistureCondition, Zone } from "../../domain/models";
-import { lightConditionLabel, moistureConditionLabel } from "../../domain/labels";
+import type { LightCondition, MoistureCondition, SoilTrait, Zone } from "../../domain/models";
+import { lightConditionLabel, moistureConditionLabel, soilTraitLabel } from "../../domain/labels";
 
 type ZoneEditorProps = {
   zone: Zone;
@@ -9,6 +9,7 @@ type ZoneEditorProps = {
 
 const lightOptions: Array<LightCondition | ""> = ["", "sun", "half_sun", "part_shade", "shade"];
 const moistureOptions: Array<MoistureCondition | ""> = ["", "dry", "normal", "moist"];
+const soilOptions: SoilTrait[] = ["clay", "sandy", "well_drained", "humus_rich"];
 
 export function ZoneEditor({ zone, onSave }: ZoneEditorProps) {
   const [draft, setDraft] = useState(zone);
@@ -37,7 +38,7 @@ export function ZoneEditor({ zone, onSave }: ZoneEditorProps) {
         </select>
       </label>
       <label>
-        Fukt
+        Platsens fuktläge
         <select
           value={draft.moisture ?? ""}
           onChange={(event) =>
@@ -51,6 +52,21 @@ export function ZoneEditor({ zone, onSave }: ZoneEditorProps) {
           ))}
         </select>
       </label>
+      <fieldset className="editor-fieldset">
+        <legend>Jorddata i zonen</legend>
+        <div className="checkbox-grid">
+          {soilOptions.map((trait) => (
+            <label className="checkbox-option" key={trait}>
+              <input
+                checked={draft.soilTraits?.includes(trait) ?? false}
+                onChange={() => setDraft((current) => ({ ...current, soilTraits: toggleSoilTrait(current.soilTraits ?? [], trait) }))}
+                type="checkbox"
+              />
+              {soilTraitLabel(trait)}
+            </label>
+          ))}
+        </div>
+      </fieldset>
       <div className="editor-actions">
         <button onClick={() => onSave(draft)} type="button">Spara</button>
         <button className="secondary" onClick={() => setDraft(zone)} type="button">Avbryt</button>
@@ -62,5 +78,9 @@ export function ZoneEditor({ zone, onSave }: ZoneEditorProps) {
 
 function emptyToUndefined(value: string): string | undefined {
   return value === "" ? undefined : value;
+}
+
+function toggleSoilTrait(values: SoilTrait[], value: SoilTrait): SoilTrait[] {
+  return values.includes(value) ? values.filter((item) => item !== value) : [...values, value];
 }
 

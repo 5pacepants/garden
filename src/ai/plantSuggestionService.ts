@@ -1,7 +1,9 @@
-import type { PlantSuggestion } from "./plantSuggestionSchema";
+import type { PlantRecommendation, PlantSuggestion } from "./plantSuggestionSchema";
 
 export interface PlantSuggestionService {
   suggestPlant(input: { name: string }): Promise<PlantSuggestion>;
+  suggestPlantNames?(input: { query: string }): Promise<string[]>;
+  recommendPlants?(input: { context: string }): Promise<PlantRecommendation[]>;
 }
 
 export class MockPlantSuggestionService implements PlantSuggestionService {
@@ -19,7 +21,7 @@ export class MockPlantSuggestionService implements PlantSuggestionService {
       heightCm: 80,
       widthCm: 45,
       tags: ["pollinator-friendly"],
-      notes: "AI-förslag: granska och justera innan du litar på rådet.",
+      plantInfo: "AI-förslag: granska och justera innan du litar på rådet.",
       careSchedule: [
         {
           actionType: "prune",
@@ -31,6 +33,30 @@ export class MockPlantSuggestionService implements PlantSuggestionService {
         },
       ],
     };
+  }
+
+  async suggestPlantNames(input: { query: string }): Promise<string[]> {
+    if (!input.query.trim()) {
+      return [];
+    }
+
+    return ["Lavendel", "Stäppsalvia", "Röd solhatt"].filter((name) =>
+      name.toLowerCase().includes(input.query.toLowerCase()),
+    );
+  }
+
+  async recommendPlants(): Promise<PlantRecommendation[]> {
+    return [
+      {
+        swedishName: "Stäppsalvia",
+        latinName: "Salvia nemorosa",
+        reason: "Passar i soligt läge och lockar pollinatörer.",
+        type: "perennial",
+        light: ["sun"],
+        moisture: ["normal", "dry"],
+        tags: ["pollinator-friendly"],
+      },
+    ];
   }
 }
 

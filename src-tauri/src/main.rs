@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    garden_scaffold_lib::run()
+    min_tradgard_lib::run()
 }

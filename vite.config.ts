@@ -1,12 +1,17 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
+import { loadEnv, type Plugin } from "vite";
+import { handleAiRequest } from "./src/ai/openAiServer";
 
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
-export default defineConfig(async () => ({
-  plugins: [react()],
+export default defineConfig(async ({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "");
+
+  return {
+  plugins: [react(), localAiPlugin(env.OPENAI_API_KEY, env.OPENAI_MODEL)],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
@@ -35,4 +40,33 @@ export default defineConfig(async () => ({
     passWithNoTests: true,
     setupFiles: "./src/test/setup.ts",
   },
-}));
+};
+});
+
+function localAiPlugin(apiKey: string | undefined, model: string | undefined): Plugin {
+  return {
+    name: "local-ai-api",
+    configureServer(server) {
+      server.middlewares.use("/api/ai", async (request, response) => {
+        try {
+          await handleAiRequest(request, response, apiKey, model);
+        } catch (error) {
+          response.statusCode = 500;
+          response.setHeader("Content-Type", "application/json");
+          response.end(JSON.stringify({ error: error instanceof Error ? error.message : "AI-anropet misslyckades." }));
+        }
+      });
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use("/api/ai", async (request, response) => {
+        try {
+          await handleAiRequest(request, response, apiKey, model);
+        } catch (error) {
+          response.statusCode = 500;
+          response.setHeader("Content-Type", "application/json");
+          response.end(JSON.stringify({ error: error instanceof Error ? error.message : "AI-anropet misslyckades." }));
+        }
+      });
+    },
+  };
+}

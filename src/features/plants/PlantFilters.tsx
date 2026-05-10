@@ -5,7 +5,7 @@ export type PlantFilterState = {
   status: "all" | PlantStatus;
   type: "all" | PlantType;
   floweringMonth: "all" | number;
-  tag: "all" | "edible" | "pollinator-friendly" | "evergreen";
+  tag: "all" | "edible" | "pollinator-friendly" | "evergreen" | "fragrant";
   light: "all" | LightCondition;
   moisture: "all" | MoistureCondition;
   taskThisWeek: boolean;
@@ -30,7 +30,8 @@ const statuses: Array<"all" | PlantStatus> = ["all", "existing", "planned", "wis
 const types: Array<"all" | PlantType> = ["all", "perennial", "shrub", "tree", "vegetable", "herb", "bulb", "grass", "other"];
 const lightOptions: Array<"all" | LightCondition> = ["all", "sun", "half_sun", "part_shade", "shade"];
 const moistureOptions: Array<"all" | MoistureCondition> = ["all", "dry", "normal", "moist"];
-const tagOptions: PlantFilterState["tag"][] = ["all", "edible", "pollinator-friendly", "evergreen"];
+const tagOptions: PlantFilterState["tag"][] = ["all", "edible", "pollinator-friendly", "evergreen", "fragrant"];
+const months = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
 
 export function PlantFilters({ value, onChange }: PlantFiltersProps) {
   return (
@@ -59,9 +60,9 @@ export function PlantFilters({ value, onChange }: PlantFiltersProps) {
         }
       >
         <option value="all">Alla blomningstider</option>
-        {Array.from({ length: 12 }, (_, index) => index + 1).map((month) => (
-          <option key={month} value={month}>
-            Månad {month}
+        {months.map((month, index) => (
+          <option key={month} value={index + 1}>
+            {month}
           </option>
         ))}
       </select>

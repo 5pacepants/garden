@@ -55,6 +55,51 @@ describe("care schedule", () => {
     expect(tasks.map((task) => task.dueDate)).toEqual(["2026-06-01", "2026-06-08", "2026-06-15"]);
   });
 
+  it("creates recurring weekly tasks only in the selected months", () => {
+    const plant = plantWithRules([
+      rule({
+        id: "rule_summer_water",
+        actionType: "water",
+        timing: { type: "recurring", unit: "week", interval: 1, months: [6, 7, 8] },
+        instructions: "Vattna varje vecka under sommaren.",
+      }),
+    ]);
+
+    const tasks = generateTasksFromCareSchedule(plant, new Date("2026-05-25"), new Date("2026-09-07"));
+
+    expect(tasks.map((task) => task.dueDate)).toEqual([
+      "2026-06-01",
+      "2026-06-08",
+      "2026-06-15",
+      "2026-06-22",
+      "2026-06-29",
+      "2026-07-06",
+      "2026-07-13",
+      "2026-07-20",
+      "2026-07-27",
+      "2026-08-03",
+      "2026-08-10",
+      "2026-08-17",
+      "2026-08-24",
+      "2026-08-31",
+    ]);
+  });
+
+  it("creates custom recurring tasks using the selected interval", () => {
+    const plant = plantWithRules([
+      rule({
+        id: "rule_custom_feed",
+        actionType: "fertilize",
+        timing: { type: "recurring", unit: "week", interval: 3, months: [5, 6] },
+        instructions: "GÃ¶dsla var tredje vecka.",
+      }),
+    ]);
+
+    const tasks = generateTasksFromCareSchedule(plant, new Date("2026-05-01"), new Date("2026-06-30"));
+
+    expect(tasks.map((task) => task.dueDate)).toEqual(["2026-05-01", "2026-05-22", "2026-06-12"]);
+  });
+
   it("does not create automatic dated tasks for conditional rules", () => {
     const plant = plantWithRules([
       rule({

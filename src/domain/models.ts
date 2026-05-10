@@ -38,6 +38,7 @@ export type Bed = {
   name: string;
   polygon: Polygon;
   notes?: string;
+  soilTraits?: SoilTrait[];
 };
 
 export type Zone = {
@@ -90,6 +91,8 @@ export type CareActionType =
   | "inspect"
   | "custom";
 
+export type CareIntervalUnit = "day" | "week" | "month" | "year";
+
 export type CareTiming =
   | {
       type: "date";
@@ -110,6 +113,12 @@ export type CareTiming =
       startMonth: number;
       endMonth: number;
       intervalWeeks: number;
+    }
+  | {
+      type: "recurring";
+      unit: CareIntervalUnit;
+      interval: number;
+      months: number[];
     }
   | {
       type: "relative";
@@ -143,10 +152,12 @@ export type Plant = {
   placement: PlantPlacement;
   needs: PlantNeeds;
   floweringMonths?: number[];
+  harvestMonths?: number[];
   pruningMonths?: number[];
   size?: PlantSize;
   mapRadius?: number;
   tags: string[];
+  plantInfo?: string;
   notes?: string;
   purchaseInfo?: PurchaseInfo;
   careSchedule: CareScheduleRule[];

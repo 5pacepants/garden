@@ -155,6 +155,81 @@ button {
   padding: 7px 10px;
 }
 
+.weather-panel {
+  background: #fbfbf6;
+  border: 1px solid #d9dfd1;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+}
+
+.weather-heading {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.weather-heading h2 {
+  font-size: 17px;
+  margin: 0;
+}
+
+.weather-snapshot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.weather-snapshot span {
+  background: #eef4e8;
+  border: 1px solid #d1dcc8;
+  border-radius: 999px;
+  color: #314036;
+  font-size: 13px;
+  padding: 7px 10px;
+}
+
+.weather-warning-list {
+  display: grid;
+  gap: 8px;
+}
+
+.weather-warning {
+  background: #fff;
+  border: 1px solid #d9dfd1;
+  border-left-width: 4px;
+  border-radius: 8px;
+  display: grid;
+  gap: 3px;
+  padding: 9px 10px;
+}
+
+.weather-warning.high {
+  border-left-color: #9b2c2c;
+}
+
+.weather-warning.medium {
+  border-left-color: #c77822;
+}
+
+.weather-warning.low {
+  border-left-color: #4777a6;
+}
+
+.weather-warning strong {
+  color: #203229;
+  font-size: 13px;
+}
+
+.weather-warning span {
+  color: #526052;
+  font-size: 13px;
+}
+
 .map-panel {
   background: #f7f7ef;
   border: 1px solid #d5dccd;
@@ -559,6 +634,80 @@ button {
   padding-left: 18px;
 }
 
+.plant-summary {
+  border-top: 1px solid #d9dfd1;
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+  padding-top: 18px;
+}
+
+.plant-summary-header {
+  align-items: start;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.plant-summary-header h3 {
+  color: #203229;
+  font-size: 18px;
+  margin: 0;
+}
+
+.plant-summary-header p {
+  margin-top: 4px;
+}
+
+.plant-summary-header button {
+  background: #406b4f;
+  border: 1px solid #406b4f;
+  border-radius: 6px;
+  color: #fff;
+  padding: 8px 10px;
+}
+
+.plant-chip-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.plant-info-chip {
+  background: #f8f8f3;
+  border: 1px solid #d9dfd1;
+  border-radius: 6px;
+  display: grid;
+  gap: 3px;
+  padding: 9px;
+}
+
+.plant-info-chip span {
+  color: #667366;
+  font-size: 12px;
+}
+
+.plant-info-chip strong {
+  color: #203229;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ai-suggestion-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ai-suggestion-list button,
+.care-schedule-card button {
+  background: #f8f8f3;
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  color: #314036;
+  padding: 6px 8px;
+}
+
 .editor-form {
   border-top: 1px solid #d9dfd1;
   display: grid;
@@ -588,6 +737,45 @@ button {
 .editor-form textarea {
   min-height: 84px;
   resize: vertical;
+}
+
+.editor-fieldset {
+  border: 1px solid #d9dfd1;
+  border-radius: 6px;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 10px;
+}
+
+.editor-fieldset legend {
+  color: #405043;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0 4px;
+}
+
+.checkbox-grid {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.month-checkbox-grid {
+  grid-auto-flow: column;
+  grid-template-rows: repeat(6, auto);
+}
+
+.editor-form label.checkbox-option {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  font-weight: 600;
+  gap: 7px;
+}
+
+.checkbox-option input {
+  margin: 0;
 }
 
 .editor-actions {
@@ -651,9 +839,39 @@ button {
   padding: 5px 7px;
 }
 
+.care-schedule-card {
+  background: #f8f8f3;
+  border: 1px solid #d9dfd1;
+  border-radius: 6px;
+  display: grid;
+  gap: 4px;
+  padding: 9px;
+}
+
+.care-schedule-card strong,
+.care-schedule-row strong {
+  color: #203229;
+  font-size: 13px;
+}
+
+.care-schedule-card span {
+  color: #667366;
+  font-size: 12px;
+}
+
+.care-schedule-card p {
+  margin: 0;
+}
+
 .care-schedule-form {
   display: grid;
   gap: 8px;
+}
+
+.interval-row {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
 }
 
 .care-schedule-form input,

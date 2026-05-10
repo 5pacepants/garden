@@ -6,6 +6,10 @@ import { exportGardenState, importGardenState } from "./importExport";
 export class LocalStorageGardenRepository implements GardenRepository {
   constructor(private readonly storageKey = "private-garden-state") {}
 
+  hasStoredState(): boolean {
+    return localStorage.getItem(this.storageKey) !== null;
+  }
+
   async load(): Promise<GardenState> {
     const stored = localStorage.getItem(this.storageKey);
 

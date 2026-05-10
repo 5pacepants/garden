@@ -24,6 +24,10 @@ export function isCareRuleDue(rule: CareScheduleRule, date: Date): boolean {
     return isMonthInRange(month, rule.timing.startMonth, rule.timing.endMonth);
   }
 
+  if (rule.timing.type === "recurring") {
+    return isSelectedMonth(month, rule.timing.months);
+  }
+
   return false;
 }
 
@@ -58,7 +62,11 @@ function generateTasksForRule(plant: Plant, rule: CareScheduleRule, fromDate: Da
     return isDateInRange(dueDate, fromDate, toDate) ? [createTask(plant, rule, dueDate)] : [];
   }
 
-  return generateWeeklyTasks(plant, rule, fromDate, toDate);
+  if (rule.timing.type === "weekly") {
+    return generateWeeklyTasks(plant, rule, fromDate, toDate);
+  }
+
+  return generateRecurringTasks(plant, rule, fromDate, toDate);
 }
 
 function generateWeeklyTasks(plant: Plant, rule: CareScheduleRule, fromDate: Date, toDate: Date): Task[] {
@@ -81,6 +89,50 @@ function generateWeeklyTasks(plant: Plant, rule: CareScheduleRule, fromDate: Dat
   }
 
   return tasks;
+}
+
+function generateRecurringTasks(plant: Plant, rule: CareScheduleRule, fromDate: Date, toDate: Date): Task[] {
+  if (rule.timing.type !== "recurring") {
+    return [];
+  }
+
+  if (rule.timing.unit === "month" || rule.timing.unit === "year") {
+    return generateCalendarRecurringTasks(plant, rule, fromDate, toDate);
+  }
+
+  const tasks: Task[] = [];
+  const cursor = new Date(fromDate);
+
+  while (cursor <= toDate) {
+    if (isSelectedMonth(cursor.getMonth() + 1, rule.timing.months)) {
+      tasks.push(createTask(plant, rule, cursor));
+    }
+
+    cursor.setDate(cursor.getDate() + getIntervalDays(rule.timing.unit, rule.timing.interval));
+  }
+
+  return tasks;
+}
+
+function generateCalendarRecurringTasks(plant: Plant, rule: CareScheduleRule, fromDate: Date, toDate: Date): Task[] {
+  if (rule.timing.type !== "recurring") {
+    return [];
+  }
+
+  const tasks: Task[] = [];
+  const selectedMonths = rule.timing.months.length > 0 ? rule.timing.months : Array.from({ length: 12 }, (_, index) => index + 1);
+  const yearInterval = rule.timing.unit === "year" ? rule.timing.interval : 1;
+
+  for (let year = fromDate.getFullYear(); year <= toDate.getFullYear(); year += yearInterval) {
+    selectedMonths.forEach((month) => {
+      const dueDate = new Date(year, month - 1, 1);
+      if (isDateInRange(dueDate, fromDate, toDate) && shouldIncludeCalendarMonth(rule, month)) {
+        tasks.push(createTask(plant, rule, dueDate));
+      }
+    });
+  }
+
+  return tasks.sort((first, second) => (first.dueDate ?? "").localeCompare(second.dueDate ?? ""));
 }
 
 function createTask(plant: Plant, rule: CareScheduleRule, dueDate: Date): Task {
@@ -111,6 +163,24 @@ function isMonthInRange(month: number, startMonth: number, endMonth: number): bo
   }
 
   return month >= startMonth || month <= endMonth;
+}
+
+function isSelectedMonth(month: number, selectedMonths: number[]): boolean {
+  return selectedMonths.length === 0 || selectedMonths.includes(month);
+}
+
+function getIntervalDays(unit: "day" | "week", interval: number): number {
+  const normalizedInterval = Math.max(1, Math.round(interval));
+  return unit === "day" ? normalizedInterval : normalizedInterval * 7;
+}
+
+function shouldIncludeCalendarMonth(rule: CareScheduleRule, month: number): boolean {
+  if (rule.timing.type !== "recurring" || rule.timing.unit !== "month") {
+    return true;
+  }
+
+  const firstSelectedMonth = rule.timing.months.length > 0 ? Math.min(...rule.timing.months) : 1;
+  return (month - firstSelectedMonth) % Math.max(1, rule.timing.interval) === 0;
 }
 
 function formatDate(date: Date): string {

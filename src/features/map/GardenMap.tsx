@@ -78,6 +78,7 @@ export function GardenMap({
   const [dragDraft, setDragDraft] = useState<DragDraft | null>(null);
   const [polygonVertexEdit, setPolygonVertexEdit] = useState<PolygonVertexEdit | null>(null);
   const dragMovedRef = useRef(false);
+  const isPointerDraggingRef = useRef(false);
   const vertexMovedRef = useRef(false);
 
   const displayBeds = useMemo(
@@ -122,14 +123,15 @@ export function GardenMap({
     setDraftPolygon([]);
     setDragDraft(null);
     setPolygonVertexEdit(null);
+    isPointerDraggingRef.current = false;
   }
 
   function handleCanvasClick(event: MouseEvent<SVGSVGElement>) {
+    const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.getBoundingClientRect());
+
     if (dragDraft?.hasMoved) {
       return;
     }
-
-    const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.getBoundingClientRect());
 
     if (mode === "addPlant") {
       addPlantAtPoint(point);
@@ -204,8 +206,9 @@ export function GardenMap({
 
     event.preventDefault();
     event.stopPropagation();
-    event.currentTarget.setPointerCapture(event.pointerId);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
     dragMovedRef.current = false;
+    isPointerDraggingRef.current = true;
     setDragDraft(nextDraft);
     onSelectionChange({ type: nextDraft.type, id: nextDraft.id });
   }
@@ -222,12 +225,18 @@ export function GardenMap({
       return;
     }
 
-    if (!dragDraft || mode !== "select") {
+    if (!dragDraft || mode !== "select" || !isPointerDraggingRef.current) {
       return;
     }
 
     const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.getBoundingClientRect());
     const delta = { x: point.x - dragDraft.startPoint.x, y: point.y - dragDraft.startPoint.y };
+    if (event.buttons === 0) {
+      isPointerDraggingRef.current = false;
+      finishDragDraftAtPoint(dragDraft, point, delta);
+      return;
+    }
+
     const hasMoved = dragDraft.hasMoved || Math.abs(delta.x) > dragThreshold || Math.abs(delta.y) > dragThreshold;
     if (hasMoved) {
       dragMovedRef.current = true;
@@ -258,18 +267,40 @@ export function GardenMap({
     });
   }
 
-  function endDrag() {
+  function endDrag(event: PointerEvent<SVGSVGElement>) {
     if (polygonVertexEdit?.activeIndex !== null && polygonVertexEdit?.activeIndex !== undefined) {
-      setPolygonVertexEdit((current) => (current ? { ...current, activeIndex: null, hasMoved: current.hasMoved || vertexMovedRef.current } : current));
+      const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.getBoundingClientRect());
+      setPolygonVertexEdit((current) => {
+        if (!current || current.activeIndex === null) return current;
+        const polygon = updatePolygonVertex(current.draft.polygon, current.activeIndex, point);
+        return { ...current, draft: { ...current.draft, polygon }, activeIndex: null, hasMoved: true };
+      });
       return;
     }
 
-    if (dragDraft && !dragMovedRef.current) {
-      setDragDraft(null);
+    if (!dragDraft) {
+      return;
     }
+
+    isPointerDraggingRef.current = false;
+    const point = screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, event.currentTarget.getBoundingClientRect());
+    const delta = { x: point.x - dragDraft.startPoint.x, y: point.y - dragDraft.startPoint.y };
+    finishDragDraftAtPoint(dragDraft, point, delta);
+  }
+
+  function finishDragDraftAtPoint(currentDraft: DragDraft, point: Point, delta: Point) {
+    const hasMoved = currentDraft.hasMoved || dragMovedRef.current || Math.abs(delta.x) > dragThreshold || Math.abs(delta.y) > dragThreshold;
+
+    if (!hasMoved) {
+      setDragDraft(null);
+      return;
+    }
+
+    setDragDraft(createDragDraftAtPoint(currentDraft, point, delta, gardenState.beds));
   }
 
   function saveMove() {
+    isPointerDraggingRef.current = false;
     if (polygonVertexEdit?.hasMoved) {
       if (polygonVertexEdit.type === "bed") {
         onUpdateBed(polygonVertexEdit.draft);
@@ -296,6 +327,7 @@ export function GardenMap({
   }
 
   function handleAdapt() {
+    isPointerDraggingRef.current = false;
     if (selection?.type === "bed") {
       const bed = gardenState.beds.find((item) => item.id === selection.id);
       if (bed) {
@@ -333,6 +365,7 @@ export function GardenMap({
         onSaveMove={saveMove}
         onToggleLayer={toggleLayer}
         onUndoMove={() => {
+          isPointerDraggingRef.current = false;
           setDragDraft(null);
           setPolygonVertexEdit(null);
         }}
@@ -407,7 +440,7 @@ export function GardenMap({
                   onPointerDown={(event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    event.currentTarget.setPointerCapture(event.pointerId);
+                    event.currentTarget.setPointerCapture?.(event.pointerId);
                     vertexMovedRef.current = false;
                     setPolygonVertexEdit((current) => (current ? { ...current, activeIndex: index } : current));
                   }}
@@ -466,6 +499,30 @@ function isPlantLayerVisible(plant: Plant, layers: LayerVisibility): boolean {
   }
 
   return layers[plant.status];
+}
+
+function createDragDraftAtPoint(dragDraft: DragDraft, point: Point, delta: Point, beds: Bed[]): DragDraft {
+  if (dragDraft.type === "plant") {
+    return {
+      ...dragDraft,
+      draft: movePlantToPoint(dragDraft.original, point, beds),
+      hasMoved: true,
+    };
+  }
+
+  if (dragDraft.type === "bed") {
+    return {
+      ...dragDraft,
+      draft: moveBedToDelta(dragDraft.original, delta),
+      hasMoved: true,
+    };
+  }
+
+  return {
+    ...dragDraft,
+    draft: moveZoneToDelta(dragDraft.original, delta),
+    hasMoved: true,
+  };
 }
 
 function getPlantWorldPosition(plant: Plant, gardenState: GardenState): Point {

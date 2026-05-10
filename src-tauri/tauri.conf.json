@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "garden-scaffold",
+  "productName": "Min Trädgård",
   "version": "0.1.0",
   "identifier": "se.private.garden",
   "build": {
@@ -12,9 +12,11 @@
   "app": {
     "windows": [
       {
-        "title": "garden-scaffold",
-        "width": 800,
-        "height": 600
+        "title": "Min Trädgård",
+        "width": 1280,
+        "height": 860,
+        "minWidth": 1024,
+        "minHeight": 720
       }
     ],
     "security": {
@@ -23,7 +25,7 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["nsis"],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",

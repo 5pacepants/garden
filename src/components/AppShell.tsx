@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { Bed, GardenState, Plant, Task, Zone } from "../domain/models";
 import type { MapSelection } from "../features/map/mapSelection";
 import type { PlantSuggestionService } from "../ai/plantSuggestionService";
+import { WeatherPanel } from "../features/weather/WeatherPanel";
 import { DetailPanel } from "./DetailPanel";
 import { NotificationCenter } from "./NotificationCenter";
 import { Sidebar, type AppView } from "./Sidebar";
@@ -38,6 +39,7 @@ export function AppShell({
       <Sidebar activeView={activeView} onViewChange={onViewChange} />
       <main className="workspace">
         <NotificationCenter tasks={tasks} />
+        <WeatherPanel />
         {children}
       </main>
       <DetailPanel

@@ -67,7 +67,7 @@ function getEditor(
 
   if (selection.type === "plant") {
     const plant = gardenState.plants.find((item) => item.id === selection.id);
-    return plant ? <PlantCard plant={plant} suggestionService={suggestionService} onSave={onSavePlant} /> : null;
+    return plant ? <PlantCard gardenState={gardenState} plant={plant} suggestionService={suggestionService} onSave={onSavePlant} /> : null;
   }
 
   if (selection.type === "bed") {

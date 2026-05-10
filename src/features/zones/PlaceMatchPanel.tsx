@@ -1,6 +1,6 @@
 import { findZonesAtPoint, relativeToWorldPoint } from "../../domain/geometry";
 import { placeMatchStateLabel } from "../../domain/labels";
-import { getPlacementWarning, rankPlantsForConditions } from "../../domain/placeMatching";
+import { getPlacementWarning, matchPlantToConditions, rankPlantsForConditions } from "../../domain/placeMatching";
 import type { GardenState, Plant, Point, Zone } from "../../domain/models";
 import type { MapSelection } from "../map/mapSelection";
 
@@ -17,8 +17,15 @@ export function PlaceMatchPanel({ gardenState, selection }: PlaceMatchPanelProps
   if (selection.type === "plant") {
     const plant = gardenState.plants.find((item) => item.id === selection.id);
     if (!plant) return null;
-    const zones = findZonesAtPoint(getPlantWorldPosition(plant, gardenState), gardenState.zones);
-    const match = getPlacementWarning(plant, zones);
+    const point = getPlantWorldPosition(plant, gardenState);
+    const zones = findZonesAtPoint(point, gardenState.zones);
+    const bed = getPlantBed(plant, gardenState);
+    const match = bed?.soilTraits?.length
+      ? matchPlantToConditions(plant.needs, {
+          ...zoneToConditionsFromList(zones),
+          soilTraits: [...new Set([...(zoneToConditionsFromList(zones).soilTraits ?? []), ...bed.soilTraits])],
+        })
+      : getPlacementWarning(plant, zones);
     return (
       <div className={`place-match ${match.state}`}>
         <strong>{placeMatchStateLabel(match.state)}</strong>
@@ -64,4 +71,21 @@ function zoneToConditions(zone: Zone) {
     moisture: zone.moisture,
     soilTraits: zone.soilTraits,
   };
+}
+
+function zoneToConditionsFromList(zones: Zone[]) {
+  return {
+    light: zones.find((zone) => zone.light)?.light,
+    moisture: zones.find((zone) => zone.moisture)?.moisture,
+    soilTraits: [...new Set(zones.flatMap((zone) => zone.soilTraits ?? []))],
+  };
+}
+
+function getPlantBed(plant: Plant, gardenState: GardenState) {
+  const placement = plant.placement;
+  if (placement.type !== "bed") {
+    return undefined;
+  }
+
+  return gardenState.beds.find((bed) => bed.id === placement.bedId);
 }

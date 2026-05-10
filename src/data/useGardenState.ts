@@ -3,7 +3,9 @@ import { deleteBed, deletePlant, deleteZone, savePlantAndSyncCareTasks } from ".
 import type { Bed, GardenState, HistoryEvent, Photo, Plant, Task, Zone } from "../domain/models";
 import { createPlantingHistoryEventIfNeeded } from "../domain/plantHistory";
 import type { GardenRepository } from "./gardenRepository";
+import { DriveSyncGardenRepository, type DriveSyncStorage } from "./driveSyncGardenRepository";
 import { LocalStorageGardenRepository } from "./localStorageGardenRepository";
+import { TauriDriveSyncStorage } from "./tauriDriveSyncStorage";
 
 type GardenActionResult = {
   gardenState: GardenState | null;
@@ -27,7 +29,7 @@ type GardenActionResult = {
   replaceState: (state: GardenState) => void;
 };
 
-const defaultRepository = new LocalStorageGardenRepository();
+const defaultRepository = new DriveSyncGardenRepository(new LocalStorageGardenRepository(), createDefaultDriveSyncStorage());
 
 export function useGardenState(repository: GardenRepository = defaultRepository): GardenActionResult {
   const [gardenState, setGardenState] = useState<GardenState | null>(null);
@@ -145,5 +147,20 @@ export function useGardenState(repository: GardenRepository = defaultRepository)
     }),
     [error, gardenState, isLoading, updateState],
   );
+}
+
+function createDefaultDriveSyncStorage(): DriveSyncStorage {
+  if (typeof window !== "undefined" && "__TAURI_INTERNALS__" in window) {
+    return new TauriDriveSyncStorage();
+  }
+
+  return {
+    async read() {
+      return null;
+    },
+    async write() {
+      return undefined;
+    },
+  };
 }
 

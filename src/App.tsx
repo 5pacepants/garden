@@ -12,14 +12,12 @@ import { HistoryTimeline } from "./features/history/HistoryTimeline";
 import { PhotoHistory } from "./features/history/PhotoHistory";
 import type { AppView } from "./components/Sidebar";
 import { MockPlantSuggestionService } from "./ai/plantSuggestionService";
-import { OpenAiPlantSuggestionService } from "./ai/openAiPlantSuggestionService";
+import { BrowserAiPlantSuggestionService } from "./ai/browserAiPlantSuggestionService";
 import { type AiSettings, SettingsView } from "./features/settings/SettingsView";
 import "./styles/app.css";
 
 const defaultAiSettings: AiSettings = {
-  enabled: false,
-  apiKey: "",
-  model: "gpt-4.1-mini",
+  enabled: true,
 };
 
 function App() {
@@ -57,8 +55,8 @@ function App() {
   const visiblePlantIds = useMemo(() => new Set(filteredPlants.map((plant) => plant.id)), [filteredPlants]);
   const suggestionService = useMemo(
     () =>
-      aiSettings.enabled && aiSettings.apiKey
-        ? new OpenAiPlantSuggestionService({ apiKey: aiSettings.apiKey, model: aiSettings.model })
+      aiSettings.enabled
+        ? new BrowserAiPlantSuggestionService()
         : new MockPlantSuggestionService(),
     [aiSettings],
   );
