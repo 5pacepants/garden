@@ -83,6 +83,16 @@ export function moveMapElementPoint(element: GardenMapElement, pointIndex: numbe
   };
 }
 
+export function moveMapElementByDelta(element: GardenMapElement, delta: Point): GardenMapElement {
+  return {
+    ...element,
+    points: element.points.map((point) => ({
+      x: clamp(point.x + delta.x),
+      y: clamp(point.y + delta.y, 56.82),
+    })),
+  };
+}
+
 export function insertMapElementPoint(element: GardenMapElement, edgeStartIndex: number, point: Point): GardenMapElement {
   const insertAfter = Math.max(0, Math.min(edgeStartIndex, element.points.length - 1));
   const nextPoint = {

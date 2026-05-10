@@ -3,6 +3,7 @@ import {
   createMapElement,
   createStarterMapLayout,
   insertMapElementPoint,
+  moveMapElementByDelta,
   moveMapElementPoint,
   renderGardenMapLayoutDataUrl,
   renderGardenMapLayoutSvg,
@@ -41,6 +42,20 @@ describe("map builder model", () => {
     expect(moved.points[1]).toEqual({ x: 100, y: 0 });
     expect(moved.points[0]).toBe(element.points[0]);
     expect(moved.points[2]).toBe(element.points[2]);
+  });
+
+  it("moves a whole element by dragging its shape", () => {
+    const element = createMapElement("lawn");
+    const moved = moveMapElementByDelta(element, { x: 3, y: -2 });
+
+    expect(moved.points[0]).toEqual({
+      x: element.points[0].x + 3,
+      y: element.points[0].y - 2,
+    });
+    expect(moved.points[1]).toEqual({
+      x: element.points[1].x + 3,
+      y: element.points[1].y - 2,
+    });
   });
 
   it("inserts a new point after a double-clicked edge, including the plot shape", () => {

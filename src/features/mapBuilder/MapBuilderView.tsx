@@ -7,6 +7,7 @@ import {
   createStarterMapLayout,
   getMapElementCenter,
   insertMapElementPoint,
+  moveMapElementByDelta,
   moveMapElementPoint,
   renderGardenMapLayoutDataUrl,
   updateMapElement,
@@ -21,8 +22,17 @@ type MapBuilderViewProps = {
 
 type DragState = {
   elementId: string;
-  pointIndex: number;
-};
+} & (
+  | {
+      type: "point";
+      pointIndex: number;
+    }
+  | {
+      type: "element";
+      startPoint: Point;
+      original: GardenMapElement;
+    }
+);
 
 const addableTypes: Array<{ type: GardenMapElementType; label: string }> = [
   { type: "house", label: "Lägg till hus" },
@@ -57,6 +67,28 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
       const element = current.elements.find((candidate) => candidate.id === elementId);
       return element ? updateMapElement(current, moveMapElementPoint(element, pointIndex, point)) : current;
     });
+  }
+
+  function moveElement(elementId: string, original: GardenMapElement, startPoint: Point, nextPoint: Point) {
+    const delta = {
+      x: nextPoint.x - startPoint.x,
+      y: nextPoint.y - startPoint.y,
+    };
+    setLayout((current) => updateMapElement(current, moveMapElementByDelta(original, delta)));
+    setSelectedId(elementId);
+  }
+
+  function moveDrag(event: MouseEvent<SVGElement> | PointerEvent<SVGElement>) {
+    const currentDrag = dragState.current;
+    if (!currentDrag) return;
+
+    const nextPoint = pointFromPointer(event);
+    if (currentDrag.type === "point") {
+      movePoint(currentDrag.elementId, currentDrag.pointIndex, nextPoint);
+      return;
+    }
+
+    moveElement(currentDrag.elementId, currentDrag.original, currentDrag.startPoint, nextPoint);
   }
 
   function insertPoint(elementId: string, edgeStartIndex: number, point: Point) {
@@ -121,10 +153,7 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
           <svg
             aria-label="Redigerbar kartbild"
             className="map-builder-svg"
-            onPointerMove={(event) => {
-              if (!dragState.current) return;
-              movePoint(dragState.current.elementId, dragState.current.pointIndex, pointFromPointer(event));
-            }}
+            onPointerMove={moveDrag}
             onPointerUp={() => {
               dragState.current = null;
             }}
@@ -145,6 +174,22 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
                     onClick={(event) => {
                       event.stopPropagation();
                       setSelectedId(element.id);
+                    }}
+                    onPointerDown={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      event.currentTarget.setPointerCapture?.(event.pointerId);
+                      setSelectedId(element.id);
+                      dragState.current = {
+                        elementId: element.id,
+                        original: element,
+                        startPoint: pointFromPointer(event),
+                        type: "element",
+                      };
+                    }}
+                    onPointerMove={moveDrag}
+                    onPointerUp={() => {
+                      dragState.current = null;
                     }}
                     points={polygonToSvgPoints(element.points)}
                   />
@@ -180,7 +225,11 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
                               event.preventDefault();
                               event.stopPropagation();
                               event.currentTarget.setPointerCapture?.(event.pointerId);
-                              dragState.current = { elementId: element.id, pointIndex: index };
+                              dragState.current = { elementId: element.id, pointIndex: index, type: "point" };
+                            }}
+                            onPointerMove={moveDrag}
+                            onPointerUp={() => {
+                              dragState.current = null;
                             }}
                             r="1.1"
                           />
