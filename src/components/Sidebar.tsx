@@ -1,7 +1,8 @@
-export type AppView = "map" | "plants" | "tasks" | "calendar" | "history" | "planning" | "settings";
+export type AppView = "map" | "mapBuilder" | "plants" | "tasks" | "calendar" | "history" | "planning" | "settings";
 
 const navigationItems: Array<{ id: AppView; label: string }> = [
   { id: "map", label: "Karta" },
+  { id: "mapBuilder", label: "Kartbyggare" },
   { id: "plants", label: "Växter" },
   { id: "tasks", label: "Uppgifter" },
   { id: "calendar", label: "Kalender" },

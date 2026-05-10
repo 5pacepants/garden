@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { AppShell } from "./components/AppShell";
 import { useGardenState } from "./data/useGardenState";
 import { GardenMap } from "./features/map/GardenMap";
+import { MapBuilderView } from "./features/mapBuilder/MapBuilderView";
 import type { MapSelection } from "./features/map/mapSelection";
 import { defaultPlantFilters, filterPlants, PlantFilters } from "./features/plants/PlantFilters";
 import { PlantList } from "./features/plants/PlantList";
@@ -112,6 +113,9 @@ function App() {
           onSelectionChange={setSelection}
           selection={selection}
         />
+      )}
+      {activeView === "mapBuilder" && (
+        <MapBuilderView gardenState={gardenState} onApplyGardenState={replaceState} />
       )}
       {activeView === "plants" && (
         <PlantList plants={filteredPlants} tasks={gardenState.tasks} onSelectPlant={(id) => setSelection({ type: "plant", id })} />

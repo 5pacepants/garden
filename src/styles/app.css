@@ -969,3 +969,65 @@ button {
   min-height: 220px;
   width: 100%;
 }
+
+.map-builder-layout {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 280px minmax(0, 1fr);
+}
+
+.map-builder-tools,
+.map-builder-editor {
+  display: grid;
+  gap: 10px;
+}
+
+.map-builder-actions,
+.map-builder-object-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.map-builder-actions button,
+.map-builder-object-list button {
+  background: #f8f8f3;
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  color: #314036;
+  padding: 7px 9px;
+}
+
+.map-builder-object-list button.active {
+  background: #dfe9d8;
+  border-color: #8ea37f;
+}
+
+.map-builder-editor label {
+  color: #405043;
+  display: grid;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 5px;
+}
+
+.map-builder-editor input {
+  background: #fff;
+  border: 1px solid #cbd5c4;
+  border-radius: 6px;
+  color: #203229;
+  padding: 7px 8px;
+}
+
+.map-builder-preview {
+  background: #eef0e5;
+  border: 1px solid #d5dccd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.map-builder-preview svg {
+  display: block;
+  height: auto;
+  width: 100%;
+}
