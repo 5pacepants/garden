@@ -53,6 +53,15 @@ describe("MapBuilderView", () => {
     expect(container.querySelectorAll(".map-builder-vertex")).toHaveLength(5);
   });
 
+  it("keeps plot handles above later map objects so they can be dragged", () => {
+    const { container } = render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
+
+    const lawnShape = container.querySelectorAll(".map-builder-element")[1];
+    const firstPlotVertex = container.querySelector(".map-builder-vertex")!;
+
+    expect(lawnShape.compareDocumentPosition(firstPlotVertex) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
   it("moves existing vertices and whole objects by dragging", async () => {
     const user = userEvent.setup();
     const { container } = render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);

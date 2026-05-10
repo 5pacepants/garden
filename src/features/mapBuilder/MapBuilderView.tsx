@@ -117,6 +117,48 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
     });
   }
 
+  function renderElementControls(element: GardenMapElement) {
+    return element.points.map((point, index) => {
+      const next = element.points[(index + 1) % element.points.length];
+      const midpoint = { x: (point.x + next.x) / 2, y: (point.y + next.y) / 2 };
+
+      return (
+        <g key={`${element.id}-${index}`}>
+          <line
+            aria-label={`Lägg till punkt efter ${index + 1} för ${element.name}`}
+            className="map-builder-edge-hit"
+            onDoubleClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              insertPoint(element.id, index, pointFromPointer(event, midpoint));
+            }}
+            x1={point.x}
+            x2={next.x}
+            y1={point.y}
+            y2={next.y}
+          />
+          <circle
+            aria-label={`Punkt ${index + 1} för ${element.name}`}
+            className="map-builder-vertex"
+            cx={point.x}
+            cy={point.y}
+            onPointerDown={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              event.currentTarget.setPointerCapture?.(event.pointerId);
+              dragState.current = { elementId: element.id, pointIndex: index, type: "point" };
+            }}
+            onPointerMove={moveDrag}
+            onPointerUp={() => {
+              dragState.current = null;
+            }}
+            r="1.1"
+          />
+        </g>
+      );
+    });
+  }
+
   return (
     <section className="map-builder content-panel">
       <div className="list-header">
@@ -196,49 +238,10 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
                   <text className="map-builder-label" x={center.x} y={center.y}>
                     {element.name}
                   </text>
-                  {isSelected &&
-                    element.points.map((point, index) => {
-                      const next = element.points[(index + 1) % element.points.length];
-                      const midpoint = { x: (point.x + next.x) / 2, y: (point.y + next.y) / 2 };
-
-                      return (
-                        <g key={`${element.id}-${index}`}>
-                          <line
-                            aria-label={`Lägg till punkt efter ${index + 1} för ${element.name}`}
-                            className="map-builder-edge-hit"
-                            onDoubleClick={(event) => {
-                              event.preventDefault();
-                              event.stopPropagation();
-                              insertPoint(element.id, index, pointFromPointer(event, midpoint));
-                            }}
-                            x1={point.x}
-                            x2={next.x}
-                            y1={point.y}
-                            y2={next.y}
-                          />
-                          <circle
-                            aria-label={`Punkt ${index + 1} för ${element.name}`}
-                            className="map-builder-vertex"
-                            cx={point.x}
-                            cy={point.y}
-                            onPointerDown={(event) => {
-                              event.preventDefault();
-                              event.stopPropagation();
-                              event.currentTarget.setPointerCapture?.(event.pointerId);
-                              dragState.current = { elementId: element.id, pointIndex: index, type: "point" };
-                            }}
-                            onPointerMove={moveDrag}
-                            onPointerUp={() => {
-                              dragState.current = null;
-                            }}
-                            r="1.1"
-                          />
-                        </g>
-                      );
-                    })}
                 </g>
               );
             })}
+            {selectedElement && <g className="map-builder-controls">{renderElementControls(selectedElement)}</g>}
           </svg>
         </div>
       </div>
