@@ -1,8 +1,12 @@
 // @vitest-environment node
 
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 vi.stubEnv("VITE_BASE_PATH", "/garden/");
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
 
 describe("vite base path", () => {
   it("uses VITE_BASE_PATH for GitHub Pages subpath builds", async () => {

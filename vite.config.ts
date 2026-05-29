@@ -13,7 +13,7 @@ export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
-  base,
+    base,
   plugins: [react(), localAiPlugin(env.OPENAI_API_KEY, env.OPENAI_MODEL)],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
