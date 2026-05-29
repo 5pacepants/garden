@@ -5,12 +5,15 @@ import { handleAiRequest } from "./src/ai/openAiServer";
 
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
+// @ts-expect-error process is a nodejs global
+const base = process.env.VITE_BASE_PATH || "/";
 
 // https://vite.dev/config/
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
   return {
+  base,
   plugins: [react(), localAiPlugin(env.OPENAI_API_KEY, env.OPENAI_MODEL)],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
