@@ -27,9 +27,12 @@ The app will be prepared for GitHub Pages hosting. The expected user flow is:
 The app should include the PWA basics:
 
 - Web app manifest with app name, short name, icons, display mode, theme color, and start URL.
+- App icons generated from a single source asset into at least `192x192` and `512x512` PNG files. A maskable icon should be included if practical.
 - Mobile-friendly meta tags.
-- Offline-capable static asset caching where practical.
-- Build configuration compatible with GitHub Pages path hosting.
+- Offline-capable app-shell caching after first load.
+- Build configuration compatible with GitHub Pages project hosting under a repository subpath.
+
+GitHub Pages path support is required. The Vite build must support a configurable base path, such as `/garden/`, so static assets, manifest URLs, service worker scope, and `start_url` work when the app is not hosted at the domain root.
 
 ## Data Model and Storage
 
@@ -38,6 +41,8 @@ The app remains personal and local-first. Each user's garden is saved automatica
 The existing export/import backup flow can remain, but it should be treated as an optional utility, not a primary onboarding or everyday feature. Backup UI should be moved below the main settings content or into an "Advanced" area so non-technical users are not confronted with JSON early.
 
 Known limitation: local browser data can be lost if the user clears website data, changes phone, or uses a different browser. This is acceptable for the first stage.
+
+Offline support means the loaded app shell and existing local garden data should remain usable after the app has been opened once. Features that require network access, such as future hosted AI calls, may show a friendly unavailable state while offline.
 
 ## AI Experience
 
@@ -57,7 +62,7 @@ The UI should not mention:
 - API cost warnings
 - Internal endpoint names
 
-The app must not expose an OpenAI API key in frontend code. GitHub Pages cannot run backend code, so production AI calls must go through a small hosted proxy or serverless function later. Until that backend is configured, the app can use mock suggestions or show a plain, non-technical message that smart suggestions are unavailable.
+The app must not expose an OpenAI API key in frontend code. GitHub Pages cannot run backend code, so production AI calls must go through a small hosted proxy or serverless function later. For this release, the shared GitHub Pages build should show a plain, non-technical unavailable message when real smart suggestions are not configured. Mock suggestions may remain available for local development and tests, but should not masquerade as real AI in the shared build.
 
 Error messages should be written for normal users, for example: "Smart suggestions are not available right now. Try again later or fill in the details manually."
 
@@ -77,14 +82,14 @@ The app should become usable on phone-sized screens before sharing.
 
 Required behavior:
 
-- Navigation works well on narrow screens, likely as bottom navigation, top tabs, or a compact menu instead of a desktop sidebar.
+- Navigation becomes a compact bottom navigation on phone-sized screens instead of a persistent desktop sidebar.
 - Primary map view gets as much vertical space as possible.
 - Detail panels and editors stack cleanly below or open as mobile-friendly panels.
 - Forms use touch-friendly controls and spacing.
 - Buttons and labels do not overflow their containers.
 - The layout remains usable in both portrait phone and desktop browser widths.
 
-The first mobile pass should favor reliable usability over a full visual redesign.
+The first mobile pass should favor reliable usability over a full visual redesign. The minimum target viewport is `375px` wide portrait, with desktop behavior preserved at wider widths.
 
 ## Architecture
 
@@ -111,6 +116,17 @@ Manual verification should include:
 - `npm test`
 - `npm run build`
 - Open the app at a phone-width viewport and verify the main map, settings, and plant editor are usable.
+
+The existing `package.json` includes `typecheck`, `test`, and `build` scripts; planning should use those commands unless the scripts are renamed before implementation.
+
+## Acceptance Criteria
+
+- A production build can be configured for a GitHub Pages repository subpath and loads its JavaScript, CSS, manifest, icons, and service worker from that path.
+- After first load, the app shell opens again while offline and existing local garden data is still visible.
+- At `375px` wide portrait, navigation is reachable, the map is usable, settings are readable, and primary form controls are touch-friendly.
+- Public UI does not display `OpenAI`, `API key`, `.env.local`, raw endpoint names, or cost-warning copy.
+- If real smart suggestions are unavailable, the user sees a plain friendly message and can still fill in plant details manually.
+- Export/import backup remains available but is not the first or dominant settings interaction.
 
 ## Open Follow-Up
 
