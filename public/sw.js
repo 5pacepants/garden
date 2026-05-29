@@ -5,8 +5,7 @@ const APP_SHELL = ["./", "./index.html", "./manifest.webmanifest"].map((path) =>
 const STATIC_ASSET_PATH = /\/assets\/|\/icons\/|\/pwa-icon\.svg$/;
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
-  self.skipWaiting();
+  event.waitUntil(Promise.all([caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)), self.skipWaiting()]));
 });
 
 self.addEventListener("activate", (event) => {
