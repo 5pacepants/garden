@@ -221,7 +221,7 @@ describe("MapBuilderView", () => {
   it("keeps the expand button available in landscape mobile view", () => {
     mockMobileViewport();
     window.matchMedia = ((query: string) => ({
-      matches: query === "(max-width: 760px)" || query === "(orientation: landscape)",
+      matches: query === "(max-height: 600px) and (orientation: landscape)",
       media: query,
       onchange: null,
       addEventListener: () => undefined,

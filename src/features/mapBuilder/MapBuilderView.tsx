@@ -240,12 +240,12 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
   }
 
   async function openWidePreview() {
-    setIsWidePreviewOpen(true);
     try {
       await document.documentElement.requestFullscreen?.();
     } catch {
       // Ignore browser fullscreen rejections.
     }
+    setIsWidePreviewOpen(true);
   }
 
   async function closeWidePreview() {
@@ -535,21 +535,23 @@ function ElementEditor({ element, onChange }: { element: GardenMapElement; onCha
 }
 
 function useIsMobileViewport(): boolean {
-  const query = "(max-width: 760px)";
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" && typeof window.matchMedia === "function" ? window.matchMedia(query).matches : false,
-  );
+  const queries = ["(max-width: 760px)", "(max-height: 600px) and (orientation: landscape)"];
+  const matchesViewport = () =>
+    typeof window !== "undefined" && typeof window.matchMedia === "function"
+      ? queries.some((query) => window.matchMedia(query).matches)
+      : false;
+  const [isMobile, setIsMobile] = useState(matchesViewport);
 
   useEffect(() => {
     if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
       return undefined;
     }
 
-    const mediaQuery = window.matchMedia(query);
-    const update = () => setIsMobile(mediaQuery.matches);
+    const mediaQueries = queries.map((query) => window.matchMedia(query));
+    const update = () => setIsMobile(mediaQueries.some((mediaQuery) => mediaQuery.matches));
     update();
-    mediaQuery.addEventListener("change", update);
-    return () => mediaQuery.removeEventListener("change", update);
+    mediaQueries.forEach((mediaQuery) => mediaQuery.addEventListener("change", update));
+    return () => mediaQueries.forEach((mediaQuery) => mediaQuery.removeEventListener("change", update));
   }, []);
 
   return isMobile;
