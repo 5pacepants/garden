@@ -218,6 +218,33 @@ describe("MapBuilderView", () => {
     expect(document.body.style.overflow).toBe("hidden");
   });
 
+  it("opens the insert menu when the expanded map background is double tapped", () => {
+    mockMobileViewport();
+    render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
+
+    fireEvent.click(screen.getByRole("button", { name: /förstora karta/i }));
+
+    const background = document.querySelector(".map-builder-svg rect") as SVGRectElement;
+    vi.spyOn(background.ownerSVGElement!, "getBoundingClientRect").mockReturnValue({
+      bottom: 568.2,
+      height: 568.2,
+      left: 0,
+      right: 1000,
+      top: 0,
+      width: 1000,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
+
+    fireEvent.pointerUp(background, { clientX: 300, clientY: 160, pointerId: 1, pointerType: "touch" });
+    expect(screen.queryByRole("dialog", { name: /välj objekt att lägga till/i })).not.toBeInTheDocument();
+
+    fireEvent.pointerUp(background, { clientX: 300, clientY: 160, pointerId: 1, pointerType: "touch" });
+
+    expect(screen.getByRole("dialog", { name: /välj objekt att lägga till/i })).toBeInTheDocument();
+  });
+
   it("keeps the expand button available in landscape mobile view", () => {
     mockMobileViewport();
     window.matchMedia = ((query: string) => ({

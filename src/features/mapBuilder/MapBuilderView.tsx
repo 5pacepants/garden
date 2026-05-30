@@ -157,7 +157,7 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
     return screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, bounds);
   }
 
-  function handlePreviewClick(event: MouseEvent<SVGSVGElement>) {
+  function handlePreviewClick(event: MouseEvent<SVGElement>) {
     if (event.target !== event.currentTarget) {
       return;
     }
@@ -165,7 +165,7 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
     setSelectedId(null);
   }
 
-  function handlePreviewDoubleClick(event: MouseEvent<SVGSVGElement>) {
+  function handlePreviewDoubleClick(event: MouseEvent<SVGElement>) {
     if (event.target !== event.currentTarget) {
       return;
     }
@@ -436,7 +436,16 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
             role="img"
             viewBox="0 0 100 56.82"
           >
-            <rect width="100" height="56.82" fill="#f5f2e8" />
+            <rect
+              fill="#f5f2e8"
+              height="56.82"
+              onClick={() => {
+                setSelectedId(null);
+              }}
+              onDoubleClick={handlePreviewDoubleClick}
+              onPointerUp={handlePreviewPointerUp}
+              width="100"
+            />
             {layout.elements.map((element) => {
               const center = getMapElementCenter(element);
               const isSelected = element.id === selectedElement?.id;
