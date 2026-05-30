@@ -424,16 +424,18 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
               : "Tryck på ett objekt i kartan."}
           </p>
         </div>
-        {selectedElement && <ElementEditor element={selectedElement} onChange={saveElement} />}
-        <div className="inline-form">
-          <button className="tool-button" onClick={saveCurrentLayout} type="button">
-            Spara
+        <div className="map-builder-wide-details">
+          {selectedElement && <ElementEditor element={selectedElement} onChange={saveElement} />}
+          <div className="inline-form">
+            <button className="tool-button" onClick={saveCurrentLayout} type="button">
+              Spara
+            </button>
+          </div>
+          {message && <p className="helper-text">{message}</p>}
+          <button className="tool-button primary" onClick={applyAsMapBackground} type="button">
+            Använd som kartbild
           </button>
         </div>
-        {message && <p className="helper-text">{message}</p>}
-        <button className="tool-button primary" onClick={applyAsMapBackground} type="button">
-          Använd som kartbild
-        </button>
       </div>
     );
   }

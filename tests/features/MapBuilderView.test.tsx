@@ -218,6 +218,24 @@ describe("MapBuilderView", () => {
     expect(document.body.style.overflow).toBe("hidden");
   });
 
+  it("keeps the expand button available in landscape mobile view", () => {
+    mockMobileViewport();
+    window.matchMedia = ((query: string) => ({
+      matches: query === "(max-width: 760px)" || query === "(orientation: landscape)",
+      media: query,
+      onchange: null,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+      addListener: () => undefined,
+      removeListener: () => undefined,
+      dispatchEvent: () => false,
+    })) as typeof window.matchMedia;
+
+    render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
+
+    expect(screen.getByRole("button", { name: "Förstora karta" })).toBeInTheDocument();
+  });
+
   it("keeps the normal mobile builder scrollable until the wide preview is opened", () => {
     mockMobileViewport();
 

@@ -1221,6 +1221,11 @@ button {
   min-height: 100%;
 }
 
+.map-builder-wide-details {
+  display: grid;
+  gap: 10px;
+}
+
 .map-builder-wide-close-row {
   display: flex;
   justify-content: flex-end;
@@ -1643,5 +1648,9 @@ button {
 
   .map-builder-wide-info {
     min-width: 220px;
+  }
+
+  .map-builder-wide-info-content {
+    grid-template-rows: auto auto minmax(0, 1fr);
   }
 }
