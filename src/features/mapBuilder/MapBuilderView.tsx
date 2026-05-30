@@ -75,12 +75,6 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
     document.body.style.overflow = "hidden";
     document.body.style.touchAction = "none";
 
-    const orientation = screen.orientation as (ScreenOrientation & {
-      lock?: (value: string) => Promise<void>;
-      unlock?: () => void;
-    }) | undefined;
-    void orientation?.lock?.("landscape").catch(() => undefined);
-
     return () => {
       if (mobileTapTimeoutRef.current !== null) {
         window.clearTimeout(mobileTapTimeoutRef.current);
@@ -89,7 +83,6 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
       lastMobileTapRef.current = null;
       document.body.style.overflow = previousOverflow;
       document.body.style.touchAction = previousTouchAction;
-      orientation?.unlock?.();
     };
   }, [isMobileViewport, isWidePreviewOpen]);
 
@@ -240,23 +233,11 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
   }
 
   async function openWidePreview() {
-    try {
-      await document.documentElement.requestFullscreen?.();
-    } catch {
-      // Ignore browser fullscreen rejections.
-    }
     setIsWidePreviewOpen(true);
   }
 
   async function closeWidePreview() {
     setIsWidePreviewOpen(false);
-    try {
-      if (document.fullscreenElement) {
-        await document.exitFullscreen?.();
-      }
-    } catch {
-      // Ignore exit failures.
-    }
   }
 
   function renderElementControls(element: GardenMapElement) {
