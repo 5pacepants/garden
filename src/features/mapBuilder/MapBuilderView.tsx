@@ -55,9 +55,28 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
   const [layout, setLayout] = useState(() => (initialLayout ? cloneLayout(initialLayout) : createStarterMapLayout()));
   const [selectedId, setSelectedId] = useState(() => layout.elements[0]?.id ?? null);
   const [message, setMessage] = useState<string | null>(null);
+  const [isInsertMenuOpen, setIsInsertMenuOpen] = useState(false);
+  const [pendingInsertPoint, setPendingInsertPoint] = useState<Point | null>(null);
   const dragState = useRef<DragState | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const isMobileViewport = useIsMobileViewport();
   const selectedElement = layout.elements.find((element) => element.id === selectedId) ?? layout.elements[0] ?? null;
+
+  useEffect(() => {
+    if (!isMobileViewport) {
+      return undefined;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    const previousTouchAction = document.body.style.touchAction;
+    document.body.style.overflow = "hidden";
+    document.body.style.touchAction = "none";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.touchAction = previousTouchAction;
+    };
+  }, [isMobileViewport]);
 
   useEffect(() => {
     const nextLayout = initialLayout ? cloneLayout(initialLayout) : createStarterMapLayout();
@@ -66,9 +85,11 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
   }, [initialLayout]);
 
   function addElement(type: GardenMapElementType) {
-    const element = createMapElement(type);
+    const element = createPlacedElement(type, pendingInsertPoint);
     setLayout((current) => ({ ...current, elements: [...current.elements, element] }));
     setSelectedId(element.id);
+    setPendingInsertPoint(null);
+    setIsInsertMenuOpen(false);
   }
 
   function saveElement(element: GardenMapElement) {
@@ -118,6 +139,15 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
     }
 
     return screenToNormalizedPoint({ x: event.clientX, y: event.clientY }, bounds);
+  }
+
+  function handlePreviewClick(event: MouseEvent<SVGSVGElement>) {
+    if (!isMobileViewport || event.target !== event.currentTarget) {
+      return;
+    }
+
+    setPendingInsertPoint(pointFromPointer(event));
+    setIsInsertMenuOpen(true);
   }
 
   function applyAsMapBackground() {
@@ -241,6 +271,7 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
           <svg
             aria-label="Redigerbar kartbild"
             className="map-builder-svg"
+            onClick={handlePreviewClick}
             onPointerMove={moveDrag}
             onPointerUp={() => {
               dragState.current = null;
@@ -291,6 +322,32 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
           </svg>
         </div>
       </div>
+      {isMobileViewport && isInsertMenuOpen && (
+        <div aria-label="Välj objekt att lägga till" aria-modal="true" className="map-builder-insert-backdrop" role="dialog">
+          <div className="map-builder-insert-sheet">
+            <div className="map-builder-insert-header">
+              <strong>Välj objekt att lägga till</strong>
+              <button
+                className="tool-button"
+                onClick={() => {
+                  setPendingInsertPoint(null);
+                  setIsInsertMenuOpen(false);
+                }}
+                type="button"
+              >
+                Stäng
+              </button>
+            </div>
+            <div className="map-builder-actions map-builder-actions-mobile">
+              {addableTypes.map((item) => (
+                <button key={item.type} onClick={() => addElement(item.type)} type="button">
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
@@ -308,4 +365,38 @@ function ElementEditor({ element, onChange }: { element: GardenMapElement; onCha
       </label>
     </div>
   );
+}
+
+function useIsMobileViewport(): boolean {
+  const query = "(max-width: 760px)";
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && typeof window.matchMedia === "function" ? window.matchMedia(query).matches : false,
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia(query);
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  return isMobile;
+}
+
+function createPlacedElement(type: GardenMapElementType, point: Point | null): GardenMapElement {
+  const element = createMapElement(type);
+  if (!point) {
+    return element;
+  }
+
+  const center = getMapElementCenter(element);
+  return moveMapElementByDelta(element, {
+    x: point.x - center.x,
+    y: point.y - center.y,
+  });
 }

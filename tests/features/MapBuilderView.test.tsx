@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { GardenState } from "../../src/domain/models";
@@ -18,6 +18,9 @@ const gardenState: GardenState = {
 describe("MapBuilderView", () => {
   afterEach(() => {
     vi.useRealTimers();
+    document.body.style.overflow = "";
+    document.body.style.touchAction = "";
+    delete window.matchMedia;
   });
 
   it("adds a house and applies the generated SVG as map background", async () => {
@@ -167,4 +170,55 @@ describe("MapBuilderView", () => {
 
     expect(fence).toHaveAttribute("points", "18,11 100,11 100,13 18,13");
   });
+
+  it("opens a mobile add menu from the tapped map position and inserts the chosen element there", async () => {
+    const user = userEvent.setup();
+    mockMobileViewport();
+    const { container } = render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
+
+    const svg = screen.getByRole("img", { name: "Redigerbar kartbild" });
+    vi.spyOn(svg, "getBoundingClientRect").mockReturnValue({
+      bottom: 568.2,
+      height: 568.2,
+      left: 0,
+      right: 1000,
+      top: 0,
+      width: 1000,
+      x: 0,
+      y: 0,
+      toJSON: () => ({}),
+    });
+
+    fireEvent.click(svg, { clientX: 300, clientY: 160 });
+
+    const dialog = screen.getByRole("dialog", { name: "Välj objekt att lägga till" });
+    expect(dialog).toBeInTheDocument();
+
+    await user.click(within(dialog).getByRole("button", { name: "Lägg till hus" }));
+
+    expect(screen.queryByRole("dialog", { name: "Välj objekt att lägga till" })).not.toBeInTheDocument();
+    expect(container.querySelectorAll(".map-builder-element")).toHaveLength(3);
+    expect(screen.getByRole("button", { name: "Hus" })).toBeInTheDocument();
+  });
+
+  it("locks body scrolling while the mobile builder is active", () => {
+    mockMobileViewport();
+
+    render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
+
+    expect(document.body.style.overflow).toBe("hidden");
+  });
 });
+
+function mockMobileViewport() {
+  window.matchMedia = ((query: string) => ({
+    matches: query === "(max-width: 760px)",
+    media: query,
+    onchange: null,
+    addEventListener: () => undefined,
+    removeEventListener: () => undefined,
+    addListener: () => undefined,
+    removeListener: () => undefined,
+    dispatchEvent: () => false,
+  })) as typeof window.matchMedia;
+}
