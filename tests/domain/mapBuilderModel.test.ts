@@ -7,6 +7,7 @@ import {
   moveMapElementPoint,
   renderGardenMapLayoutDataUrl,
   renderGardenMapLayoutSvg,
+  saveLayoutAsMapImage,
   updateMapElement,
 } from "../../src/features/mapBuilder/mapBuilderModel";
 
@@ -86,5 +87,26 @@ describe("map builder model", () => {
     expect(svg).toContain("<polygon");
     expect(svg).toContain("Hus &amp; garage");
     expect(renderGardenMapLayoutDataUrl(layout)).toMatch(/^data:image\/svg\+xml,/);
+  });
+
+  it("saves a layout as an editable map image with its rendered SVG", () => {
+    const layout = {
+      ...createStarterMapLayout(),
+      name: "Entrekarta",
+      elements: [{ ...createMapElement("house"), color: "#ff8844" }],
+    };
+
+    const saved = saveLayoutAsMapImage(layout);
+
+    expect(saved).toEqual(
+      expect.objectContaining({
+        name: "Entrekarta",
+        source: "builder",
+        image: expect.stringMatching(/^data:image\/svg\+xml,/),
+        layout: expect.objectContaining({
+          elements: [expect.objectContaining({ type: "house", color: "#ff8844" })],
+        }),
+      }),
+    );
   });
 });

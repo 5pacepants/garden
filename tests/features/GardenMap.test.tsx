@@ -27,6 +27,33 @@ const gardenState: GardenState = {
 };
 
 describe("GardenMap", () => {
+  it("shows a map focus button over the lower right corner of the map", () => {
+    const onOpenFocus = vi.fn();
+
+    render(
+      <GardenMap
+        gardenState={gardenState}
+        plantFilters={defaultPlantFilters}
+        visiblePlantIds={new Set(["plant-1"])}
+        onAddBed={vi.fn()}
+        onAddPlant={vi.fn()}
+        onAddZone={vi.fn()}
+        onUpdateBed={vi.fn()}
+        onUpdatePlant={vi.fn()}
+        onUpdateZone={vi.fn()}
+        onSelectionChange={vi.fn()}
+        onOpenFocus={onOpenFocus}
+        selection={null}
+      />,
+    );
+
+    const button = screen.getByRole("button", { name: "Forstora karta" });
+    expect(button).toHaveClass("map-focus-button");
+
+    fireEvent.click(button);
+    expect(onOpenFocus).toHaveBeenCalledOnce();
+  });
+
   it("does not start a move from a plain click on a selected plant", () => {
     render(
       <GardenMap
@@ -48,6 +75,39 @@ describe("GardenMap", () => {
     fireEvent.click(plantNode, { clientX: 100, clientY: 100 });
 
     expect(screen.queryByRole("button", { name: "Spara flytt" })).not.toBeInTheDocument();
+  });
+
+  it("renders the background image fitted to the full map instead of cropping it", async () => {
+    const mediaService = {
+      pickAndStoreImage: vi.fn(),
+      resolveMediaUrl: vi.fn(async () => "asset://localhost/bakgrund.png"),
+    };
+
+    render(
+      <GardenMap
+        gardenState={{ ...gardenState, map: { ...gardenState.map, backgroundImage: "appmedia://bakgrund.png" } }}
+        plantFilters={defaultPlantFilters}
+        visiblePlantIds={new Set(["plant-1"])}
+        onAddBed={vi.fn()}
+        onAddPlant={vi.fn()}
+        onAddZone={vi.fn()}
+        onUpdateBed={vi.fn()}
+        onUpdatePlant={vi.fn()}
+        onUpdateZone={vi.fn()}
+        onSelectionChange={vi.fn()}
+        selection={null}
+        mediaService={mediaService}
+      />,
+    );
+
+    const backgroundImage = (await screen.findByRole("img")).querySelector(".map-background-image");
+
+    expect(backgroundImage).toHaveAttribute("href", "asset://localhost/bakgrund.png");
+    expect(backgroundImage).toHaveAttribute("x", "0");
+    expect(backgroundImage).toHaveAttribute("y", "0");
+    expect(backgroundImage).toHaveAttribute("width", "100");
+    expect(backgroundImage).toHaveAttribute("height", "56.82");
+    expect(backgroundImage).toHaveAttribute("preserveAspectRatio", "xMidYMid meet");
   });
 
   it("does not move a plant when layout changes between pointer down and pointer up without pointer movement", () => {

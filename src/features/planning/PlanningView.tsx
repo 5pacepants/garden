@@ -13,8 +13,9 @@ export function PlanningView({ plants, onSelectPlant }: PlanningViewProps) {
     <section className="content-panel">
       <div className="list-header">
         <span className="eyebrow">Planering</span>
-        <h2>{plannedPlants.length} planerade köp och idéer</h2>
+        <h2>{plannedPlants.length} planerade köp</h2>
       </div>
+      {plannedPlants.length === 0 && <p className="helper-text">Här ser du växter du planerat till din trädgård.</p>}
       <div className="plant-list">
         {plannedPlants.map((plant) => (
           <button className="plant-list-item" key={plant.id} onClick={() => onSelectPlant(plant.id)} type="button">

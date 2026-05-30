@@ -3,6 +3,7 @@ import { deleteBed, deletePlant, deleteZone, savePlantAndSyncCareTasks } from ".
 import type { Bed, GardenState, HistoryEvent, Photo, Plant, Task, Zone } from "../domain/models";
 import { createPlantingHistoryEventIfNeeded } from "../domain/plantHistory";
 import type { GardenRepository } from "./gardenRepository";
+import { BrowserDriveSyncStorage } from "./browserDriveSyncStorage";
 import { DriveSyncGardenRepository, type DriveSyncStorage } from "./driveSyncGardenRepository";
 import { LocalStorageGardenRepository } from "./localStorageGardenRepository";
 import { TauriDriveSyncStorage } from "./tauriDriveSyncStorage";
@@ -154,13 +155,6 @@ function createDefaultDriveSyncStorage(): DriveSyncStorage {
     return new TauriDriveSyncStorage();
   }
 
-  return {
-    async read() {
-      return null;
-    },
-    async write() {
-      return undefined;
-    },
-  };
+  return new BrowserDriveSyncStorage();
 }
 

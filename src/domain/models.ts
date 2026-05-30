@@ -33,6 +33,15 @@ export type GardenMap = {
   backgroundImage?: string;
 };
 
+export type SavedMapImage = {
+  id: EntityId;
+  name: string;
+  image: string;
+  source: "uploaded" | "builder" | "ai";
+  createdAt: string;
+  layout?: unknown;
+};
+
 export type Bed = {
   id: EntityId;
   name: string;
@@ -223,6 +232,7 @@ export type PlaceMatch = {
 export type GardenState = {
   version: 1;
   map: GardenMap;
+  mapImages?: SavedMapImage[];
   beds: Bed[];
   zones: Zone[];
   plants: Plant[];

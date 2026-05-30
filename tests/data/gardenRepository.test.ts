@@ -19,6 +19,7 @@ describe("garden repository", () => {
     expect(state.plants).toHaveLength(0);
     expect(state.beds).toHaveLength(0);
     expect(state.zones).toHaveLength(0);
+    expect(state.mapImages).toEqual([]);
   });
 
   it("removes only known demo map objects when loading stored demo data", async () => {
@@ -56,6 +57,41 @@ describe("garden repository", () => {
 
     const loaded = await repository.load();
     expect(loaded.map.name).toBe("Uppdaterad trädgård");
+  });
+
+  it("migrates stored garden state without saved map images", async () => {
+    const repository = new LocalStorageGardenRepository("garden-test");
+    const state = createDemoGardenState();
+    const legacy = { ...state };
+    delete (legacy as Partial<typeof state>).mapImages;
+    localStorage.setItem("garden-test", JSON.stringify(legacy));
+
+    const loaded = await repository.load();
+
+    expect(loaded.mapImages).toEqual([]);
+  });
+
+  it("moves AI map image data URLs out of localStorage while preserving the saved image reference", async () => {
+    const repository = new LocalStorageGardenRepository("garden-test");
+    const state = createDemoGardenState();
+    state.map.backgroundImage = "data:image/png;base64,ai";
+    state.mapImages = [
+      {
+        id: "map-image-ai",
+        name: "AI-karta",
+        image: "data:image/png;base64,ai",
+        source: "ai",
+        createdAt: "2026-05-11T08:00:00.000Z",
+      },
+    ];
+
+    await repository.save(state);
+
+    const stored = localStorage.getItem("garden-test") ?? "";
+    expect(stored).not.toContain("data:image/png;base64,ai");
+
+    const loaded = await repository.load();
+    expect(loaded.mapImages?.[0].image).toBe("indexeddb://map-images/map-image-ai");
   });
 
   it("exports state as versioned JSON", () => {

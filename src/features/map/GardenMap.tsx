@@ -23,6 +23,7 @@ type GardenMapProps = {
   onUpdatePlant: (plant: Plant) => void;
   onUpdateZone: (zone: Zone) => void;
   onSelectionChange: (selection: MapSelection) => void;
+  onOpenFocus?: () => void;
   selection: MapSelection;
   mediaService?: MediaService;
 };
@@ -73,6 +74,7 @@ export function GardenMap({
   onUpdatePlant,
   onUpdateZone,
   onSelectionChange,
+  onOpenFocus,
   selection,
   mediaService = defaultMediaService,
 }: GardenMapProps) {
@@ -564,6 +566,17 @@ export function GardenMap({
             )}
           </svg>
         </div>
+        {onOpenFocus && (
+          <button
+            aria-label="Forstora karta"
+            className="map-focus-button"
+            onClick={onOpenFocus}
+            title="Forstora karta"
+            type="button"
+          >
+            ⤢
+          </button>
+        )}
       </div>
       <div className="map-caption">
         <span className="eyebrow">Karta</span>

@@ -1,5 +1,5 @@
 import { createId } from "../../domain/ids";
-import type { Point } from "../../domain/models";
+import type { Point, SavedMapImage } from "../../domain/models";
 import { polygonToSvgPoints } from "../map/mapTransforms";
 
 export type GardenMapElementType =
@@ -27,6 +27,11 @@ export type GardenMapLayout = {
   id: string;
   name: string;
   elements: GardenMapElement[];
+};
+
+export type SavedBuilderMapImage = SavedMapImage & {
+  source: "builder";
+  layout: GardenMapLayout;
 };
 
 const elementDefaults: Record<GardenMapElementType, Omit<GardenMapElement, "id" | "type">> = {
@@ -126,7 +131,7 @@ export function renderGardenMapLayoutDataUrl(layout: GardenMapLayout): string {
 }
 
 export function renderGardenMapLayoutSvg(layout: GardenMapLayout): string {
-  const elements = layout.elements.map(renderElement).join("");
+  const elements = layout.elements.map((element) => renderElement(element)).join("");
 
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 56.82" width="1663" height="945">`,
@@ -134,6 +139,27 @@ export function renderGardenMapLayoutSvg(layout: GardenMapLayout): string {
     elements,
     `</svg>`,
   ].join("");
+}
+
+export function saveLayoutAsMapImage(layout: GardenMapLayout): SavedBuilderMapImage {
+  return {
+    id: createId("map_image"),
+    name: layout.name.trim() || "Kartbild",
+    image: renderGardenMapLayoutDataUrl(layout),
+    source: "builder",
+    createdAt: new Date().toISOString(),
+    layout: cloneLayout(layout),
+  };
+}
+
+export function cloneLayout(layout: GardenMapLayout): GardenMapLayout {
+  return {
+    ...layout,
+    elements: layout.elements.map((element) => ({
+      ...element,
+      points: element.points.map((point) => ({ ...point })),
+    })),
+  };
 }
 
 function renderElement(element: GardenMapElement): string {

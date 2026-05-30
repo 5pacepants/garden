@@ -8,6 +8,7 @@ export function createDemoGardenState(): GardenState {
       name: "Min trädgård",
       backgroundImage: "/bakgrund.png",
     },
+    mapImages: [],
     zones: [],
     beds: [],
     plants: [],

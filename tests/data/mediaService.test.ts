@@ -33,4 +33,12 @@ describe("media service", () => {
 
     await expect(new TauriMediaService().pickAndStoreImage()).resolves.toBeNull();
   });
+
+  it("falls back to the bundled garden background for legacy appmedia background references in the browser", async () => {
+    vi.mocked(invoke).mockRejectedValueOnce(new Error("Tauri is unavailable"));
+
+    await expect(new TauriMediaService().resolveMediaUrl("appmedia://bakgrund-1779904043067.png")).resolves.toBe(
+      "/bakgrund.png",
+    );
+  });
 });

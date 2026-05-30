@@ -1,7 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AppShell } from "./components/AppShell";
+import { MobileDetailDialog } from "./components/MobileDetailDialog";
 import { useGardenState } from "./data/useGardenState";
 import { GardenMap } from "./features/map/GardenMap";
+import { MapFocusOverlay } from "./features/map/MapFocusOverlay";
 import { MapBuilderView } from "./features/mapBuilder/MapBuilderView";
 import type { MapSelection } from "./features/map/mapSelection";
 import { defaultPlantFilters, filterPlants, PlantFilters } from "./features/plants/PlantFilters";
@@ -12,9 +14,10 @@ import { TaskList } from "./features/tasks/TaskList";
 import { HistoryTimeline } from "./features/history/HistoryTimeline";
 import { PhotoHistory } from "./features/history/PhotoHistory";
 import type { AppView } from "./components/Sidebar";
-import { MockPlantSuggestionService } from "./ai/plantSuggestionService";
-import { BrowserAiPlantSuggestionService } from "./ai/browserAiPlantSuggestionService";
+import { createPlantSuggestionService } from "./ai/plantSuggestionServiceFactory";
 import { type AiSettings, SettingsView } from "./features/settings/SettingsView";
+import type { GardenMapLayout } from "./features/mapBuilder/mapBuilderModel";
+import type { SavedMapImage } from "./domain/models";
 import "./styles/app.css";
 
 const defaultAiSettings: AiSettings = {
@@ -44,8 +47,11 @@ function App() {
   } = useGardenState();
   const [activeView, setActiveView] = useState<AppView>("map");
   const [selection, setSelection] = useState<MapSelection>(null);
+  const [isMapFocusOpen, setIsMapFocusOpen] = useState(false);
   const [plantFilters, setPlantFilters] = useState(defaultPlantFilters);
   const [aiSettings, setAiSettings] = useState<AiSettings>(() => loadAiSettings());
+  const [editingMapLayout, setEditingMapLayout] = useState<GardenMapLayout | undefined>(undefined);
+  const isMobileViewport = useIsMobileViewport();
   const tasks = gardenState?.tasks ?? [];
   const plants = gardenState?.plants ?? [];
   const plantIdsWithTasksThisWeek = useMemo(() => getPlantIdsWithTasksThisWeek(tasks), [tasks]);
@@ -55,10 +61,7 @@ function App() {
   );
   const visiblePlantIds = useMemo(() => new Set(filteredPlants.map((plant) => plant.id)), [filteredPlants]);
   const suggestionService = useMemo(
-    () =>
-      aiSettings.enabled
-        ? new BrowserAiPlantSuggestionService()
-        : new MockPlantSuggestionService(),
+    () => createPlantSuggestionService({ enabled: aiSettings.enabled, isDevelopment: import.meta.env.DEV }),
     [aiSettings],
   );
 
@@ -70,9 +73,20 @@ function App() {
     return <div className="loading-state error-state">{error ?? "Kunde inte läsa trädgårdsdata."}</div>;
   }
 
+  const currentGardenState = gardenState;
+  const shouldShowMobileDetail =
+    isMobileViewport && Boolean(selection) && !isMapFocusOpen && (activeView === "map" || activeView === "plants");
+
   function updateAiSettings(settings: AiSettings) {
     setAiSettings(settings);
     localStorage.setItem("private-garden-ai-settings", JSON.stringify(settings));
+  }
+
+  function saveMapImage(image: SavedMapImage) {
+    replaceState({
+      ...currentGardenState,
+      mapImages: [...(currentGardenState.mapImages ?? []).filter((existing) => existing.id !== image.id), image],
+    });
   }
 
   return (
@@ -95,6 +109,7 @@ function App() {
       onSaveZone={updateZone}
       onViewChange={setActiveView}
       selection={selection}
+      showDetailPanel={!isMobileViewport}
       suggestionService={suggestionService}
       tasks={gardenState.tasks}
     >
@@ -111,11 +126,52 @@ function App() {
           onUpdatePlant={updatePlant}
           onUpdateZone={updateZone}
           onSelectionChange={setSelection}
+          onOpenFocus={() => {
+            setIsMapFocusOpen(true);
+            void enterMapFocusDisplay();
+          }}
           selection={selection}
         />
       )}
+      {activeView === "map" && isMapFocusOpen && (
+        <MapFocusOverlay
+          gardenState={gardenState}
+          onAddBed={addBed}
+          onAddPhoto={addPhoto}
+          onAddPlant={addPlant}
+          onAddZone={addZone}
+          onClose={() => {
+            setIsMapFocusOpen(false);
+            void exitMapFocusDisplay();
+          }}
+          onDeleteSelection={(nextSelection) => {
+            if (nextSelection.type === "plant") {
+              deletePlant(nextSelection.id);
+            } else if (nextSelection.type === "bed") {
+              deleteBed(nextSelection.id);
+            } else {
+              deleteZone(nextSelection.id);
+            }
+            setSelection(null);
+          }}
+          onSaveBed={updateBed}
+          onSavePlant={savePlant}
+          onSaveZone={updateZone}
+          onSelectionChange={setSelection}
+          onUpdateBed={updateBed}
+          onUpdatePlant={updatePlant}
+          onUpdateZone={updateZone}
+          selection={selection}
+          suggestionService={suggestionService}
+        />
+      )}
       {activeView === "mapBuilder" && (
-        <MapBuilderView gardenState={gardenState} onApplyGardenState={replaceState} />
+        <MapBuilderView
+          gardenState={gardenState}
+          initialLayout={editingMapLayout}
+          onApplyGardenState={replaceState}
+          onSaveMapImage={saveMapImage}
+        />
       )}
       {activeView === "plants" && (
         <PlantList plants={filteredPlants} tasks={gardenState.tasks} onSelectPlant={(id) => setSelection({ type: "plant", id })} />
@@ -145,11 +201,65 @@ function App() {
           aiSettings={aiSettings}
           gardenState={gardenState}
           onAiSettingsChange={updateAiSettings}
+          onEditMapImage={(image) => {
+            if (isGardenMapLayout(image.layout)) {
+              setEditingMapLayout(image.layout);
+              setActiveView("mapBuilder");
+            }
+          }}
           onImportGardenState={replaceState}
+        />
+      )}
+      {shouldShowMobileDetail && selection && (
+        <MobileDetailDialog
+          gardenState={gardenState}
+          onAddPhoto={addPhoto}
+          onClose={() => setSelection(null)}
+          onDeleteSelection={(nextSelection) => {
+            if (nextSelection.type === "plant") {
+              deletePlant(nextSelection.id);
+            } else if (nextSelection.type === "bed") {
+              deleteBed(nextSelection.id);
+            } else {
+              deleteZone(nextSelection.id);
+            }
+            setSelection(null);
+          }}
+          onSaveBed={updateBed}
+          onSavePlant={savePlant}
+          onSaveZone={updateZone}
+          selection={selection}
+          suggestionService={suggestionService}
         />
       )}
     </AppShell>
   );
+}
+
+function useIsMobileViewport(): boolean {
+  const query = "(max-width: 760px)";
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && typeof window.matchMedia === "function" ? window.matchMedia(query).matches : false,
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      return undefined;
+    }
+
+    const mediaQuery = window.matchMedia(query);
+    const update = () => setIsMobile(mediaQuery.matches);
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
+
+  return isMobile;
+}
+
+function isGardenMapLayout(value: unknown): value is GardenMapLayout {
+  const candidate = value as Partial<GardenMapLayout> | undefined;
+  return Boolean(candidate?.id && candidate.name && Array.isArray(candidate.elements));
 }
 
 function loadAiSettings(): AiSettings {
@@ -180,6 +290,28 @@ function getPlantIdsWithTasksThisWeek(tasks: Array<{ dueDate?: string; plantId?:
       })
       .map((task) => String(task.plantId)),
   );
+}
+
+async function enterMapFocusDisplay() {
+  try {
+    await document.documentElement.requestFullscreen?.();
+    const orientation = screen.orientation as ScreenOrientation & {
+      lock?: (orientation: "landscape") => Promise<void>;
+    };
+    await orientation.lock?.("landscape");
+  } catch {
+    // Browser support varies, especially on iOS. The overlay still works if fullscreen or orientation lock is denied.
+  }
+}
+
+async function exitMapFocusDisplay() {
+  try {
+    if (document.fullscreenElement) {
+      await document.exitFullscreen();
+    }
+  } catch {
+    // Keep closing the in-app overlay even if the browser refuses to exit fullscreen programmatically.
+  }
 }
 
 export default App;

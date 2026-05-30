@@ -18,7 +18,7 @@ type SidebarProps = {
 
 export function Sidebar({ activeView, onViewChange }: SidebarProps) {
   return (
-    <aside className="sidebar" aria-label="Huvudnavigation">
+    <aside className="sidebar">
       <div className="brand">
         <span className="brand-mark">G</span>
         <div>
@@ -26,9 +26,10 @@ export function Sidebar({ activeView, onViewChange }: SidebarProps) {
           <h1>Trädgård</h1>
         </div>
       </div>
-      <nav className="nav-list">
+      <nav className="nav-list" aria-label="Huvudnavigation">
         {navigationItems.map((item) => (
           <button
+            aria-current={activeView === item.id ? "page" : undefined}
             className={activeView === item.id ? "nav-item active" : "nav-item"}
             key={item.id}
             onClick={() => onViewChange(item.id)}

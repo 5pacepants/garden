@@ -1,23 +1,28 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { MouseEvent, PointerEvent } from "react";
-import type { GardenState, Point } from "../../domain/models";
+import type { GardenState, Point, SavedMapImage } from "../../domain/models";
 import { polygonToSvgPoints, screenToNormalizedPoint } from "../map/mapTransforms";
 import {
   createMapElement,
   createStarterMapLayout,
+  cloneLayout,
   getMapElementCenter,
   insertMapElementPoint,
   moveMapElementByDelta,
   moveMapElementPoint,
   renderGardenMapLayoutDataUrl,
+  saveLayoutAsMapImage,
   updateMapElement,
   type GardenMapElement,
   type GardenMapElementType,
+  type GardenMapLayout,
 } from "./mapBuilderModel";
 
 type MapBuilderViewProps = {
   gardenState: GardenState;
+  initialLayout?: GardenMapLayout;
   onApplyGardenState: (state: GardenState) => void;
+  onSaveMapImage?: (image: SavedMapImage) => void;
 };
 
 type DragState = {
@@ -36,6 +41,7 @@ type DragState = {
 
 const addableTypes: Array<{ type: GardenMapElementType; label: string }> = [
   { type: "house", label: "Lägg till hus" },
+  { type: "lawn", label: "Lägg till gräsmatta" },
   { type: "path", label: "Lägg till gång" },
   { type: "tree", label: "Lägg till träd" },
   { type: "shrub", label: "Lägg till buske" },
@@ -45,12 +51,19 @@ const addableTypes: Array<{ type: GardenMapElementType; label: string }> = [
   { type: "fence", label: "Lägg till staket" },
 ];
 
-export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderViewProps) {
-  const [layout, setLayout] = useState(() => createStarterMapLayout());
+export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState, onSaveMapImage }: MapBuilderViewProps) {
+  const [layout, setLayout] = useState(() => (initialLayout ? cloneLayout(initialLayout) : createStarterMapLayout()));
   const [selectedId, setSelectedId] = useState(() => layout.elements[0]?.id ?? null);
+  const [message, setMessage] = useState<string | null>(null);
   const dragState = useRef<DragState | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const selectedElement = layout.elements.find((element) => element.id === selectedId) ?? layout.elements[0] ?? null;
+
+  useEffect(() => {
+    const nextLayout = initialLayout ? cloneLayout(initialLayout) : createStarterMapLayout();
+    setLayout(nextLayout);
+    setSelectedId(nextLayout.elements[0]?.id ?? null);
+  }, [initialLayout]);
 
   function addElement(type: GardenMapElementType) {
     const element = createMapElement(type);
@@ -117,6 +130,11 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
     });
   }
 
+  function saveCurrentLayout() {
+    onSaveMapImage?.(saveLayoutAsMapImage(layout));
+    setMessage("Kartbild sparad.");
+  }
+
   function renderElementControls(element: GardenMapElement) {
     return (
       <>
@@ -133,6 +151,22 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
                 event.preventDefault();
                 event.stopPropagation();
                 insertPoint(element.id, index, pointFromPointer(event, midpoint));
+              }}
+              onPointerDown={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                event.currentTarget.setPointerCapture?.(event.pointerId);
+                setSelectedId(element.id);
+                dragState.current = {
+                  elementId: element.id,
+                  original: element,
+                  startPoint: pointFromPointer(event, midpoint),
+                  type: "element",
+                };
+              }}
+              onPointerMove={moveDrag}
+              onPointerUp={() => {
+                dragState.current = null;
               }}
               x1={point.x}
               x2={next.x}
@@ -193,6 +227,12 @@ export function MapBuilderView({ gardenState, onApplyGardenState }: MapBuilderVi
             ))}
           </div>
           {selectedElement && <ElementEditor element={selectedElement} onChange={saveElement} />}
+          <div className="inline-form">
+            <button className="tool-button" onClick={saveCurrentLayout} type="button">
+              Spara
+            </button>
+          </div>
+          {message && <p className="helper-text">{message}</p>}
           <button className="tool-button primary" onClick={applyAsMapBackground} type="button">
             Använd som kartbild
           </button>

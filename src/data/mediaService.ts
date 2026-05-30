@@ -1,4 +1,5 @@
 import { convertFileSrc, invoke } from "@tauri-apps/api/core";
+import { resolveBrowserImageReference } from "./browserImageStore";
 
 export type StoredMedia = {
   reference: string;
@@ -18,12 +19,25 @@ export class TauriMediaService implements MediaService {
   }
 
   async resolveMediaUrl(reference: string): Promise<string> {
+    if (reference.startsWith("indexeddb://")) {
+      return resolveBrowserImageReference(reference);
+    }
+
     if (!reference.startsWith("appmedia://")) {
       return reference;
     }
 
-    const path = await invoke<string>("resolve_media_url", { reference });
-    return toRenderableMediaUrl(path);
+    try {
+      const path = await invoke<string>("resolve_media_url", { reference });
+      return toRenderableMediaUrl(path);
+    } catch (error) {
+      const fallbackUrl = legacyBundledMediaFallback(reference);
+      if (fallbackUrl) {
+        return fallbackUrl;
+      }
+
+      throw error;
+    }
   }
 }
 
@@ -33,4 +47,12 @@ function toRenderableMediaUrl(pathOrUrl: string): string {
   }
 
   return convertFileSrc(pathOrUrl);
+}
+
+function legacyBundledMediaFallback(reference: string): string | undefined {
+  if (/^appmedia:\/\/bakgrund(?:-\d+)?\.png$/.test(reference)) {
+    return "/bakgrund.png";
+  }
+
+  return undefined;
 }

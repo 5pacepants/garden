@@ -1,5 +1,6 @@
 import { createDemoGardenState } from "../domain/fixtures";
 import type { GardenState, LightCondition } from "../domain/models";
+import { storeBrowserImage } from "./browserImageStore";
 import type { GardenRepository } from "./gardenRepository";
 import { exportGardenState, importGardenState } from "./importExport";
 
@@ -17,13 +18,13 @@ export class LocalStorageGardenRepository implements GardenRepository {
       return createDemoGardenState();
     }
 
-    const state = applyHouseMapDefaults(this.importJson(stored));
+    const state = await prepareStateForLocalStorage(applyHouseMapDefaults(this.importJson(stored)));
     localStorage.setItem(this.storageKey, this.exportJson(state));
     return state;
   }
 
   async save(state: GardenState): Promise<void> {
-    localStorage.setItem(this.storageKey, this.exportJson(state));
+    localStorage.setItem(this.storageKey, this.exportJson(await prepareStateForLocalStorage(state)));
   }
 
   exportJson(state: GardenState): string {
@@ -48,6 +49,7 @@ function applyHouseMapDefaults(state: GardenState): GardenState {
       ...state.map,
       backgroundImage: "/bakgrund.png",
     },
+    mapImages: state.mapImages ?? [],
     zones: state.zones
       .filter((zone) => !demoZoneIds.has(zone.id))
       .map((zone) => ({ ...zone, light: normalizeLightCondition(zone.light) })),
@@ -78,5 +80,28 @@ function applyHouseMapDefaults(state: GardenState): GardenState {
 
 function normalizeLightCondition(value: LightCondition | "full_sun" | undefined): LightCondition | undefined {
   return value === "full_sun" ? "sun" : value;
+}
+
+async function prepareStateForLocalStorage(state: GardenState): Promise<GardenState> {
+  let backgroundImage = state.map.backgroundImage;
+  const mapImages = await Promise.all(
+    (state.mapImages ?? []).map(async (image) => {
+      if (image.source !== "ai" || !image.image.startsWith("data:image/")) {
+        return image;
+      }
+
+      const reference = await storeBrowserImage(image.image, image.id);
+      if (backgroundImage === image.image) {
+        backgroundImage = reference;
+      }
+      return { ...image, image: reference };
+    }),
+  );
+
+  return {
+    ...state,
+    map: { ...state.map, backgroundImage },
+    mapImages,
+  };
 }
 

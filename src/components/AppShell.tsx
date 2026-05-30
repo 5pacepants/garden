@@ -18,6 +18,7 @@ type AppShellProps = {
   onSaveZone: (zone: Zone) => void;
   onDeleteSelection: (selection: NonNullable<MapSelection>) => void;
   selection: MapSelection;
+  showDetailPanel?: boolean;
   suggestionService: PlantSuggestionService;
   tasks: Task[];
 };
@@ -33,6 +34,7 @@ export function AppShell({
   onSaveZone,
   onViewChange,
   selection,
+  showDetailPanel = true,
   suggestionService,
   tasks,
 }: AppShellProps) {
@@ -44,16 +46,18 @@ export function AppShell({
         <WeatherPanel />
         {children}
       </main>
-      <DetailPanel
-        gardenState={gardenState}
-        onAddPhoto={onAddPhoto}
-        onDeleteSelection={onDeleteSelection}
-        onSaveBed={onSaveBed}
-        onSavePlant={onSavePlant}
-        onSaveZone={onSaveZone}
-        selection={selection}
-        suggestionService={suggestionService}
-      />
+      {showDetailPanel && (
+        <DetailPanel
+          gardenState={gardenState}
+          onAddPhoto={onAddPhoto}
+          onDeleteSelection={onDeleteSelection}
+          onSaveBed={onSaveBed}
+          onSavePlant={onSavePlant}
+          onSaveZone={onSaveZone}
+          selection={selection}
+          suggestionService={suggestionService}
+        />
+      )}
     </div>
   );
 }

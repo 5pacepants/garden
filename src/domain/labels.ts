@@ -99,8 +99,12 @@ const commonTagLabels: Record<string, string> = {
   pollinator: "Pollinatörsvänlig",
   "pollinator-friendly": "Pollinatörsvänlig",
   pollinator_friendly: "Pollinatörsvänlig",
+  "pollinatörvänlig": "Pollinatörsvänlig",
+  "pollinatörsvänlig": "Pollinatörsvänlig",
   evergreen: "Vintergrön",
   fragrant: "Doftande",
+  ground_cover: "Marktäckare",
+  "ground-cover": "Marktäckare",
 };
 
 export function fallbackLabel(value: string | undefined): string {

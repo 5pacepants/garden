@@ -4,6 +4,8 @@ import {
   plantSuggestionJsonSchema,
 } from "./openAiSchemas";
 
+declare const process: { cwd(): string };
+
 type AiEndpoint = "plant-suggestion" | "plant-name-suggestions" | "plant-recommendations";
 type LocalAiRequest = {
   url?: string;
@@ -17,13 +19,23 @@ type LocalAiResponse = {
   end(body: string): void;
 };
 
-export async function handleAiRequest(request: LocalAiRequest, response: LocalAiResponse, apiKey: string | undefined, model = "gpt-4.1-mini") {
+export async function handleAiRequest(
+  request: LocalAiRequest,
+  response: LocalAiResponse,
+  apiKey: string | undefined,
+  model = "gpt-4.1-mini",
+) {
+  const endpoint = parseAiEndpoint(request.url);
+  if (!endpoint) {
+    sendJson(response, 404, { error: "Okänd AI-route." });
+    return;
+  }
+
   if (!apiKey) {
     sendJson(response, 503, { error: "OPENAI_API_KEY saknas i .env.local." });
     return;
   }
 
-  const endpoint = parseAiEndpoint(request.url);
   const body = await readJsonBody(request);
   const result = await requestOpenAi(apiKey, model, endpoint, body);
   sendJson(response, 200, result);
@@ -62,7 +74,7 @@ async function requestOpenAi(apiKey: string, model: string, endpoint: AiEndpoint
   });
 
   if (!response.ok) {
-    throw new Error(`OpenAI svarade ${response.status}. Kontrollera API-nyckel och saldo.`);
+    throw new Error(await formatOpenAiError(response));
   }
 
   const payload = await response.json();
@@ -98,13 +110,26 @@ function createEndpointSpec(endpoint: AiEndpoint, body: Record<string, unknown>)
   };
 }
 
-function parseAiEndpoint(url: string | undefined): AiEndpoint {
+function parseAiEndpoint(url: string | undefined): AiEndpoint | null {
   const path = (url ?? "").split("?")[0].replace(/^\/api\/ai\/?/, "").replace(/^\//, "");
   if (path === "plant-name-suggestions" || path === "plant-recommendations" || path === "plant-suggestion") {
     return path;
   }
 
-  return "plant-suggestion";
+  return null;
+}
+
+async function formatOpenAiError(response: Response): Promise<string> {
+  const fallback = `OpenAI svarade ${response.status}.`;
+
+  try {
+    const text = await response.text();
+    if (!text) return fallback;
+    const parsed = JSON.parse(text) as { error?: { message?: string } };
+    return `OpenAI svarade ${response.status}: ${parsed.error?.message ?? text}`;
+  } catch {
+    return fallback;
+  }
 }
 
 function extractResponseText(payload: unknown): string | undefined {

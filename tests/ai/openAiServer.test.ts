@@ -24,6 +24,19 @@ describe("openAiServer", () => {
 
     vi.unstubAllGlobals();
   });
+
+  it("does not expose an image generation route for map images", async () => {
+    vi.stubGlobal("fetch", vi.fn());
+
+    const response = createResponse();
+    await handleAiRequest(createRequest("/map-image", { image: "data:image/png;base64,abc" }), response, "test-key");
+
+    expect(response.statusCode).toBe(404);
+    expect(JSON.parse(response.body)).toEqual({ error: "Okänd AI-route." });
+    expect(fetch).not.toHaveBeenCalled();
+
+    vi.unstubAllGlobals();
+  });
 });
 
 function createRequest(url: string, body: unknown) {
