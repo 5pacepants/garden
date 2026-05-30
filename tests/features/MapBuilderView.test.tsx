@@ -214,6 +214,7 @@ describe("MapBuilderView", () => {
 
     expect(screen.getByRole("dialog", { name: "Förstorad karta" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Stäng" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Lägg till hus" })).not.toBeInTheDocument();
     expect(document.body.style.overflow).toBe("hidden");
   });
 

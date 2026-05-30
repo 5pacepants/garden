@@ -318,8 +318,8 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
             </button>
           </div>
           <div className="map-builder-wide-body">
-            <aside className="map-builder-wide-info">{renderToolsPane()}</aside>
             <div className="map-builder-wide-preview">{renderPreviewPane(true)}</div>
+            <aside className="map-builder-wide-info">{renderWideInfoPane()}</aside>
           </div>
         </div>
       ) : (
@@ -366,6 +366,44 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
               {item.label}
             </button>
           ))}
+        </div>
+        <div className="map-builder-object-list" aria-label="Kartobjekt">
+          {layout.elements.map((element) => (
+            <button
+              className={element.id === selectedElement?.id ? "active" : ""}
+              key={element.id}
+              onClick={() => setSelectedId(element.id)}
+              type="button"
+            >
+              {element.name}
+            </button>
+          ))}
+        </div>
+        {selectedElement && <ElementEditor element={selectedElement} onChange={saveElement} />}
+        <div className="inline-form">
+          <button className="tool-button" onClick={saveCurrentLayout} type="button">
+            Spara
+          </button>
+        </div>
+        {message && <p className="helper-text">{message}</p>}
+        <button className="tool-button primary" onClick={applyAsMapBackground} type="button">
+          Använd som kartbild
+        </button>
+      </div>
+    );
+  }
+
+  function renderWideInfoPane() {
+    return (
+      <div className="map-builder-wide-info-content">
+        <div className="map-builder-wide-summary">
+          <span className="eyebrow">Markerat</span>
+          <h3>{selectedElement?.name ?? "Inget valt"}</h3>
+          <p className="helper-text">
+            {selectedElement
+              ? "Välj ett objekt i kartan för att se och ändra dess namn och färg."
+              : "Tryck på ett objekt i kartan."}
+          </p>
         </div>
         <div className="map-builder-object-list" aria-label="Kartobjekt">
           {layout.elements.map((element) => (
