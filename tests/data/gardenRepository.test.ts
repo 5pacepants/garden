@@ -8,7 +8,7 @@ describe("garden repository", () => {
     localStorage.clear();
   });
 
-  it("loads an empty house map state when no stored state exists", async () => {
+  it("loads the starter garden state when no stored state exists", async () => {
     const repository = new LocalStorageGardenRepository("garden-test");
 
     const state = await repository.load();
@@ -16,9 +16,9 @@ describe("garden repository", () => {
     expect(state.version).toBe(1);
     expect(state.map.name).toBe("Min trädgård");
     expect(state.map.backgroundImage).toBe("/bakgrund.png");
-    expect(state.plants).toHaveLength(0);
-    expect(state.beds).toHaveLength(0);
-    expect(state.zones).toHaveLength(0);
+    expect(state.plants.length).toBeGreaterThan(0);
+    expect(state.beds.length).toBeGreaterThan(0);
+    expect(state.zones.length).toBeGreaterThan(0);
     expect(state.mapImages).toEqual([]);
   });
 

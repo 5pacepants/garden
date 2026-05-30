@@ -1,0 +1,4526 @@
+{
+  "version": 1,
+  "map": {
+    "id": "map_main",
+    "name": "Min trädgård",
+    "backgroundImage": "/bakgrund.png"
+  },
+  "zones": [
+    {
+      "id": "zone_26a97bd8-d5a4-478a-987a-f2edde9c9077",
+      "name": "Väst",
+      "polygon": [
+        {
+          "x": 38.645833333333336,
+          "y": 10.781191187887027
+        },
+        {
+          "x": 38.59375,
+          "y": 22.499877261677273
+        },
+        {
+          "x": 97.91666666666666,
+          "y": 22.551960310894117
+        },
+        {
+          "x": 98.125,
+          "y": 9.843696301983806
+        }
+      ],
+      "light": "half_sun",
+      "moisture": "normal",
+      "soilTraits": [
+        "well_drained"
+      ]
+    },
+    {
+      "id": "zone_1a2e1891-5a7a-439c-927f-1bce2caa86f1",
+      "name": "Ny zon",
+      "polygon": [
+        {
+          "x": 38.4375,
+          "y": 22.551960310894117
+        },
+        {
+          "x": 38.645833333333336,
+          "y": 32.760237957395844
+        },
+        {
+          "x": 97.76041666666667,
+          "y": 33.38523454799799
+        },
+        {
+          "x": 97.96875,
+          "y": 22.551960310894117
+        }
+      ],
+      "light": "part_shade",
+      "moisture": "normal",
+      "soilTraits": [
+        "well_drained",
+        "sandy"
+      ]
+    },
+    {
+      "id": "zone_222a6a6a-aec7-4fe3-818b-4d6dced5daa6",
+      "name": "Norr/öst",
+      "polygon": [
+        {
+          "x": 36.666666666666664,
+          "y": 52.29138141371292
+        },
+        {
+          "x": 72.8125,
+          "y": 52.4997136105803
+        },
+        {
+          "x": 72.70833333333333,
+          "y": 32.968570154263226
+        },
+        {
+          "x": 97.70833333333333,
+          "y": 33.38523454799799
+        },
+        {
+          "x": 97.96875,
+          "y": 55.36428131750681
+        },
+        {
+          "x": 36.875,
+          "y": 55.20803216985627
+        }
+      ],
+      "light": "shade",
+      "moisture": "moist",
+      "soilTraits": [
+        "sandy",
+        "well_drained"
+      ]
+    },
+    {
+      "id": "zone_7dbd4eaf-9cd9-472f-9022-028342ffd275",
+      "name": "Mot skogen",
+      "polygon": [
+        {
+          "x": 1.4583333333333333,
+          "y": 1.1979101319874472
+        },
+        {
+          "x": 19.583333333333332,
+          "y": 1.5104084272885205
+        },
+        {
+          "x": 19.21875,
+          "y": 10.572858991019645
+        },
+        {
+          "x": 1.1458333333333333,
+          "y": 10.520775941802798
+        }
+      ],
+      "light": "half_sun",
+      "moisture": "normal",
+      "soilTraits": [
+        "clay",
+        "humus_rich"
+      ]
+    },
+    {
+      "id": "zone_68297d1b-744f-413f-bed2-aee6aba78353",
+      "name": "Söder",
+      "polygon": [
+        {
+          "x": 38.59375,
+          "y": 10.781191187887027
+        },
+        {
+          "x": 39.010416666666664,
+          "y": 52.447630561363454
+        },
+        {
+          "x": 36.510416666666664,
+          "y": 52.34346446292977
+        },
+        {
+          "x": 36.770833333333336,
+          "y": 55.260115219073114
+        },
+        {
+          "x": 1.5625,
+          "y": 55.20803216985627
+        },
+        {
+          "x": 1.25,
+          "y": 10.677025089453334
+        }
+      ],
+      "light": "sun",
+      "moisture": "dry",
+      "soilTraits": [
+        "well_drained",
+        "sandy"
+      ]
+    }
+  ],
+  "beds": [
+    {
+      "id": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 46.510416666666664,
+          "y": 11.041606433971253
+        },
+        {
+          "x": 63.854166666666664,
+          "y": 11.041606433971253
+        },
+        {
+          "x": 63.697916666666664,
+          "y": 15.364499518969435
+        },
+        {
+          "x": 46.458333333333336,
+          "y": 15.26033342053574
+        }
+      ],
+      "notes": "Perennrabatt",
+      "soilTraits": [
+        "well_drained",
+        "sandy"
+      ]
+    },
+    {
+      "id": "bed_df42ace8-547d-4005-8ba6-e4fc35cd2460",
+      "name": "Oxelrabatt",
+      "polygon": [
+        {
+          "x": 1.875,
+          "y": 53.02054410274876
+        },
+        {
+          "x": 97.1875,
+          "y": 52.96846105353191
+        },
+        {
+          "x": 97.23958333333333,
+          "y": 55.312198268289954
+        },
+        {
+          "x": 2.2395833333333335,
+          "y": 55.62469656359103
+        }
+      ],
+      "soilTraits": [
+        "well_drained",
+        "sandy"
+      ],
+      "notes": "Grävd, delvis grus, delvis planteringsjord. "
+    },
+    {
+      "id": "bed_5cab71c9-187c-438a-8f51-70ff6eddaf3b",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 29.895833333333332,
+          "y": 28.437344872397663
+        },
+        {
+          "x": 27.447916666666668,
+          "y": 28.489427921614507
+        },
+        {
+          "x": 27.34375,
+          "y": 34.37481248311805
+        },
+        {
+          "x": 29.895833333333332,
+          "y": 34.635227729202285
+        }
+      ]
+    },
+    {
+      "id": "bed_6af6ed99-9929-44f3-bc77-815dcdbfb8c4",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 45.15625,
+          "y": 12.187433516741855
+        },
+        {
+          "x": 42.083333333333336,
+          "y": 12.291599615175548
+        },
+        {
+          "x": 42.083333333333336,
+          "y": 14.479087682283058
+        },
+        {
+          "x": 45.208333333333336,
+          "y": 14.583253780716749
+        }
+      ]
+    },
+    {
+      "id": "bed_c5150755-cc08-486b-a6d6-987eebc2d12a",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 67.29166666666667,
+          "y": 14.739502928367287
+        },
+        {
+          "x": 64.84375,
+          "y": 15.104084272885204
+        },
+        {
+          "x": 65.15625,
+          "y": 11.406187778489173
+        },
+        {
+          "x": 67.39583333333333,
+          "y": 11.510353876922863
+        }
+      ]
+    },
+    {
+      "id": "bed_6ef56e07-99d6-4be6-bfed-515d2cbc0608",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 47.34374999999999,
+          "y": 26.09360765763961
+        },
+        {
+          "x": 43.22916666666666,
+          "y": 25.937358509989075
+        },
+        {
+          "x": 43.33333333333333,
+          "y": 27.60401608492813
+        },
+        {
+          "x": 47.604166666666664,
+          "y": 27.708182183361824
+        }
+      ]
+    },
+    {
+      "id": "bed_146d4e9c-2cf6-43ff-9fff-de628149e1fb",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 25.729166666666664,
+          "y": 17.083240143125334
+        },
+        {
+          "x": 19.479166666666668,
+          "y": 17.083240143125334
+        },
+        {
+          "x": 19.739583333333332,
+          "y": 19.166562111799156
+        },
+        {
+          "x": 22.65625,
+          "y": 19.218645161016003
+        },
+        {
+          "x": 22.708333333333332,
+          "y": 21.979046769508816
+        },
+        {
+          "x": 25.677083333333332,
+          "y": 22.13529591715935
+        }
+      ]
+    },
+    {
+      "id": "bed_eb557567-d165-466b-8bdd-c2b858e83bfd",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 17.8125,
+          "y": 19.84364175161815
+        },
+        {
+          "x": 18.072916666666668,
+          "y": 17.03115709390849
+        },
+        {
+          "x": 13.593749999999998,
+          "y": 16.9269909954748
+        },
+        {
+          "x": 13.697916666666668,
+          "y": 19.84364175161815
+        }
+      ]
+    },
+    {
+      "id": "bed_10a9f4ad-e1fd-40c1-bf79-d6eec6321264",
+      "name": "Pallkrage",
+      "polygon": [
+        {
+          "x": 11.979166666666668,
+          "y": 16.979074044691647
+        },
+        {
+          "x": 11.979166666666668,
+          "y": 20.156140046919223
+        },
+        {
+          "x": 7.760416666666667,
+          "y": 19.999890899268685
+        },
+        {
+          "x": 7.760416666666667,
+          "y": 16.979074044691647
+        }
+      ],
+      "soilTraits": [
+        "humus_rich"
+      ]
+    },
+    {
+      "id": "bed_84828d3b-3314-4108-ac20-0662fb7c78a6",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 25.052083333333336,
+          "y": 24.37486703348371
+        },
+        {
+          "x": 25,
+          "y": 27.812348281795515
+        },
+        {
+          "x": 15.208333333333332,
+          "y": 27.708182183361824
+        },
+        {
+          "x": 15.312500000000002,
+          "y": 24.27070093505002
+        }
+      ]
+    },
+    {
+      "id": "bed_63627c41-118c-4caf-b32e-24c6ed74f2d4",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 12.5,
+          "y": 24.27070093505002
+        },
+        {
+          "x": 12.5,
+          "y": 27.135268641976523
+        },
+        {
+          "x": 7.968749999999999,
+          "y": 27.239434740410214
+        },
+        {
+          "x": 8.020833333333334,
+          "y": 24.27070093505002
+        }
+      ]
+    },
+    {
+      "id": "bed_0b9cbed4-5df4-461f-95b0-160bb2bb1ea1",
+      "name": "Ny rabatt",
+      "polygon": [
+        {
+          "x": 41.614583333333336,
+          "y": 25.624860214688002
+        },
+        {
+          "x": 41.71875,
+          "y": 27.708182183361824
+        },
+        {
+          "x": 38.125,
+          "y": 27.656099134144977
+        },
+        {
+          "x": 38.072916666666664,
+          "y": 25.52069411625431
+        }
+      ]
+    }
+  ],
+  "plants": [
+    {
+      "id": "plant_c57059ab-015e-4d08-bf51-a1ea309fce62",
+      "swedishName": "Syrenbuske",
+      "status": "existing",
+      "type": "shrub",
+      "mapRadius": 3.4,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 10.9375,
+          "y": 10.260360695718571
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "doftande",
+        "fågelvänlig",
+        "snittblomma"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "intervalDays": 7,
+            "startMonth": 3,
+            "endMonth": 10
+          },
+          "instructions": "Vattna regelbundet under torra perioder, särskilt i början efter plantering och under sommarens varma månader.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_9ba58ad9-9323-4e83-ab51-b3ded7776780",
+          "plantId": "plant_c57059ab-015e-4d08-bf51-a1ea309fce62"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              6,
+              7
+            ]
+          },
+          "instructions": "Beskär syrenbusken direkt efter blomningen i juni-juli för att främja ny tillväxt och rik blomning nästa år. Ta bort gamla och skadade grenar.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_01b4e19f-368d-4c10-a73d-cba85f803546",
+          "plantId": "plant_c57059ab-015e-4d08-bf51-a1ea309fce62"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              4
+            ]
+          },
+          "instructions": "Gödselvattna på våren med en balanserad gödsel för buskar för att stödja tillväxt och blomning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_11d051cb-b3fb-4891-afa3-086ee8859db7",
+          "plantId": "plant_c57059ab-015e-4d08-bf51-a1ea309fce62"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "intervalDays": 14,
+            "startMonth": 4,
+            "endMonth": 9
+          },
+          "instructions": "Kontrollera växten regelbundet för tecken på skadedjur som bladlöss samt svampsjukdomar och åtgärda vid behov.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_32b27d2c-3984-4da0-ab02-6cecf2d7d4b7",
+          "plantId": "plant_c57059ab-015e-4d08-bf51-a1ea309fce62"
+        }
+      ],
+      "latinName": "Syringa vulgaris",
+      "notes": "Syrenbusken trivs bäst i soliga till halvskuggiga lägen med väldränerad, näringsrik jord. Den blommar rikligt på våren och ger en härlig doft. Beskär efter blomning för bästa blommande nästa år.",
+      "floweringMonths": [
+        5,
+        6
+      ],
+      "size": {
+        "heightCm": 300,
+        "widthCm": 300
+      }
+    },
+    {
+      "id": "plant_0040890e-b577-4874-a292-e6e37679dafe",
+      "swedishName": "Röd solhatt",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.13173652694610768,
+          "y": 0.5301204819277109
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "perenn",
+        "sommarblommande",
+        "pollinatörvänlig",
+        "medicinalväxt"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "months": [
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Vattna regelbundet under varma och torra perioder, men undvik att jorden blir stående våt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_3fc87a99-301c-4882-b838-5155249d1a2f",
+          "plantId": "plant_0040890e-b577-4874-a292-e6e37679dafe"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "months": [
+              10
+            ]
+          },
+          "instructions": "Klipp ner vissna blomstänglar för att stimulera ny tillväxt och hålla plantan prydlig inför vintern.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_a9e034ed-8ab5-47df-bcdf-9d99db636235",
+          "plantId": "plant_0040890e-b577-4874-a292-e6e37679dafe"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "months": [
+              4
+            ]
+          },
+          "instructions": "Gödselvattna med ett balanserat flytande gödselmedel tidigt på våren för att främja blomning.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_d4ce45c3-5eef-48cc-b6ef-05171439033c",
+          "plantId": "plant_0040890e-b577-4874-a292-e6e37679dafe"
+        },
+        {
+          "actionType": "divide",
+          "timing": {
+            "months": [
+              4,
+              5
+            ]
+          },
+          "instructions": "Dela plantan vart tredje till fjärde år på våren för att förnya och stimulera tillväxt.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_af210274-6350-47a8-8016-fa96aace8ff0",
+          "plantId": "plant_0040890e-b577-4874-a292-e6e37679dafe"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Håll ytan runt plantan fri från ogräs för att minska konkurrens om näring och vatten.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_5c864deb-3115-42b7-9e5f-6d193914b8c1",
+          "plantId": "plant_0040890e-b577-4874-a292-e6e37679dafe"
+        }
+      ],
+      "latinName": "Echinacea purpurea",
+      "notes": "Röd solhatt trivs bäst i sol till halvskugga och gillar väldränerad, näringsrik jord. Den är tålig mot torka när den etablerats men uppskattar regelbunden vattning under torrperioder.",
+      "floweringMonths": [
+        7,
+        8,
+        9
+      ],
+      "size": {
+        "heightCm": 100,
+        "widthCm": 45
+      }
+    },
+    {
+      "id": "plant_b6824347-a565-405a-8768-22579ad29e5b",
+      "swedishName": "Blåklocka",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.30239520958083826,
+          "y": 0.6024096385542167
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun",
+          "part_shade"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "perenn",
+        "lila blomma",
+        "pollinatörvänlig"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "frequency": "varannan vecka",
+            "season": "vår och sommar"
+          },
+          "instructions": "Vattna vid torr väderlek, särskilt under varma perioder.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_b30d3a48-3e8e-4ad0-bbe4-0965419e0447",
+          "plantId": "plant_b6824347-a565-405a-8768-22579ad29e5b"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 9
+          },
+          "instructions": "Ta bort vissna blommor för att förlänga blomningstiden och hålla plantan snygg.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_77642435-3a58-4437-90c2-45ea0ec307ec",
+          "plantId": "plant_b6824347-a565-405a-8768-22579ad29e5b"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Ge en svag dos gödsel på våren för att stimulera ny tillväxt.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_77c85a7f-eda1-4b27-ad41-5479f7c6dae0",
+          "plantId": "plant_b6824347-a565-405a-8768-22579ad29e5b"
+        },
+        {
+          "actionType": "divide",
+          "timing": {
+            "month": 5
+          },
+          "instructions": "Dela plantan vart tredje till femte år för att föryngra och sprida blåklockan.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_12ce8127-932e-4602-9c1f-8e98d4fa3519",
+          "plantId": "plant_b6824347-a565-405a-8768-22579ad29e5b"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "frequency": "varannan månad"
+          },
+          "instructions": "Kontrollera plantan för angrepp av ohyra eller sjukdomar, även om blåklocka normalt är motståndskraftig.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_dc8fc892-b75f-4c48-a66d-e119dde32580",
+          "plantId": "plant_b6824347-a565-405a-8768-22579ad29e5b"
+        }
+      ],
+      "latinName": "Campanula rotundifolia",
+      "notes": "Blåklocka trivs i väldränerad jord och är tålig mot lite torka. Den är vacker och lockar bin och fjärilar.",
+      "floweringMonths": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "size": {
+        "heightCm": 30,
+        "widthCm": 25
+      }
+    },
+    {
+      "id": "plant_bdc824d1-f004-4c7d-af1b-208c0f4f6c68",
+      "swedishName": "Alpvide",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.5838323353293414,
+          "y": 0.5421686746987953
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "moist",
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rik"
+        ]
+      },
+      "tags": [
+        "mossbeklädd",
+        "alpin",
+        "krypande"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "frequency": "varannan vecka",
+            "season": [
+              "vår",
+              "sommar"
+            ]
+          },
+          "instructions": "Håll jordlaget jämnt fuktigt men inte blött under den varma säsongen.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_1bb7d496-95fc-4729-9580-d164126237db",
+          "plantId": "plant_bdc824d1-f004-4c7d-af1b-208c0f4f6c68"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              3
+            ]
+          },
+          "instructions": "Gödra lätt med en svag kväverik gödsel på våren för att stimulera tillväxt.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_ceada801-fdd8-46a3-8d15-387c3a82b0fb",
+          "plantId": "plant_bdc824d1-f004-4c7d-af1b-208c0f4f6c68"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              6,
+              7
+            ]
+          },
+          "instructions": "Klipp försiktigt bort eventuella skrumpna eller skadade grenar för att bibehålla formen.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_0f9f6b55-1643-4fff-abd3-4cc352da1f22",
+          "plantId": "plant_bdc824d1-f004-4c7d-af1b-208c0f4f6c68"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "frequency": "en gång per månad",
+            "season": [
+              "vår",
+              "sommar"
+            ]
+          },
+          "instructions": "Kontrollera plantan för skadedjur eller tecken på sjukdomar och agera vid behov.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_d0eb0005-ff78-4503-aa99-5eba9b844329",
+          "plantId": "plant_bdc824d1-f004-4c7d-af1b-208c0f4f6c68"
+        }
+      ],
+      "latinName": "Salix reticulata",
+      "floweringMonths": [
+        4,
+        5
+      ],
+      "size": {
+        "heightCm": 10,
+        "widthCm": 30
+      },
+      "notes": "Alpvide är en lågväxande dvärgbuske som trivs i svala, fuktiga och väldränerade miljöer. Den är tålig mot kyla och passar bra i alpina eller stensatta trädgårdar."
+    },
+    {
+      "id": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "swedishName": "Olof äppelträd",
+      "status": "existing",
+      "type": "tree",
+      "mapRadius": 1.4,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 5.572916666666667,
+          "y": 14.270755485415679
+        }
+      },
+      "needs": {
+        "light": [
+          "sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "äpplen",
+        "fruktträd",
+        "härdig",
+        "edible"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 9,
+            "frequencyDays": 7
+          },
+          "instructions": "Vattna regelbundet under torra perioder, särskilt under blomning och fruktbildning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_dcef8c69-18ee-43e1-8bb7-dff768a1d899",
+          "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 3
+          },
+          "instructions": "Beskär vid början av våren för att ta bort döda eller korsande grenar och forma trädet.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_cbfb6d7b-45f5-42d0-9da8-177432e69a8e",
+          "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Gödsel på våren med ett balanserat trädgårdsgödsel för fruktträd.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_708e0144-e513-455e-ab1c-ee98ce1d8a3a",
+          "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "startMonth": 9,
+            "endMonth": 10
+          },
+          "instructions": "Skörda äpplena när de är fullt mogna, ofta i september till oktober.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_be6f3d4b-85a4-40a5-acdd-4d43e4deefac",
+          "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355"
+        },
+        {
+          "id": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df",
+          "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+          "actionType": "water",
+          "timing": {
+            "type": "recurring",
+            "unit": "week",
+            "interval": 1,
+            "months": [
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "instructions": "Rikligt",
+          "priority": "normal",
+          "taskMode": "automatic",
+          "source": "manual"
+        }
+      ],
+      "latinName": "Malus domestica 'Olof'",
+      "floweringMonths": [
+        4,
+        5
+      ],
+      "size": {
+        "heightCm": 400,
+        "widthCm": 300
+      },
+      "plantInfo": "Olof äppelträd är en härdig svensk äppelsort med medelstora, smakrika frukter som mognar sent på säsongen. Trädet är motståndskraftigt mot vanliga sjukdomar och passar bra i svenska trädgårdar. Blommar på våren och bör beskäras för att bibehålla en sund form och god fruktproduktion.",
+      "harvestMonths": [
+        9,
+        10
+      ],
+      "notes": "Planterad April 2026"
+    },
+    {
+      "id": "plant_cb2147a4-af13-4bdc-b99a-cf99e6b11c2a",
+      "swedishName": "Röda vinbär",
+      "status": "existing",
+      "type": "shrub",
+      "mapRadius": 1,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 69.21875,
+          "y": 13.54159279637984
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "native",
+        "bärbuske"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 9
+          },
+          "instructions": "Vattna regelbundet under torra perioder, särskilt under blomning och bärutveckling.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_ed7f13ce-dabf-4adc-afad-962c0e0838de",
+          "plantId": "plant_cb2147a4-af13-4bdc-b99a-cf99e6b11c2a"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 3
+          },
+          "instructions": "Beskar bort gamla och svaga grenar tidigt på våren för att gynna nya skott och öka fruktproduktionen.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_5651f2f8-8930-4a21-847e-50794de93a0c",
+          "plantId": "plant_cb2147a4-af13-4bdc-b99a-cf99e6b11c2a"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Gödsel tillförs tidigt på våren med balanserad jordgödsel eller kompostmull för bäst tillväxt och fruktsättning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_f9cf7655-b054-4779-ac49-0b50873eb3ab",
+          "plantId": "plant_cb2147a4-af13-4bdc-b99a-cf99e6b11c2a"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "fromMonth": 7,
+            "toMonth": 8
+          },
+          "instructions": "Skörda bären när de är fullt röda och lätt lossnar från klasarna för bästa smak och kvalitet.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_652f245a-e2f4-491a-8b76-86c9963d3b85",
+          "plantId": "plant_cb2147a4-af13-4bdc-b99a-cf99e6b11c2a"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 9
+          },
+          "instructions": "Rensa bort ogräs runt busken regelbundet för att minska konkurrensen om näring och vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_7cda40f8-dcf7-41d2-88a9-e4babefedcf3",
+          "plantId": "plant_cb2147a4-af13-4bdc-b99a-cf99e6b11c2a"
+        }
+      ],
+      "latinName": "Ribes rubrum",
+      "floweringMonths": [
+        4,
+        5
+      ],
+      "harvestMonths": [
+        7,
+        8
+      ],
+      "size": {
+        "heightCm": 150,
+        "widthCm": 150
+      },
+      "plantInfo": "Röda vinbär är en lättodlad buske som ger rikligt med syrliga, ätbara röda bär under sensommaren. Den trivs i halvskugga till full sol och vill ha fuktig, näringsrik jord med god dränering. Busken är härdig och passar i svenska trädgårdar, både för bärplockning och som prydnad.",
+      "notes": "Planterad April 2026"
+    },
+    {
+      "id": "plant_90025155-4005-408c-9632-f2b568464f30",
+      "swedishName": "Vintergröna",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.7485029940119764,
+          "y": 0.6024096385542167
+        }
+      },
+      "needs": {
+        "light": [
+          "shade",
+          "part_shade",
+          "half_sun"
+        ],
+        "moisture": [
+          "moist",
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "ground_cover",
+        "evergreen",
+        "ornamental"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "startMonth": 3,
+            "endMonth": 10,
+            "frequency": "veckovis"
+          },
+          "instructions": "Vattna regelbundet, särskilt torra perioder på våren och sommaren.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_d693ad50-22d4-470f-a4b3-0f633371601e",
+          "plantId": "plant_90025155-4005-408c-9632-f2b568464f30"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "startMonth": 7,
+            "endMonth": 8
+          },
+          "instructions": "Beskär lätt efter blomningen för att hålla plantan frisk och kompakta grenar.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_03426a90-05a2-4604-b679-8e62a5a6c2a0",
+          "plantId": "plant_90025155-4005-408c-9632-f2b568464f30"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 5,
+            "frequency": "en gång per vår"
+          },
+          "instructions": "Ge en balanserad gödsel på våren för god start.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_5d29b860-7741-49a9-9ed4-9bcfebbc42b3",
+          "plantId": "plant_90025155-4005-408c-9632-f2b568464f30"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 9,
+            "frequency": "varannan vecka"
+          },
+          "instructions": "Håll efter ogräs för att undvika konkurrens.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_ffa00a36-1bc3-496b-ad7e-c48b1eefb31d",
+          "plantId": "plant_90025155-4005-408c-9632-f2b568464f30"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "startMonth": 5,
+            "endMonth": 9,
+            "frequency": "månatligen"
+          },
+          "instructions": "Kontrollera efter skadedjur och sjukdomar, såsom bladlöss eller svampangrepp.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_29b410f0-157d-4367-98b2-de3cf1cbd7b9",
+          "plantId": "plant_90025155-4005-408c-9632-f2b568464f30"
+        }
+      ],
+      "latinName": "Vinca minor",
+      "floweringMonths": [
+        5,
+        6
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 15,
+        "widthCm": 40
+      },
+      "plantInfo": "Vintergröna (Vinca minor) är en lågväxande, vintergrön marktäckande växt med blålila blommor som blommar under våren. Den trivs bäst i skuggiga till halvskuggiga lägen och fuktig, väldränerad jord. Passar bra som marktäckare under buskar och träd.",
+      "notes": "Planterad Juni 2025"
+    },
+    {
+      "id": "plant_bfde51c9-ca6e-4070-87e8-99c839f4087b",
+      "swedishName": "Svensk Salvia",
+      "status": "existing",
+      "type": "herb",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.43113772455089794,
+          "y": 0.6867469879518071
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "krydda",
+        "perennial"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "frequency": "varannan dag",
+            "season": "vår och sommar"
+          },
+          "instructions": "Vattna regelbundet men låt jorden torka upp mellan vattningarna för att undvika rotbrand.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_08dfcd8d-cd16-4058-bdf5-2882f3aba2b8",
+          "plantId": "plant_bfde51c9-ca6e-4070-87e8-99c839f4087b"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              5,
+              9
+            ]
+          },
+          "instructions": "Beskär plantan tidigt på våren för att uppmuntra ny tillväxt och efter blomning för att hålla busken kompakt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_2003c845-ac4b-40b3-826b-844ce9fe2fe5",
+          "plantId": "plant_bfde51c9-ca6e-4070-87e8-99c839f4087b"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              4
+            ]
+          },
+          "instructions": "Gödsel med svag dos av kväverik gödning på våren för bästa tillväxt.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_b62df111-acee-4276-bbfa-3fc904b8249c",
+          "plantId": "plant_bfde51c9-ca6e-4070-87e8-99c839f4087b"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Skörda bladen kontinuerligt under växtsäsongen, gärna på morgonen efter daggen torkat.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_e290a35d-e107-46a8-9791-822f60c1afc4",
+          "plantId": "plant_bfde51c9-ca6e-4070-87e8-99c839f4087b"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "frequency": "varje vecka",
+            "season": "vår och sommar"
+          },
+          "instructions": "Håll området runt plantan ogräsfritt för att minska konkurrens om näring och vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_74fb9ffa-4f85-4cce-8c4f-fbdd1a298ad6",
+          "plantId": "plant_bfde51c9-ca6e-4070-87e8-99c839f4087b"
+        }
+      ],
+      "latinName": "Salvia officinalis",
+      "floweringMonths": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "harvestMonths": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "size": {
+        "heightCm": 50,
+        "widthCm": 60
+      },
+      "plantInfo": "Svensk Salvia, eller Salvia officinalis, är en flerårig ört som används som krydda. Den trivs i soliga lägen med väldränerad, näringsrik jord. Bladen är aromatiska och används färska eller torkade i matlagning. Salvia blommar under sommaren och kan även bidra med dekorativa blommor som lockar pollinerare.",
+      "notes": "Planterad Juni 2025"
+    },
+    {
+      "id": "plant_079d5cc6-fac4-4f34-9963-d3b862c675ea",
+      "swedishName": "Skabiosa",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.4910179640718567,
+          "y": 0.3373493975903614
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "perennial",
+        "flower",
+        "cut_flower",
+        "pollinator"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "fromMonth": 5,
+            "toMonth": 9,
+            "intervalDays": 3
+          },
+          "instructions": "Vattna regelbundet under torra perioder, cirka var tredje dag under växtsäsongen.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_717140b2-ceef-4990-8d71-139eb55a6080",
+          "plantId": "plant_079d5cc6-fac4-4f34-9963-d3b862c675ea"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 10
+          },
+          "instructions": "Klipp ner vissna stjälkar efter blomningen på hösten för att stimulera ny tillväxt nästa vår.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_71ead87e-da46-466b-9f6c-f5204fabb9d5",
+          "plantId": "plant_079d5cc6-fac4-4f34-9963-d3b862c675ea"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Ge näring med balanserat gödselmedel i början av säsongen för bästa blomning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_5ac95fb8-e72d-49e0-9985-ca446a1f4318",
+          "plantId": "plant_079d5cc6-fac4-4f34-9963-d3b862c675ea"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "intervalDays": 14
+          },
+          "instructions": "Rensa ogräs runt plantan regelbundet för att minska konkurrens om näring och vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_c4ffd4fa-4ae9-4c0e-b000-c7e6d518c604",
+          "plantId": "plant_079d5cc6-fac4-4f34-9963-d3b862c675ea"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "intervalDays": 14
+          },
+          "instructions": "Kontrollera plantan för skadedjur som bladlöss och behandla vid behov.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_89d97557-a2ea-4a69-a4ac-4426a5951212",
+          "plantId": "plant_079d5cc6-fac4-4f34-9963-d3b862c675ea"
+        }
+      ],
+      "latinName": "Scabiosa",
+      "floweringMonths": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 60,
+        "widthCm": 40
+      },
+      "plantInfo": "Skabiosa är en flerårig blomma som trivs i soliga lägen med väldränerad och näringsrik jord. Den är omtyckt för sina dekorativa blommor som lockar till sig bin och fjärilar. Skabiosa används ofta som snittblomma och blommar rikligt under försommaren till tidig höst. Den är relativt lättskött och klarar vanliga trädgårdsförhållanden. Den ätbara delen är inte aktuell för denna växt.",
+      "notes": "Planterad Juni 2025"
+    },
+    {
+      "id": "plant_1e183205-4726-47d9-8a2b-fe5e8b652fb4",
+      "swedishName": "Liten såpnejlika",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.9071856287425152,
+          "y": 0.2409638554216867
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "sandy"
+        ]
+      },
+      "tags": [
+        "perenn",
+        "blommande",
+        "torktålig"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 9,
+            "frequency": "varannan vecka"
+          },
+          "instructions": "Vattna regelbundet under växtsäsongen men undvik att vattna för mycket så att jorden blir stående blöt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_52c65222-45c3-4287-a8ff-e90931126169",
+          "plantId": "plant_1e183205-4726-47d9-8a2b-fe5e8b652fb4"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "startMonth": 6,
+            "endMonth": 7,
+            "frequency": "once"
+          },
+          "instructions": "Klipp bort gamla blomstjälkar för att främja ny blomning och hålla växten kompakt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_d5ffcd64-d01c-4f00-917c-d37804248d11",
+          "plantId": "plant_1e183205-4726-47d9-8a2b-fe5e8b652fb4"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 6,
+            "frequency": "once"
+          },
+          "instructions": "Ge en svag dos allsidigt gödsel tidigt på säsongen för att främja blomning.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_5898fa94-935d-4ad3-8360-d110009612cc",
+          "plantId": "plant_1e183205-4726-47d9-8a2b-fe5e8b652fb4"
+        },
+        {
+          "actionType": "plant",
+          "timing": {
+            "month": 5
+          },
+          "instructions": "Plantera i väldränerad, gärna sandig jord i soligt eller halvskuggigt läge.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_6ed556a4-0a9a-41e7-9d78-3b0894ae1e23",
+          "plantId": "plant_1e183205-4726-47d9-8a2b-fe5e8b652fb4"
+        }
+      ],
+      "latinName": "Saponaria ocymoides",
+      "floweringMonths": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 15,
+        "widthCm": 30
+      },
+      "plantInfo": "Liten såpnejlika är en lågväxande perenn med små rosa till röda blommor som blommar under sommaren. Den trivs i sol till halvskugga och föredrar väldränerad, gärna sandig jord. Växten är tålig mot torka och passar bra i stenpartier eller som marktäckare. Den är inte ätbar.",
+      "notes": "Planterad Juni 2025"
+    },
+    {
+      "id": "plant_8b952340-a829-4bf2-8f28-850d45cd361d",
+      "swedishName": "Stjärnflocka",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.8922155688622754,
+          "y": 0.8795180722891558
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "perennial",
+        "flowering",
+        "ornamental"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "month": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Vattna regelbundet, särskilt under torra perioder, så jorden hålls lagom fuktig men inte blöt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_cc8cc357-e1d0-4e49-a0a9-a6bca3fa46bd",
+          "plantId": "plant_8b952340-a829-4bf2-8f28-850d45cd361d"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              4
+            ]
+          },
+          "instructions": "Gödselvattna med en balanserad, allsidig gödsel vid plantering eller tidig vår för att främja tillväxt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_2f9cb251-d308-459b-b150-79a1bbc00c61",
+          "plantId": "plant_8b952340-a829-4bf2-8f28-850d45cd361d"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              9
+            ]
+          },
+          "instructions": "Klipp ner vissna blomstjälkar för att främja ny tillväxt nästa säsong och behålla fin form.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_ec2b6273-664b-4e85-9faf-4cf080a31ed8",
+          "plantId": "plant_8b952340-a829-4bf2-8f28-850d45cd361d"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "month": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "instructions": "Ta bort ogräs regelbundet för att minska konkurrens om vatten och näring.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_6ca845e7-d48e-47bc-acb5-e2fcf905c71b",
+          "plantId": "plant_8b952340-a829-4bf2-8f28-850d45cd361d"
+        }
+      ],
+      "latinName": "Orlaya grandiflora",
+      "floweringMonths": [
+        6,
+        7,
+        8
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 60,
+        "widthCm": 40
+      },
+      "plantInfo": "Stjärnflocka är en flerårig ört som trivs i soliga till halvskuggiga lägen med väldränerad, näringsrik jord. Den har dekorativa vita, stjärnliknande blommor under sommaren och passar bra i blomsterbäddar och ängar där den lockar till sig pollinatörer. Den kräver måttlig vattning och är lättskött."
+    },
+    {
+      "id": "plant_747c977b-7cf7-4f21-a138-43abff141778",
+      "swedishName": "Fältvädd",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_e8348105-3ada-41a1-aff2-63794c7b2543",
+        "relativePosition": {
+          "x": 0.19161676646706566,
+          "y": 0.8192771084337344
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "perennial",
+        "flowering",
+        "wildlife_friendly",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "fromMonth": 5,
+            "toMonth": 7,
+            "frequencyPerWeek": 1
+          },
+          "instructions": "Vattna vid torr väderlek, särskilt under varma perioder, men undvik att jorden blir för blöt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_4ef534bd-ab61-44b6-871f-10615e960385",
+          "plantId": "plant_747c977b-7cf7-4f21-a138-43abff141778"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 9
+          },
+          "instructions": "Ta bort vissna blomställningar efter blomning för att stimulera ny tillväxt och undvika självsådd.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_037a74e5-bee8-4558-9a4d-14e620d024cd",
+          "plantId": "plant_747c977b-7cf7-4f21-a138-43abff141778"
+        },
+        {
+          "actionType": "divide",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Dela plantor på våren vartannat till vart tredje år för att hålla dem vitala och främja blomning.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_9c2d3b4a-da84-429a-ba1c-7bc7b5fc1b4b",
+          "plantId": "plant_747c977b-7cf7-4f21-a138-43abff141778"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Tillsätt gärna balanserad gödning på våren för extra näring men undvik kväverik gödning som kan minska blomningen.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_7efab7ef-505c-4045-b975-fde20291b997",
+          "plantId": "plant_747c977b-7cf7-4f21-a138-43abff141778"
+        }
+      ],
+      "latinName": "Knautia arvensis",
+      "floweringMonths": [
+        6,
+        7,
+        8
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 60,
+        "widthCm": 30
+      },
+      "plantInfo": "Fältvädd är en flerårig ört som ofta växer på torra till normala ängsmarker och vägkanter. Den trivs i sol eller halvskugga och föredrar väldränerad, mullrik jord. Blommorna är rödvioletta, attraktiva för pollinatörer som bin och fjärilar. Vid odling behöver den viss skötsel för att blomma rikligt och kan med fördel delas vartannat till vart tredje år för att förnya och främja blomningen."
+    },
+    {
+      "id": "plant_28a8404c-1180-47df-8218-2ad02b956a1a",
+      "swedishName": "Svarta vinbär",
+      "status": "existing",
+      "type": "shrub",
+      "mapRadius": 1.2,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 71.97916666666667,
+          "y": 13.489509747162993
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "humus_rich",
+          "well_drained"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 8,
+            "frequency": "varje vecka"
+          },
+          "instructions": "Vattna regelbundet under växtsäsongen, särskilt vid torrperioder, för att hålla jorden jämnt fuktig.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_01f356c5-fbbf-41cd-b1d1-526922e25608",
+          "plantId": "plant_28a8404c-1180-47df-8218-2ad02b956a1a"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 3
+          },
+          "instructions": "Ge näring tidigt på våren med kompost eller gödselrik jord för att främja tillväxt och fruktsättning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_36aca924-ff7c-4ecb-a333-8cdd3856b4b5",
+          "plantId": "plant_28a8404c-1180-47df-8218-2ad02b956a1a"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 3
+          },
+          "instructions": "Ta bort gamla och svaga grenar för att förbättra luftcirkulationen och fruktsättningen. Beskär till följd av buskens form och hälsa.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_f0075328-58cc-4906-9c63-aed28647e528",
+          "plantId": "plant_28a8404c-1180-47df-8218-2ad02b956a1a"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "fromMonth": 7,
+            "toMonth": 8
+          },
+          "instructions": "Skörda bären när de är helt svarta och mjuka för bästa smak och näringsvärde.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "manual",
+          "id": "care_e7a56329-ef34-4bf1-bff2-351a8a11fd78",
+          "plantId": "plant_28a8404c-1180-47df-8218-2ad02b956a1a"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 9,
+            "frequency": "varje vecka"
+          },
+          "instructions": "Håll rabbatterna fria från ogräs för att minska konkurrens om näring och vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_0b797994-8ac9-486b-8328-7b81a3fa1c9a",
+          "plantId": "plant_28a8404c-1180-47df-8218-2ad02b956a1a"
+        }
+      ],
+      "latinName": "Ribes nigrum",
+      "floweringMonths": [
+        4,
+        5
+      ],
+      "harvestMonths": [
+        7,
+        8
+      ],
+      "size": {
+        "heightCm": 120,
+        "widthCm": 150
+      },
+      "plantInfo": "Svarta vinbär är en buske som ger näringsrika, svarta bär med hög C-vitaminhalt. Den trivs bäst i sol till halvskugga och kräver fuktighet och näringsrik, väldränerad jord. Bären är mogna och skördeklar i juli till augusti. Svarta vinbär blommar på våren och lockar pollinatörer som bin och humlor.",
+      "notes": "Planterad April 2026"
+    },
+    {
+      "id": "plant_657803ff-9397-40ee-813b-c4ef0ae5eaa5",
+      "swedishName": "krusbär",
+      "status": "existing",
+      "type": "shrub",
+      "mapRadius": 1.2,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 75.57291666666667,
+          "y": 13.229094501078766
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "month": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "instructions": "Vattna regelbundet, särskilt under torra perioder, för att hålla jorden fuktig men inte blöt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_37e528d5-c963-41f8-ace1-cf7b04a66483",
+          "plantId": "plant_657803ff-9397-40ee-813b-c4ef0ae5eaa5"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              2,
+              3
+            ]
+          },
+          "instructions": "Beskär busken tidigt på våren innan den börjar växa för att ta bort gamla och svaga grenar och främja ny tillväxt.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_204da2da-8357-42bf-9a4b-eb0e53e09fc8",
+          "plantId": "plant_657803ff-9397-40ee-813b-c4ef0ae5eaa5"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              4
+            ]
+          },
+          "instructions": "Gödsel tillförs på våren med ett balanserat gödselmedel för buskar eller bärbuskar.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_88bc880b-e5f7-4564-a58b-11441e31b7ea",
+          "plantId": "plant_657803ff-9397-40ee-813b-c4ef0ae5eaa5"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              7,
+              8
+            ]
+          },
+          "instructions": "Skörda bären när de är fullt mogna och har fin färg och smak. Plocka försiktigt för att inte skada busken.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "manual",
+          "id": "care_d29233a4-85e1-45a0-ac7e-a52c6b5433d0",
+          "plantId": "plant_657803ff-9397-40ee-813b-c4ef0ae5eaa5"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "month": [
+              6,
+              7,
+              8
+            ]
+          },
+          "instructions": "Inspektera busken regelbundet för skadedjur som bladlöss och mjöldagg, och bekämpa vid behov.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_50778ffe-cae5-42e3-b037-c33d911f2f5d",
+          "plantId": "plant_657803ff-9397-40ee-813b-c4ef0ae5eaa5"
+        }
+      ],
+      "latinName": "Ribes uva-crispa",
+      "floweringMonths": [
+        5,
+        6
+      ],
+      "harvestMonths": [
+        7,
+        8
+      ],
+      "size": {
+        "heightCm": 150,
+        "widthCm": 150
+      },
+      "plantInfo": "Krusbär är en härdig buske som ger syrliga, ätliga bär under sensommaren. Den trivs i sol till halvskugga och kräver näringsrik och väldränerad jord. Blommorna lockar bin och andra pollinatörer, vilket hjälper till vid fruktbildningen. Krusbärsbusken är tålig och passar bra i svensk trädgård för både prydnad och skörd."
+    },
+    {
+      "id": "plant_5cb653cf-a1d6-48be-8d1d-8841789551c8",
+      "swedishName": "Oxelhäck (hela rabbaten)",
+      "status": "existing",
+      "type": "tree",
+      "mapRadius": 1.6,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_df42ace8-547d-4005-8ba6-e4fc35cd2460",
+        "relativePosition": {
+          "x": 0.314207650273224,
+          "y": 0.4705882352941207
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 9,
+            "frequencyPerWeek": 1
+          },
+          "instructions": "Vattna vid behov under torra perioder, särskilt den första sommaren efter plantering.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_398200db-0812-4bbd-bfd7-b403508555fa",
+          "plantId": "plant_5cb653cf-a1d6-48be-8d1d-8841789551c8"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "startMonth": 11,
+            "endMonth": 2
+          },
+          "instructions": "Bespruta med lätt beskärning för att forma och ta bort döda eller skadade grenar under vintern när trädet är i vila.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_391e88c8-f085-4027-a7fa-33a179299276",
+          "plantId": "plant_5cb653cf-a1d6-48be-8d1d-8841789551c8"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "startMonth": 3,
+            "endMonth": 4,
+            "frequencyPerYear": 1
+          },
+          "instructions": "Gödslas med kväverik gödsel tidigt på våren för att stimulera tillväxten.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_68d3f2c6-a5b1-4a0e-a542-6ad5d6837f40",
+          "plantId": "plant_5cb653cf-a1d6-48be-8d1d-8841789551c8"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "startMonth": 5,
+            "endMonth": 9,
+            "frequencyPerWeek": 2
+          },
+          "instructions": "Kontrollera för angrepp av skadedjur och sjukdomar, särskilt bladlöss och svampsjukdomar.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_09209bb9-60ff-4437-b139-89f242dcb694",
+          "plantId": "plant_5cb653cf-a1d6-48be-8d1d-8841789551c8"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "startMonth": 9,
+            "endMonth": 10
+          },
+          "instructions": "Plocka mogna röda bär och använd till sylt eller saft efter etthantering.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_997c74be-70bf-4c1f-8bde-4d00f39fe7ff",
+          "plantId": "plant_5cb653cf-a1d6-48be-8d1d-8841789551c8"
+        }
+      ],
+      "latinName": "Sorbus intermedia",
+      "floweringMonths": [
+        5,
+        6
+      ],
+      "harvestMonths": [
+        9,
+        10
+      ],
+      "size": {
+        "heightCm": 1500,
+        "widthCm": 1200
+      },
+      "plantInfo": "Oxel är ett robust träd som trivs i soliga till halvskuggiga lägen med väldränerad och näringsrik jord. Det är ett vanligt gatu- och parkträd i Sverige, med vackra vita blommor och röda bär som mognar på hösten. Bären är ätliga och kan användas till sylt och saft efter förvällning då råa bär kan vara något beska. Oxeln är viktig för pollinatörer och lockar bin och fjärilar under blomningen.",
+      "notes": "Häck, Planterad Oktober 2025"
+    },
+    {
+      "id": "plant_622d4849-85cb-48b2-b9e8-39ea262b2648",
+      "swedishName": "Fläder",
+      "status": "existing",
+      "type": "shrub",
+      "mapRadius": 1,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 9.635416666666668,
+          "y": 30.72899903793887
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "humus_rich",
+          "well_drained"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "months": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Vattna vid torrt väder, särskilt under sommaren för att främja blomning och bärutveckling.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_db2aeadb-4a2b-4706-9b3b-d50b26eec07f",
+          "plantId": "plant_622d4849-85cb-48b2-b9e8-39ea262b2648"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "months": [
+              2,
+              3
+            ]
+          },
+          "instructions": "Beskära gamla och döda grenar tidigt på våren för att hålla busken frisk och ge plats åt nya skott.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_387f518f-c2a1-43e6-ac81-d1fffc66c940",
+          "plantId": "plant_622d4849-85cb-48b2-b9e8-39ea262b2648"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "months": [
+              4
+            ]
+          },
+          "instructions": "Gödsel ges på våren för att stödja tillväxt och blomning, gärna med ett allsidigt gödselmedel.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_eaa3f2ae-338d-452b-b143-2f13aab4c6d4",
+          "plantId": "plant_622d4849-85cb-48b2-b9e8-39ea262b2648"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "months": [
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Skörda bären när de är fullt mogna och svarta. Blommor kan också skördas i maj-juni för saft och te.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_76ad8a3f-4182-465d-b4da-91db3bfc5fdc",
+          "plantId": "plant_622d4849-85cb-48b2-b9e8-39ea262b2648"
+        }
+      ],
+      "latinName": "Sambucus nigra",
+      "floweringMonths": [
+        5,
+        6
+      ],
+      "harvestMonths": [
+        7,
+        8,
+        9
+      ],
+      "size": {
+        "heightCm": 300,
+        "widthCm": 300
+      },
+      "plantInfo": "Fläder är en lövfällande buske med doftande vita blomklasar som blommar i maj-juni. Den ger mörka bär som mognar under sensommaren och används i saft, sylt och vin. Fläder trivs i näringsrik, väldränerad jord och kan växa i både sol och halvskugga. Busken är viktig för många pollinatörer tack vare sina nektarrika blommor."
+    },
+    {
+      "id": "plant_7a77a345-b099-48e1-b8a4-02176010ae42",
+      "swedishName": "Krikon",
+      "status": "existing",
+      "type": "tree",
+      "mapRadius": 1,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 22.916666666666664,
+          "y": 32.18732441601054
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "clay",
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "plant",
+          "timing": {
+            "month": [
+              3,
+              4
+            ]
+          },
+          "instructions": "Plantera krikon i soligt till halvskuggigt läge med näringsrik och väldränerad jord.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_b547d955-2895-46ef-af25-15f8b9da9569",
+          "plantId": "plant_7a77a345-b099-48e1-b8a4-02176010ae42"
+        },
+        {
+          "actionType": "water",
+          "timing": {
+            "season": [
+              "spring",
+              "summer"
+            ]
+          },
+          "instructions": "Vattna regelbundet under torra perioder för att säkerställa jämn fuktnivå, men undvik stående vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_586ccf64-2b83-4a27-ab16-520687cb2b6a",
+          "plantId": "plant_7a77a345-b099-48e1-b8a4-02176010ae42"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              2,
+              3
+            ]
+          },
+          "instructions": "Beskär trädet på sensommaren eller tidig vår för att forma och ta bort döda eller korsande grenar.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_a4f66eb7-e6fb-4e34-85a6-1665f3de4158",
+          "plantId": "plant_7a77a345-b099-48e1-b8a4-02176010ae42"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              4
+            ]
+          },
+          "instructions": "Gödselvattna med ett balanserat gödselmedel på våren för att stödja tillväxt och fruktsättning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_4eeb3115-f89a-4c6e-8ae8-f06dfe23d566",
+          "plantId": "plant_7a77a345-b099-48e1-b8a4-02176010ae42"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              7,
+              8
+            ]
+          },
+          "instructions": "Skörda frukterna när de är mogna och börjar få färg och smak, vanligtvis i juli till augusti.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "manual",
+          "id": "care_89572e48-42cc-47ee-8d27-ed7fa14de9a5",
+          "plantId": "plant_7a77a345-b099-48e1-b8a4-02176010ae42"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "intervalDays": 14,
+            "season": [
+              "spring",
+              "summer"
+            ]
+          },
+          "instructions": "Inspektera regelbundet för skadedjur och sjukdomar, särskilt bladlöss och svampsjukdomar, och behandla vid behov.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_791d11eb-25bb-4f84-9536-6552ff750495",
+          "plantId": "plant_7a77a345-b099-48e1-b8a4-02176010ae42"
+        }
+      ],
+      "latinName": "Prunus domestica subsp. insititia",
+      "floweringMonths": [
+        4,
+        5
+      ],
+      "harvestMonths": [
+        7,
+        8
+      ],
+      "size": {
+        "heightCm": 400,
+        "widthCm": 300
+      },
+      "plantInfo": "Krikon är ett mindre fruktträd eller stort buskigt träd som är känt för sina små, syrliga och söta plommonliknande frukter. Den trivs i soliga till halvskuggiga lägen och föredrar näringsrik, väldränerad jord. Krikon blommar med vita blommor på våren och är attraktiv för många pollinatörer. Frukterna mognar under juli till augusti och är lämpliga för färsk konsumtion, sylt och saft."
+    },
+    {
+      "id": "plant_6816c6ef-e4b4-4b51-90a6-1684fab5f95f",
+      "swedishName": "Rabarber",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 1,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 80.3125,
+          "y": 31.14566343167363
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "moist"
+        ],
+        "soilTraits": [
+          "humus_rich",
+          "well_drained"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "month": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Håll jorden jämnt fuktig under växtsäsongen, men undvik stående vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_d0278c8d-0693-42b3-b58b-268b029a04c7",
+          "plantId": "plant_6816c6ef-e4b4-4b51-90a6-1684fab5f95f"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              3,
+              4
+            ]
+          },
+          "instructions": "Ge näring med kompost eller välbrunnen stallgödsel tidigt på våren för att stimulera tillväxt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_f93f7220-11b9-4046-8fa5-dbf19070f1dd",
+          "plantId": "plant_6816c6ef-e4b4-4b51-90a6-1684fab5f95f"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              6,
+              7
+            ]
+          },
+          "instructions": "Ta bort blomstjälkar innan de utvecklar frön för att gynna stjälktillväxten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_be45d80d-8704-4973-8ef3-d52492b60607",
+          "plantId": "plant_6816c6ef-e4b4-4b51-90a6-1684fab5f95f"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "instructions": "Skörda de tjocka stjälkarna försiktigt genom att vrida eller klippa av dem. Undvik att skörda för tidigt på våren och lämna några stjälkar för plantans hälsa.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "manual",
+          "id": "care_af485e92-8345-476e-b99d-f551d63839a7",
+          "plantId": "plant_6816c6ef-e4b4-4b51-90a6-1684fab5f95f"
+        },
+        {
+          "actionType": "divide",
+          "timing": {
+            "month": [
+              3,
+              4
+            ]
+          },
+          "instructions": "Dela plantan var 5-6:e år på våren för att förnya och ge bättre utrymme för tillväxt.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_c79d9c1b-95c2-40e7-a6e7-3694a4233398",
+          "plantId": "plant_6816c6ef-e4b4-4b51-90a6-1684fab5f95f"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "month": [
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          "instructions": "Håll området runt rabarbern ogräsfritt för att undvika konkurrens om näring och vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_1f045828-feeb-4a72-bab6-a66b80f4ad0b",
+          "plantId": "plant_6816c6ef-e4b4-4b51-90a6-1684fab5f95f"
+        }
+      ],
+      "latinName": "Rheum rhabarbarum",
+      "floweringMonths": [
+        6,
+        7
+      ],
+      "harvestMonths": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "size": {
+        "heightCm": 120,
+        "widthCm": 100
+      },
+      "plantInfo": "Rabarber är en perenn grönsak som odlas för sina stora, gröna blad och kraftiga, röda eller gröna stjälkar som används i matlagning, exempelvis pajer och desserter. Bladen är giftiga och får ej ätas. Rabarber trivs i näringsrik, fuktig jord och i sol eller halvskugga. Blommorna är små och sitter i stora klasar, de kan locka pollinerande insekter men bör klippas bort för att stärka tillväxten av stjälkarna."
+    },
+    {
+      "id": "plant_48594138-8416-44c9-b372-e68febea4749",
+      "swedishName": "Blåbärstry",
+      "status": "existing",
+      "type": "shrub",
+      "mapRadius": 1,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 81.25,
+          "y": 36.61438359944241
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 9,
+            "frequency": "varannan dag"
+          },
+          "instructions": "Håll jorden jämnt fuktig under växtsäsongen, särskilt under blomning och bärtillväxt.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_431212e3-6467-4374-8a41-a003838fce3d",
+          "plantId": "plant_48594138-8416-44c9-b372-e68febea4749"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 3
+          },
+          "instructions": "Gödsl busken tidigt på våren med gödsel för bärbuskar eller allsidigt gödsel.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_f4d254e3-b357-44af-93d8-46dcbfaf0bc5",
+          "plantId": "plant_48594138-8416-44c9-b372-e68febea4749"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 2
+          },
+          "instructions": "Ta bort gamla och svaga grenar för att ge plats för nya och bättre bärkraftiga skott.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_ecb771ae-233e-49e1-8a6d-2f3c268f9c61",
+          "plantId": "plant_48594138-8416-44c9-b372-e68febea4749"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "fromMonth": 6,
+            "toMonth": 7
+          },
+          "instructions": "Skörda bären när de är helt mogna och har en djup blå färg för bästa smak.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "manual",
+          "id": "care_96562c16-2576-45f2-a2f1-954fe538333e",
+          "plantId": "plant_48594138-8416-44c9-b372-e68febea4749"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 9,
+            "frequency": "varje vecka"
+          },
+          "instructions": "Rensa ogräs runt busken för att minska konkurrens om näring och fukt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_e7bdc4b5-c173-409d-b985-1f072b3d125f",
+          "plantId": "plant_48594138-8416-44c9-b372-e68febea4749"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 9,
+            "frequency": "varannan vecka"
+          },
+          "instructions": "Kontrollera busken för skadedjur och sjukdomar, behandla vid behov tidigt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_58853dca-647e-4124-8dff-d35ba4066c73",
+          "plantId": "plant_48594138-8416-44c9-b372-e68febea4749"
+        }
+      ],
+      "latinName": "Lonicera caerulea",
+      "floweringMonths": [
+        4,
+        5
+      ],
+      "harvestMonths": [
+        6,
+        7
+      ],
+      "size": {
+        "heightCm": 150,
+        "widthCm": 200
+      },
+      "plantInfo": "Blåbärstry är en tålig och tidigt blommande buske som ger blå-röda, sötsyrliga bär som mognar tidigt på sommaren. Den trivs i sol till halvskugga och vill ha fuktighetshållande, gärna mullrik jord med god dränering. Blåbärstryn lockar pollinatörer som bin och fjärilar under blomningen och är en god och frisk fruktbuske för svensk trädgård."
+    },
+    {
+      "id": "plant_9a3115d3-2969-4036-b761-eea5dc0e731c",
+      "swedishName": "Röda vinbär",
+      "status": "existing",
+      "type": "shrub",
+      "mapRadius": 1,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 81.25,
+          "y": 41.61435632425959
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "months": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Ge jämn vattning, särskilt under torra perioder, för att hålla jorden fuktig men ej blöt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_37c09f5a-88bb-408b-9e8f-77ab425e8e9f",
+          "plantId": "plant_9a3115d3-2969-4036-b761-eea5dc0e731c"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "months": [
+              2,
+              3
+            ]
+          },
+          "instructions": "Beskriv busken tidigt på våren genom att ta bort gamla grenar och svaga skott för att förbättra tillväxt och fruktskörd.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_98bd7cb2-0553-4571-8779-009aaa589e80",
+          "plantId": "plant_9a3115d3-2969-4036-b761-eea5dc0e731c"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "months": [
+              3
+            ]
+          },
+          "instructions": "Applicera ett gödselmedel rikt på kalium och fosfor för att främja blomning och bärbildning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_7b3982f4-3ef0-4e36-877f-d03ec748b2d1",
+          "plantId": "plant_9a3115d3-2969-4036-b761-eea5dc0e731c"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "months": [
+              7,
+              8
+            ]
+          },
+          "instructions": "Plocka bären när de är helt röda och lätt lossnar från klasen för bästa smak och kvalitet.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_1ea95c33-5981-47cd-ac9e-f47d93ffac51",
+          "plantId": "plant_9a3115d3-2969-4036-b761-eea5dc0e731c"
+        }
+      ],
+      "latinName": "Ribes rubrum",
+      "floweringMonths": [
+        5,
+        6
+      ],
+      "harvestMonths": [
+        7,
+        8
+      ],
+      "size": {
+        "heightCm": 150,
+        "widthCm": 150
+      },
+      "plantInfo": "Röda vinbär är en perenn buske som bär kluster av syrliga, röda bär som mognar mitt till sensommar. Den trivs bäst i sol till halvskugga och i näringsrik, fuktighetshållande jord. Röda vinbär används ofta till saft, gelé och bakverk. Den är också viktig för pollinatörer under blomningen."
+    },
+    {
+      "id": "plant_b8aaedf7-2ac3-4467-a919-474cba53383d",
+      "swedishName": "höstflox",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 1.4,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_6af6ed99-9929-44f3-bc77-815dcdbfb8c4",
+        "relativePosition": {
+          "x": 0.44999999999999774,
+          "y": 0.4565217391304349
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 9
+          },
+          "instructions": "Vattna regelbundet under torra perioder, särskilt under växtsäsongen så att jorden hålls jämnt fuktig men undvik vattenmättnad.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_7fa28441-251d-4bd8-97be-e4b2ddd075a9",
+          "plantId": "plant_b8aaedf7-2ac3-4467-a919-474cba53383d"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Gödsel tillförs på våren med en balanserad gödsel för att främja blomning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_eb338816-dffe-44ff-b37f-a33517b8b647",
+          "plantId": "plant_b8aaedf7-2ac3-4467-a919-474cba53383d"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 11
+          },
+          "instructions": "Klipp ner vissna stjälkar efter blomningens slut för att hålla plantan ren och minska risken för sjukdomar.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_c28f8705-43de-42c5-a6b2-9f4a261485d4",
+          "plantId": "plant_b8aaedf7-2ac3-4467-a919-474cba53383d"
+        },
+        {
+          "actionType": "divide",
+          "timing": {
+            "month": 5
+          },
+          "instructions": "Var 3-4 år kan plantan delas på våren för att förnya och föryngra växten.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_3e2d33d2-5324-4f97-a5fb-6a4773eeef52",
+          "plantId": "plant_b8aaedf7-2ac3-4467-a919-474cba53383d"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "fromMonth": 5,
+            "toMonth": 9
+          },
+          "instructions": "Kontrollera regelbundet för mjöldagg och andra svampsjukdomar samt skadedjur.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_e6c861ba-fe15-49b1-8075-fb88d225c9f9",
+          "plantId": "plant_b8aaedf7-2ac3-4467-a919-474cba53383d"
+        }
+      ],
+      "latinName": "Phlox paniculata",
+      "floweringMonths": [
+        7,
+        8,
+        9
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 90,
+        "widthCm": 60
+      },
+      "plantInfo": "Höstflox är en flerårig ört med upprätt växtsätt och täta klasar av doftande blommor i vitt, rosa, röda eller lila under sensommaren till tidig höst. Den trivs i näringsrik, väldränerad jord och ger vacker blomning samtidigt som den är värdefull för pollinatörer såsom bin och fjärilar."
+    },
+    {
+      "id": "plant_31807033-b95f-43bc-bddb-540d68aeb897",
+      "swedishName": "Höstanemon",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 1.2,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_c5150755-cc08-486b-a6d6-987eebc2d12a",
+        "relativePosition": {
+          "x": 0.4081632653061195,
+          "y": 0.4788732394366198
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun",
+          "part_shade"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 9,
+            "frequency": "varannan vecka"
+          },
+          "instructions": "Vattna regelbundet under växtsäsongen, särskilt vid torrt väder, men undvik att jorden blir blöt eller stående vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_9f37534d-79be-4359-953b-d8035cd4c8bd",
+          "plantId": "plant_31807033-b95f-43bc-bddb-540d68aeb897"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 6,
+            "frequency": "en gång per månad"
+          },
+          "instructions": "Gödselr rotområdet med en allsidig gödsel eller kompost under våren och försommaren för bästa blomning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_dfbf4131-fc3d-4693-b08d-da5e63d35ee8",
+          "plantId": "plant_31807033-b95f-43bc-bddb-540d68aeb897"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 11
+          },
+          "instructions": "Klipp ner vissna stjälkar och blad efter frosten för att göra plats för ny tillväxt nästa år.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_c7571371-b9ab-44fa-b448-2c3e7c233f71",
+          "plantId": "plant_31807033-b95f-43bc-bddb-540d68aeb897"
+        },
+        {
+          "actionType": "divide",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Dela plantan vart 3-4 år på våren för att främja vitalitet och föröka plantan.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_b2bfafb8-52be-42fb-a45b-c5c97917377d",
+          "plantId": "plant_31807033-b95f-43bc-bddb-540d68aeb897"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "fromMonth": 4,
+            "toMonth": 10,
+            "frequency": "varannan vecka"
+          },
+          "instructions": "Rensa omkring plantan för att minska konkurrens om vatten och näring.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_14563a8c-e2c4-4425-b702-c4cad0a74119",
+          "plantId": "plant_31807033-b95f-43bc-bddb-540d68aeb897"
+        }
+      ],
+      "latinName": "Anemone hupehensis",
+      "floweringMonths": [
+        7,
+        8,
+        9,
+        10
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 60,
+        "widthCm": 45
+      },
+      "plantInfo": "Höstanemon är en perenn ört som blommar från sensommar till höst med vackra, ofta rosa eller vita blommor. Den trivs bäst i halvskugga till sol och föredrar väldränerad och näringsrik jord som hålls jämnt fuktig. Höstanemon är en utmärkt sommar- och höstblommande växt som lockar fjärilar och andra pollinatörer till trädgården."
+    },
+    {
+      "id": "plant_feb63562-fa60-4bc0-bf75-cc612b1dfe16",
+      "swedishName": "vildkaprifol",
+      "status": "existing",
+      "type": "shrub",
+      "mapRadius": 1.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_df42ace8-547d-4005-8ba6-e4fc35cd2460",
+        "relativePosition": {
+          "x": 0.43473511742217374,
+          "y": 0.4117647058823528
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun",
+          "part_shade"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "season": "spring",
+            "frequency": "1 gång per vecka"
+          },
+          "instructions": "Vattna regelbundet vid torrperioder, särskilt under etableringsfasen.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_37a017a2-b15f-4dda-9339-506cdef9f953",
+          "plantId": "plant_feb63562-fa60-4bc0-bf75-cc612b1dfe16"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": 3
+          },
+          "instructions": "Beskär vildkaprifolen tidigt på våren för att forma den och ta bort gamla, döda grenar.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_304ad844-5d1b-4f8e-982c-964b68aeec44",
+          "plantId": "plant_feb63562-fa60-4bc0-bf75-cc612b1dfe16"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": 4
+          },
+          "instructions": "Gödsel med balanserad trädgårdsgödsel kan ges på våren för att gynna tillväxt och blomning.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_18f5c117-15a0-428b-8255-13fd4ba980b8",
+          "plantId": "plant_feb63562-fa60-4bc0-bf75-cc612b1dfe16"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "frequency": "varje månad under växtsäsong"
+          },
+          "instructions": "Kontrollera efter skadedjur och sjukdomstecken, såsom bladlöss eller svampsjukdomar.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_f3c44adf-eb1c-4b3c-a7e1-a5b1ec26f6b6",
+          "plantId": "plant_feb63562-fa60-4bc0-bf75-cc612b1dfe16"
+        }
+      ],
+      "latinName": "Lonicera periclymenum",
+      "floweringMonths": [
+        6,
+        7,
+        8
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 300,
+        "widthCm": 300
+      },
+      "plantInfo": "Vildkaprifol är en klättrande buske som trivs i sol till halvskugga med fuktighetshållande, näringsrik och väldränerad jord. Den blommar med doftande, rörformade blommor under sommaren och är mycket uppskattad av pollinatörer som bin och fjärilar. Bären är giftiga och ska inte ätas. Vildkaprifol är ett utmärkt val för pergolor, spaljéer och häckar där den kan klättra och ge skydd för fågelliv."
+    },
+    {
+      "id": "plant_54571cd5-5d24-4402-9248-5a6d56116c2b",
+      "swedishName": "Murgröna",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 1.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_df42ace8-547d-4005-8ba6-e4fc35cd2460",
+        "relativePosition": {
+          "x": 0.49208083014746046,
+          "y": 0.3333333333333333
+        }
+      },
+      "needs": {
+        "light": [
+          "shade",
+          "part_shade",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "pollinator-friendly",
+        "evergreen"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 9,
+            "frequency": "weekly"
+          },
+          "instructions": "Vattna regelbundet under vår och sommar, särskilt vid torrperioder. Undvik att jorden torkar ut helt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_b883f48e-40ee-44bb-8259-10dc90b2de78",
+          "plantId": "plant_54571cd5-5d24-4402-9248-5a6d56116c2b"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "startMonth": 2,
+            "endMonth": 3
+          },
+          "instructions": "Beskär för att hålla önskad form och begränsa tillväxt. Ta bort döda och skadade grenar.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_8be2c8d2-186d-4c33-b8a2-1e864daa5c17",
+          "plantId": "plant_54571cd5-5d24-4402-9248-5a6d56116c2b"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "startMonth": 3,
+            "endMonth": 5,
+            "frequency": "once"
+          },
+          "instructions": "Gödsel appliceras tidigt på våren för att ge näring inför tillväxtsäsongen.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_5d420739-ffa6-4016-abf2-8747ec694fcd",
+          "plantId": "plant_54571cd5-5d24-4402-9248-5a6d56116c2b"
+        }
+      ],
+      "latinName": "Hedera helix",
+      "floweringMonths": [
+        9,
+        10,
+        11
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 200,
+        "widthCm": 200
+      },
+      "plantInfo": "Murgröna är en vintergrön klätterväxt som trivs i skuggiga eller halvskuggiga lägen. Den är tålig och kan användas som marktäckare eller klätterväxt på väggar och staket. Dess blommor blommar höst och lockar till sig bin och fjärilar. Bären är giftiga och bör inte ätas. Murgröna kräver väldränerad, humusrik jord och jämn fuktighet för bästa tillväxt."
+    },
+    {
+      "id": "plant_19f4009b-d93b-4e82-b477-ebceaaa12f5e",
+      "swedishName": "Luktärt",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 1,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_6ef56e07-99d6-4be6-bfed-515d2cbc0608",
+        "relativePosition": {
+          "x": 0.48809523809523836,
+          "y": 0.499999999999999
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "frequency": "once_per_week"
+          },
+          "instructions": "Vattna regelbundet, särskilt under torra perioder, men undvik att jorden blir för blöt.",
+          "priority": "normal",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_63e224d0-88ed-4f74-a823-0ddd5072adb1",
+          "plantId": "plant_19f4009b-d93b-4e82-b477-ebceaaa12f5e"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              4,
+              6
+            ]
+          },
+          "instructions": "Ge en allsidig blomster- eller grönsaksgödsel vid plantering och i början av sommaren för god tillväxt och blomning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_4702a3d1-1712-4561-9686-8f87ba5397da",
+          "plantId": "plant_19f4009b-d93b-4e82-b477-ebceaaa12f5e"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              9
+            ]
+          },
+          "instructions": "Avlägsna vissna blommor och beskär eventuellt för att hålla plantan prydlig och uppmuntra fortsatt blomning.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_912a5c0d-43df-463f-9255-23a5cef0c8dd",
+          "plantId": "plant_19f4009b-d93b-4e82-b477-ebceaaa12f5e"
+        },
+        {
+          "actionType": "support",
+          "timing": {
+            "month": [
+              4,
+              5
+            ]
+          },
+          "instructions": "Sätt upp spaljéer eller stöd tidigt för att hjälpa luktärten att klättra och få bättre luftcirkulation.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_99035314-6461-4cc2-ae82-c205f843e9c3",
+          "plantId": "plant_19f4009b-d93b-4e82-b477-ebceaaa12f5e"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "frequency": "as_needed"
+          },
+          "instructions": "Rensa ogräs runt plantorna för att minimera konkurrens om näring och fukt.",
+          "priority": "normal",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_bc671e3d-a5b0-4416-9875-85d8068b82f1",
+          "plantId": "plant_19f4009b-d93b-4e82-b477-ebceaaa12f5e"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "frequency": "weekly"
+          },
+          "instructions": "Kontrollera regelbundet efter skadedjur som bladlöss och vidta åtgärder vid behov.",
+          "priority": "normal",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_f82623c8-a55d-4b42-b5f3-f083f657edf1",
+          "plantId": "plant_19f4009b-d93b-4e82-b477-ebceaaa12f5e"
+        }
+      ],
+      "latinName": "Lathyrus odoratus",
+      "floweringMonths": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 150,
+        "widthCm": 50
+      },
+      "plantInfo": "Luktärt är en värdefull, doftande klätterväxt som trivs i soliga till halvskuggiga lägen med väldränerad, näringsrik jord. Den blommar rikligt under sommaren med färgrika och doftande blommor som lockar bin och fjärilar. Luktärter odlas främst för sina vackra blommor och är inte ätbara. Det är viktigt att stötta rankorna med spaljé eller annat stöd eftersom plantan kan bli ganska hög."
+    },
+    {
+      "id": "plant_12625ace-08b0-418e-8d68-5ad452dc2910",
+      "swedishName": "Humle 'Korsta'",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 1.4,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 49.791666666666664,
+          "y": 26.770687297458608
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "intervalDays": 3,
+            "fromMonth": 4,
+            "toMonth": 9
+          },
+          "instructions": "Håll jorden jämnt fuktig under växtsäsongen, men undvik att jorden blir stående blöt.",
+          "priority": "normal",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_8e784458-70b1-4468-ac03-8fc203118542",
+          "plantId": "plant_12625ace-08b0-418e-8d68-5ad452dc2910"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              4,
+              6
+            ]
+          },
+          "instructions": "Gödselvattna med kväverik gödsel tidigt under växtsäsongen och kom ihåg att ge även fosfor och kalium för blomning och knoppbildning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_74d6a5ba-d377-4699-987d-53c32bf07de7",
+          "plantId": "plant_12625ace-08b0-418e-8d68-5ad452dc2910"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              11,
+              12
+            ]
+          },
+          "instructions": "Beskär bort gamla och svaga grenar på senhösten eller tidig vinter för att stimulera frisk tillväxt nästa år.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_170879f4-3106-4beb-9a0d-0a7a4330d6bb",
+          "plantId": "plant_12625ace-08b0-418e-8d68-5ad452dc2910"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              8,
+              9
+            ]
+          },
+          "instructions": "Skörda humlekottarna när de är väl utvecklade och doftar starkt, vanligtvis i augusti eller september.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_7ef19c23-8627-4587-9e36-b79053a401c4",
+          "plantId": "plant_12625ace-08b0-418e-8d68-5ad452dc2910"
+        },
+        {
+          "actionType": "inspect",
+          "timing": {
+            "intervalDays": 14,
+            "fromMonth": 4,
+            "toMonth": 9
+          },
+          "instructions": "Kontrollera regelbundet för skadedjur och sjukdomar såsom mjöldagg och agera snabbt vid behov.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_d0d19d60-388c-4d62-9eb4-ab27d818088e",
+          "plantId": "plant_12625ace-08b0-418e-8d68-5ad452dc2910"
+        }
+      ],
+      "latinName": "Humulus lupulus 'Korsta'",
+      "floweringMonths": [
+        7,
+        8
+      ],
+      "harvestMonths": [
+        8,
+        9
+      ],
+      "size": {
+        "heightCm": 400,
+        "widthCm": 100
+      },
+      "plantInfo": "Humle 'Korsta' är en snabbväxande perenn klättrande växt, som används främst för sina blommor (kottar) som är viktiga för öltillverkning men även kan användas i örtteer. Den trivs i sol till halvskugga i väldränerad, näringsrik och fuktighetshållande jord. Humlen lockar pollinatörer som bin och fjärilar under blomningen och kottarna är skördeklara sensommaren. Den kan bli upp till 4 meter hög och behöver stöd att klättra på."
+    },
+    {
+      "id": "plant_19941037-dac9-4f1a-855c-e1002d139034",
+      "swedishName": "Jätteeternell",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_0b9cbed4-5df4-461f-95b0-160bb2bb1ea1",
+        "relativePosition": {
+          "x": 0.5428571428571438,
+          "y": 0.5476190476190482
+        }
+      },
+      "needs": {
+        "light": [
+          "sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "sandy"
+        ]
+      },
+      "tags": [
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 9,
+            "frequency": "1-2 gånger per vecka"
+          },
+          "instructions": "Vattna jorden ordentligt men undvik stående vatten. Låt jorden torka upp något mellan vattningarna.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_2b439c2f-bf15-4060-a5b2-af1713d392b0",
+          "plantId": "plant_19941037-dac9-4f1a-855c-e1002d139034"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "startMonth": 10,
+            "endMonth": 10,
+            "frequency": "en gång"
+          },
+          "instructions": "Ta bort vissna blommor och klipp tillbaka för att främja ny tillväxt.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_f151a2c1-3720-460a-96d3-c7797064e87b",
+          "plantId": "plant_19941037-dac9-4f1a-855c-e1002d139034"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 6,
+            "frequency": "en gång per månad"
+          },
+          "instructions": "Gödselmedel med balans av kväve, fosfor och kalium rekommenderas för att främja blomning.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_d09b8618-7bf4-4ae1-b5c3-6502af591d0e",
+          "plantId": "plant_19941037-dac9-4f1a-855c-e1002d139034"
+        },
+        {
+          "actionType": "plant",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 5,
+            "frequency": "en gång"
+          },
+          "instructions": "Plantera på en solig plats i väldränerad jord efter senaste frost.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_af2b8984-ab0f-4c6a-96e9-c3bc539255b9",
+          "plantId": "plant_19941037-dac9-4f1a-855c-e1002d139034"
+        }
+      ],
+      "latinName": "Helichrysum bracteatum",
+      "floweringMonths": [
+        7,
+        8,
+        9
+      ],
+      "harvestMonths": [],
+      "size": {
+        "heightCm": 60,
+        "widthCm": 30
+      },
+      "plantInfo": "Jätteeternell är en flerårig blomma känd för sina färgstarka och torkade blommor som behåller formen och färgen länge. Den trivs i soliga lägen med väldränerad, gärna sandig jord och normal vattning. Den är en utmärkt blomma i buketter och lockar pollinatörer som bin och fjärilar.",
+      "notes": "Planterad Maj 2026"
+    },
+    {
+      "id": "plant_218873f3-91b2-463f-a8f6-63de7ae8c022",
+      "swedishName": "Jordgubbe",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_84828d3b-3314-4108-ac20-0662fb7c78a6",
+        "relativePosition": {
+          "x": 0.28042328042328046,
+          "y": 0.47058823529411825
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "moist",
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "plant",
+          "timing": {
+            "month": [
+              4,
+              5
+            ]
+          },
+          "instructions": "Plantera jordgubbsplantor i näringsrik, väldränerad jord i sol eller halvskugga. Undvik alltför blöt jord.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_9a62c381-9af3-4315-8d63-802d94d4490e",
+          "plantId": "plant_218873f3-91b2-463f-a8f6-63de7ae8c022"
+        },
+        {
+          "actionType": "water",
+          "timing": {
+            "month": [
+              4,
+              6,
+              7,
+              8
+            ]
+          },
+          "instructions": "Håll jorden fuktig, särskilt under blomning och fruktbildning. Vattna med jämna mellanrum men undvik vattenpölar.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "ai",
+          "id": "care_52555201-f8ce-417e-b41e-e1a04e03a911",
+          "plantId": "plant_218873f3-91b2-463f-a8f6-63de7ae8c022"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              4
+            ]
+          },
+          "instructions": "Gödselvattna eller tillför kompost på våren innan plantan börjar växa aktivt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_a5f83734-230a-4296-a8e9-ed7ae2e70a42",
+          "plantId": "plant_218873f3-91b2-463f-a8f6-63de7ae8c022"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "month": [
+              7,
+              8
+            ]
+          },
+          "instructions": "Ta bort vissna blad efter skörd för att minska risken för sjukdomar och ge plats för ny tillväxt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_f8ab15ad-9c59-424f-b3bb-b1759b4de2ab",
+          "plantId": "plant_218873f3-91b2-463f-a8f6-63de7ae8c022"
+        },
+        {
+          "actionType": "divide",
+          "timing": {
+            "month": [
+              8,
+              9
+            ]
+          },
+          "instructions": "Dela revor och plantera om nya plantor för att föryngra odlingen och öka skörden.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_a47658b8-817a-47c5-8b6e-954f5b99730a",
+          "plantId": "plant_218873f3-91b2-463f-a8f6-63de7ae8c022"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              6,
+              7
+            ]
+          },
+          "instructions": "Skörda jordgubbar försiktigt när de blivit helt röda och mogna, helst på morgonen.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_0c65d707-7eb2-48ad-90eb-5f7dac923933",
+          "plantId": "plant_218873f3-91b2-463f-a8f6-63de7ae8c022"
+        }
+      ],
+      "latinName": "Fragaria × ananassa",
+      "floweringMonths": [
+        5,
+        6,
+        7
+      ],
+      "harvestMonths": [
+        6,
+        7
+      ],
+      "size": {
+        "heightCm": 15,
+        "widthCm": 40
+      },
+      "plantInfo": "Jordgubbar är fleråriga marktäckande plantor som ger söta, saftiga röda bär. De trivs i sol till halvskugga och föredrar fuktighetshållande, väldränerad och näringsrik jord. Jordgubbar blommar på försommaren och bären mognar i juni-juli i Sverige. Plantorna är viktiga för pollinatörer som bin och fjärilar.",
+      "notes": "Planterad Maj 2026"
+    },
+    {
+      "id": "plant_6c61eabc-c901-42ca-91ce-ea5443da6ee7",
+      "swedishName": "Smultron",
+      "status": "existing",
+      "type": "perennial",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "map",
+        "position": {
+          "x": 45.989583333333336,
+          "y": 14.791585977584132
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "startMonth": 4,
+            "endMonth": 9,
+            "frequency": "varannan vecka"
+          },
+          "instructions": "Håll jorden jämnt fuktig under växtsäsongen, särskilt under torra perioder.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_9e87e4d4-4420-4b04-b1a0-c55317587f3f",
+          "plantId": "plant_6c61eabc-c901-42ca-91ce-ea5443da6ee7"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "startMonth": 3,
+            "endMonth": 4,
+            "frequency": "en gång"
+          },
+          "instructions": "Gör en lätt gödsling med komposterad stallgödsel eller organisk gödsel tidigt på våren innan växten börjar växa aktivt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_b41c708f-b7b8-4206-a2f6-c26c0a6d357f",
+          "plantId": "plant_6c61eabc-c901-42ca-91ce-ea5443da6ee7"
+        },
+        {
+          "actionType": "prune",
+          "timing": {
+            "startMonth": 9,
+            "endMonth": 10,
+            "frequency": "en gång"
+          },
+          "instructions": "Ta bort vissna blad och gamla utlöpare för att hålla plantan frisk och förhindra svampangrepp.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_708494b4-477a-4950-bdb1-f29d960b0389",
+          "plantId": "plant_6c61eabc-c901-42ca-91ce-ea5443da6ee7"
+        },
+        {
+          "actionType": "divide",
+          "timing": {
+            "startMonth": 6,
+            "endMonth": 7,
+            "frequency": "var 3:e år"
+          },
+          "instructions": "Plantera om och dela plantorna vart tredje år för att främja tillväxt och fruktsättning.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_0a0fd334-1933-4caa-ac4b-027941b6da46",
+          "plantId": "plant_6c61eabc-c901-42ca-91ce-ea5443da6ee7"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "startMonth": 6,
+            "endMonth": 8,
+            "frequency": "vid mognad"
+          },
+          "instructions": "Skörda bären när de är helt röda och mogna för bästa smak.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "manual",
+          "id": "care_6477d652-2fc8-4852-81be-fe9b00f64dd7",
+          "plantId": "plant_6c61eabc-c901-42ca-91ce-ea5443da6ee7"
+        }
+      ],
+      "latinName": "Fragaria vesca",
+      "floweringMonths": [
+        5,
+        6,
+        7
+      ],
+      "harvestMonths": [
+        6,
+        7,
+        8
+      ],
+      "size": {
+        "heightCm": 15,
+        "widthCm": 30
+      },
+      "plantInfo": "Smultron är en lågväxande flerårig ört som trivs i sol till halvskugga och fuktig, väldränerad och näringsrik jord. Den blommar på försommaren med små vita blommor och ger små, söta röda bär som är mycket uppskattade. Smultron är både en vacker markväxt och en fin ätbar frukt. Den lockar också pollinatörer som bin och fjärilar.",
+      "notes": "Planterad juni 2025"
+    },
+    {
+      "id": "plant_f7fcd97a-a275-4333-8a0f-463222e77968",
+      "swedishName": "Rödkål",
+      "status": "existing",
+      "type": "vegetable",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_63627c41-118c-4caf-b32e-24c6ed74f2d4",
+        "relativePosition": {
+          "x": 0.47126436781609193,
+          "y": 0.5614035087719306
+        }
+      },
+      "needs": {
+        "light": [
+          "sun"
+        ],
+        "moisture": [
+          "normal"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "frequency": "regular",
+            "condition": "soil_dry"
+          },
+          "instructions": "Vattna regelbundet, särskilt under torra perioder, för att hålla jorden jämnt fuktig men ej blöt.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_f07bd585-76f3-497c-b281-461ec9bca1ec",
+          "plantId": "plant_f7fcd97a-a275-4333-8a0f-463222e77968"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              5,
+              6
+            ]
+          },
+          "instructions": "Gödselvattna med en balanserad näringslösning vid etablering och under växtperioden.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_03f0230d-98ef-45fd-99f7-6dc133c81993",
+          "plantId": "plant_f7fcd97a-a275-4333-8a0f-463222e77968"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "frequency": "weekly"
+          },
+          "instructions": "Ta bort ogräs runt plantorna för att minska konkurrens om näring och vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_86ae9522-6ca6-4b1d-b891-002cb9f50b5c",
+          "plantId": "plant_f7fcd97a-a275-4333-8a0f-463222e77968"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              9,
+              10,
+              11
+            ]
+          },
+          "instructions": "Skörda kålhuvuden när de är fasta och har uppnått önskad storlek. Skär av med en kniv.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_877eb981-4f55-421a-b674-057807799b90",
+          "plantId": "plant_f7fcd97a-a275-4333-8a0f-463222e77968"
+        }
+      ],
+      "latinName": "Brassica oleracea var. capitata f. rubra",
+      "floweringMonths": [],
+      "harvestMonths": [
+        9,
+        10,
+        11
+      ],
+      "size": {
+        "heightCm": 40,
+        "widthCm": 30
+      },
+      "plantInfo": "Rödkål är en näringsrik grönsak som odlas för sina täta, röda kålhuvuden. Den trivs i soliga lägen med näringsrik och väldränerad jord. Rödkålen är frosttålig och skördas vanligtvis från sensommar till senhösten. Den används ofta i sallader, som tillbehör eller tillagad i varma rätter.",
+      "notes": "Planterad April 2026"
+    },
+    {
+      "id": "plant_6fd33749-d42b-4a3c-8d3c-622ea2b0e2f6",
+      "swedishName": "Rädisor",
+      "status": "existing",
+      "type": "vegetable",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_10a9f4ad-e1fd-40c1-bf79-d6eec6321264",
+        "relativePosition": {
+          "x": 0.5679012345679011,
+          "y": 0.49180327868852436
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "moist"
+        ],
+        "soilTraits": [
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "frequency": "varje_vecka",
+            "season": "vår_sommar"
+          },
+          "instructions": "Håll jorden jämnt fuktig men inte blöt. Vattna regelbundet särskilt vid torrt väder.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_5ef7c31c-d86c-419a-a8b8-473c92f60b7d",
+          "plantId": "plant_6fd33749-d42b-4a3c-8d3c-622ea2b0e2f6"
+        },
+        {
+          "actionType": "plant",
+          "timing": {
+            "month": [
+              3,
+              4,
+              7,
+              8
+            ]
+          },
+          "instructions": "Så fröer direkt på växtplatsen i omgångar för kontinuerlig skörd på vår och sensommar.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_3a0a61cd-8187-425e-a0e1-c74d155c9d92",
+          "plantId": "plant_6fd33749-d42b-4a3c-8d3c-622ea2b0e2f6"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "season": "vår"
+          },
+          "instructions": "Ge ett kväverikt gödsel med måtta innan sådd för bästa tillväxt.",
+          "priority": "low",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_701f4a51-de23-45e5-9e24-9da375a51652",
+          "plantId": "plant_6fd33749-d42b-4a3c-8d3c-622ea2b0e2f6"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          },
+          "instructions": "Skörda rädisorna när rötterna är fasta och har nått passande storlek; låt dem inte bli för gamla för bäst smak.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_595f5d34-e2dd-4f99-babd-8f247c113722",
+          "plantId": "plant_6fd33749-d42b-4a3c-8d3c-622ea2b0e2f6"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "frequency": "varje_vecka",
+            "season": "vår_sommar"
+          },
+          "instructions": "Håll odlingsbädden fri från ogräs för att minska konkurrens om näring och vatten.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_182e399a-af36-4c3c-8724-5529185f8ec4",
+          "plantId": "plant_6fd33749-d42b-4a3c-8d3c-622ea2b0e2f6"
+        }
+      ],
+      "latinName": "Raphanus sativus",
+      "floweringMonths": [
+        5,
+        6,
+        7
+      ],
+      "harvestMonths": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "size": {
+        "heightCm": 20,
+        "widthCm": 10
+      },
+      "plantInfo": "Rädisor är snabbväxande rotfrukter som trivs bäst i näringsrik, väldränerad jord med jämn fuktighet. De utvecklar krispiga och ofta starkt färgade rötter, vanligen runda eller avlånga, vilka skördas när de är små och smakrika. Rädisor blommar i slutet av våren och lockar pollinatörer som bin och fjärilar."
+    },
+    {
+      "id": "plant_a63dc096-87f0-4748-9912-588023ebd88b",
+      "swedishName": "Morot",
+      "status": "existing",
+      "type": "vegetable",
+      "mapRadius": 0.8,
+      "placement": {
+        "type": "bed",
+        "bedId": "bed_eb557567-d165-466b-8bdd-c2b858e83bfd",
+        "relativePosition": {
+          "x": 0.4767441860465116,
+          "y": 0.6071428571428561
+        }
+      },
+      "needs": {
+        "light": [
+          "sun",
+          "half_sun"
+        ],
+        "moisture": [
+          "normal",
+          "moist"
+        ],
+        "soilTraits": [
+          "sandy",
+          "well_drained",
+          "humus_rich"
+        ]
+      },
+      "tags": [
+        "edible",
+        "pollinator-friendly"
+      ],
+      "careSchedule": [
+        {
+          "actionType": "water",
+          "timing": {
+            "frequency": "weekly"
+          },
+          "instructions": "Håll jorden jämnt fuktig, särskilt under grodd och tillväxtperioden. Undvik att jorden torkar ut helt.",
+          "priority": "high",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_7671456d-2682-40ba-9b31-71e2afefdef9",
+          "plantId": "plant_a63dc096-87f0-4748-9912-588023ebd88b"
+        },
+        {
+          "actionType": "weed",
+          "timing": {
+            "frequency": "biweekly"
+          },
+          "instructions": "Rensa ogräs försiktigt så att morotsrötterna inte skadas, för att minska konkurrens om näring och fukt.",
+          "priority": "normal",
+          "taskMode": "automatic",
+          "source": "ai",
+          "id": "care_be884949-f63f-4714-b47c-e964ac594b40",
+          "plantId": "plant_a63dc096-87f0-4748-9912-588023ebd88b"
+        },
+        {
+          "actionType": "fertilize",
+          "timing": {
+            "month": [
+              3
+            ]
+          },
+          "instructions": "Gödsel med balanserat organiskt gödselmedel före sådd kan förbättra tillväxten, men undvik för mycket kväve för att inte få för mycket blast.",
+          "priority": "normal",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_dfcc4c5c-a4e4-4248-9451-9f82a63c05cb",
+          "plantId": "plant_a63dc096-87f0-4748-9912-588023ebd88b"
+        },
+        {
+          "actionType": "harvest",
+          "timing": {
+            "month": [
+              8,
+              9,
+              10
+            ]
+          },
+          "instructions": "Skörda morötterna när de nått önskad storlek, oftast från augusti till oktober. Lossa försiktigt med grep för att inte skada roten.",
+          "priority": "high",
+          "taskMode": "suggested",
+          "source": "manual",
+          "id": "care_1c8780e9-8c72-48a3-a684-bdcf9399ead8",
+          "plantId": "plant_a63dc096-87f0-4748-9912-588023ebd88b"
+        }
+      ],
+      "latinName": "Daucus carota",
+      "floweringMonths": [
+        6,
+        7,
+        8
+      ],
+      "harvestMonths": [
+        8,
+        9,
+        10
+      ],
+      "size": {
+        "heightCm": 30,
+        "widthCm": 10
+      },
+      "plantInfo": "Morot är en rotfrukt som odlas för sin saftiga och näringsrika roten, som är rik på betakaroten. Den trivs i näringsrik, lucker jord och klarar av både sol och halvskugga. Blommorna är små och samlade i skärmar och blommar på försommaren, vilket lockar pollinatörer som bin och fjärilar."
+    }
+  ],
+  "tasks": [
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-05-07",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "completed",
+      "dueDate": "2026-05-07",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df",
+      "completedAt": "2026-05-30T06:40:33.683Z"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-05-14",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "completed",
+      "dueDate": "2026-05-14",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df",
+      "completedAt": "2026-05-30T06:40:34.436Z"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-05-21",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "completed",
+      "dueDate": "2026-05-21",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df",
+      "completedAt": "2026-05-30T06:40:35.421Z"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-05-28",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "completed",
+      "dueDate": "2026-05-28",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df",
+      "completedAt": "2026-05-30T06:40:36.022Z"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-06-04",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-06-04",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-06-11",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-06-11",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-06-18",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-06-18",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-06-25",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-06-25",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-07-02",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-07-02",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-07-09",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-07-09",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-07-16",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-07-16",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-07-23",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-07-23",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    },
+    {
+      "id": "task_care_2e3e2aa8-dc75-4912-a973-85262b38f9df_2026-07-30",
+      "title": "Vattna Olof äppelträd",
+      "actionType": "water",
+      "status": "open",
+      "dueDate": "2026-07-30",
+      "priority": "normal",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355",
+      "notes": "Rikligt",
+      "sourceCareRuleId": "care_2e3e2aa8-dc75-4912-a973-85262b38f9df"
+    }
+  ],
+  "historyEvents": [
+    {
+      "id": "history_55f8c418-0000-41c2-926e-a137b0d6039e",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Syrén",
+      "plantId": "plant_c57059ab-015e-4d08-bf51-a1ea309fce62"
+    },
+    {
+      "id": "history_df63a867-4ba9-4d9b-b4d2-6f497e8a1d57",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Röd Solhatt",
+      "plantId": "plant_0040890e-b577-4874-a292-e6e37679dafe"
+    },
+    {
+      "id": "history_26c37980-4376-440b-961b-9ddf96d16cea",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Blåklocka",
+      "plantId": "plant_b6824347-a565-405a-8768-22579ad29e5b"
+    },
+    {
+      "id": "history_308f9208-bd56-41a8-ba40-fb51c7f5d919",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Alpvide",
+      "plantId": "plant_bdc824d1-f004-4c7d-af1b-208c0f4f6c68"
+    },
+    {
+      "id": "history_1e92ce2a-05d3-403c-bc84-9083cec49876",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Röda vinbär",
+      "plantId": "plant_cb2147a4-af13-4bdc-b99a-cf99e6b11c2a"
+    },
+    {
+      "id": "history_cefb7ce5-0067-47cc-855a-b17e50a25117",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Olof äppelträd",
+      "plantId": "plant_68fe4232-ac3f-4e69-9f95-6d5c894af355"
+    },
+    {
+      "id": "history_1b4d3d90-a9ee-4d10-b2e1-c837cf23848f",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Vintergröna",
+      "plantId": "plant_90025155-4005-408c-9632-f2b568464f30"
+    },
+    {
+      "id": "history_c93c9239-3a2f-443a-98ff-5122b5c085a1",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Svensk Salvia",
+      "plantId": "plant_bfde51c9-ca6e-4070-87e8-99c839f4087b"
+    },
+    {
+      "id": "history_bf20bdc1-e380-4d96-b41c-a1cb7d3b67b1",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Skabiosa",
+      "plantId": "plant_079d5cc6-fac4-4f34-9963-d3b862c675ea"
+    },
+    {
+      "id": "history_974fbfc5-c80e-4cb7-9360-650b94e8c42a",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Stjärnflocka",
+      "plantId": "plant_8b952340-a829-4bf2-8f28-850d45cd361d"
+    },
+    {
+      "id": "history_68f15a59-c20a-45bb-84ab-3dfd7c546b7c",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Liten såpnejlika",
+      "plantId": "plant_1e183205-4726-47d9-8a2b-fe5e8b652fb4"
+    },
+    {
+      "id": "history_dfa28ece-149a-4c0c-979f-fd3f51501309",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Fältvädd",
+      "plantId": "plant_747c977b-7cf7-4f21-a138-43abff141778"
+    },
+    {
+      "id": "history_ec10cc50-3a96-4e4f-9bf1-ab8fa2140393",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Svarta vinbär",
+      "plantId": "plant_28a8404c-1180-47df-8218-2ad02b956a1a"
+    },
+    {
+      "id": "history_df411c9c-5dd9-428c-a516-8454acf762a4",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade krusbär",
+      "plantId": "plant_657803ff-9397-40ee-813b-c4ef0ae5eaa5"
+    },
+    {
+      "id": "history_2e4e625d-1251-4b57-aa44-edce846964e9",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Oxelhäck (hela rabbaten)",
+      "plantId": "plant_5cb653cf-a1d6-48be-8d1d-8841789551c8"
+    },
+    {
+      "id": "history_71b94a18-2c95-49c5-8017-eb2d336a93e0",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Krikon",
+      "plantId": "plant_7a77a345-b099-48e1-b8a4-02176010ae42"
+    },
+    {
+      "id": "history_85a24ff8-3b44-460c-8d57-e9daf4e38b2f",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Fläder",
+      "plantId": "plant_622d4849-85cb-48b2-b9e8-39ea262b2648"
+    },
+    {
+      "id": "history_0cf95275-b1b7-4703-8e82-006d9effa9ad",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Rabarber",
+      "plantId": "plant_6816c6ef-e4b4-4b51-90a6-1684fab5f95f"
+    },
+    {
+      "id": "history_94630f5f-6156-4304-ae28-afb553879f5b",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Blåbärstry",
+      "plantId": "plant_48594138-8416-44c9-b372-e68febea4749"
+    },
+    {
+      "id": "history_0994a66a-db8a-4ecd-ac91-9cfe5fd2388f",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Röda vinbär",
+      "plantId": "plant_9a3115d3-2969-4036-b761-eea5dc0e731c"
+    },
+    {
+      "id": "history_1f5b408f-e700-4816-aa87-c21bf90894f6",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade höstflox",
+      "plantId": "plant_b8aaedf7-2ac3-4467-a919-474cba53383d"
+    },
+    {
+      "id": "history_2095d85f-1b4c-4974-809f-4ecfa296576a",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Höstanemon",
+      "plantId": "plant_31807033-b95f-43bc-bddb-540d68aeb897"
+    },
+    {
+      "id": "history_a78cb722-3655-4829-b959-afa8a9d0628a",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade vildkaprifol",
+      "plantId": "plant_feb63562-fa60-4bc0-bf75-cc612b1dfe16"
+    },
+    {
+      "id": "history_538099dd-76b2-4caf-9c1c-b8cb0086310e",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Murgröna",
+      "plantId": "plant_54571cd5-5d24-4402-9248-5a6d56116c2b"
+    },
+    {
+      "id": "history_da68ed93-97d1-4fbc-b933-339766d7e05a",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Luktärt",
+      "plantId": "plant_19f4009b-d93b-4e82-b477-ebceaaa12f5e"
+    },
+    {
+      "id": "history_bb0884f6-445d-42af-9615-e9676c9554ba",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Humle 'Korsta'",
+      "plantId": "plant_12625ace-08b0-418e-8d68-5ad452dc2910"
+    },
+    {
+      "id": "history_be95b045-c549-4706-8375-2f9eb2455faf",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Jätteeternell",
+      "plantId": "plant_19941037-dac9-4f1a-855c-e1002d139034"
+    },
+    {
+      "id": "history_766d3b70-2127-404a-8486-9fe685426337",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Jordgubbe",
+      "plantId": "plant_218873f3-91b2-463f-a8f6-63de7ae8c022"
+    },
+    {
+      "id": "history_56319f5e-7ad0-40f1-a8b0-b066e8745ed1",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Smultron",
+      "plantId": "plant_6c61eabc-c901-42ca-91ce-ea5443da6ee7"
+    },
+    {
+      "id": "history_0aa832b5-5ec6-48a4-99dd-dcf73a38b1d8",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Rödkål",
+      "plantId": "plant_f7fcd97a-a275-4333-8a0f-463222e77968"
+    },
+    {
+      "id": "history_dbca556d-6e2d-4a85-833a-e32653aa0a4e",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Morot",
+      "plantId": "plant_a63dc096-87f0-4748-9912-588023ebd88b"
+    },
+    {
+      "id": "history_7e462798-cddb-4421-a2ce-ea21ed726eca",
+      "type": "planted",
+      "date": "2026-05-07",
+      "title": "Planterade Rädisor",
+      "plantId": "plant_6fd33749-d42b-4a3c-8d3c-622ea2b0e2f6"
+    }
+  ],
+  "photos": [],
+  "mapImages": []
+}

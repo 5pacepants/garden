@@ -1,6 +1,6 @@
-import { createDemoGardenState } from "../domain/fixtures";
 import type { GardenState, LightCondition } from "../domain/models";
 import { storeBrowserImage } from "./browserImageStore";
+import { createDefaultGardenState } from "./defaultGardenState";
 import type { GardenRepository } from "./gardenRepository";
 import { exportGardenState, importGardenState } from "./importExport";
 
@@ -15,7 +15,7 @@ export class LocalStorageGardenRepository implements GardenRepository {
     const stored = localStorage.getItem(this.storageKey);
 
     if (!stored) {
-      return createDemoGardenState();
+      return createDefaultGardenState();
     }
 
     const state = await prepareStateForLocalStorage(applyHouseMapDefaults(this.importJson(stored)));
