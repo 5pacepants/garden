@@ -239,6 +239,26 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
     setMessage("Kartbild sparad.");
   }
 
+  async function openWidePreview() {
+    setIsWidePreviewOpen(true);
+    try {
+      await document.documentElement.requestFullscreen?.();
+    } catch {
+      // Ignore browser fullscreen rejections.
+    }
+  }
+
+  async function closeWidePreview() {
+    setIsWidePreviewOpen(false);
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen?.();
+      }
+    } catch {
+      // Ignore exit failures.
+    }
+  }
+
   function renderElementControls(element: GardenMapElement) {
     return (
       <>
@@ -311,12 +331,6 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
       </div>
       {isMobileViewport && isWidePreviewOpen ? (
         <div aria-label="Förstorad karta" aria-modal="true" className="map-builder-wide-overlay" role="dialog">
-          <div className="map-builder-wide-header">
-            <strong>Förstorad karta</strong>
-            <button className="tool-button" onClick={() => setIsWidePreviewOpen(false)} type="button">
-              Stäng
-            </button>
-          </div>
           <div className="map-builder-wide-body">
             <div className="map-builder-wide-preview">{renderPreviewPane(true)}</div>
             <aside className="map-builder-wide-info">{renderWideInfoPane()}</aside>
@@ -396,6 +410,11 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
   function renderWideInfoPane() {
     return (
       <div className="map-builder-wide-info-content">
+        <div className="map-builder-wide-close-row">
+          <button className="tool-button" onClick={closeWidePreview} type="button">
+            Stäng
+          </button>
+        </div>
         <div className="map-builder-wide-summary">
           <span className="eyebrow">Markerat</span>
           <h3>{selectedElement?.name ?? "Inget valt"}</h3>
@@ -404,18 +423,6 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
               ? "Välj ett objekt i kartan för att se och ändra dess namn och färg."
               : "Tryck på ett objekt i kartan."}
           </p>
-        </div>
-        <div className="map-builder-object-list" aria-label="Kartobjekt">
-          {layout.elements.map((element) => (
-            <button
-              className={element.id === selectedElement?.id ? "active" : ""}
-              key={element.id}
-              onClick={() => setSelectedId(element.id)}
-              type="button"
-            >
-              {element.name}
-            </button>
-          ))}
         </div>
         {selectedElement && <ElementEditor element={selectedElement} onChange={saveElement} />}
         <div className="inline-form">
@@ -488,7 +495,7 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
             <button
               aria-label="Förstora karta"
               className="map-builder-expand-button"
-              onClick={() => setIsWidePreviewOpen(true)}
+              onClick={openWidePreview}
               title="Förstora karta"
               type="button"
             >
