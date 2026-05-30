@@ -53,9 +53,10 @@ const addableTypes: Array<{ type: GardenMapElementType; label: string }> = [
 
 export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState, onSaveMapImage }: MapBuilderViewProps) {
   const [layout, setLayout] = useState(() => (initialLayout ? cloneLayout(initialLayout) : createStarterMapLayout()));
-  const [selectedId, setSelectedId] = useState(() => layout.elements[0]?.id ?? null);
+  const [selectedId, setSelectedId] = useState<string | null>(() => layout.elements[0]?.id ?? null);
   const [message, setMessage] = useState<string | null>(null);
   const [isInsertMenuOpen, setIsInsertMenuOpen] = useState(false);
+  const [isWidePreviewOpen, setIsWidePreviewOpen] = useState(false);
   const [pendingInsertPoint, setPendingInsertPoint] = useState<Point | null>(null);
   const dragState = useRef<DragState | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
@@ -142,10 +143,19 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
   }
 
   function handlePreviewClick(event: MouseEvent<SVGSVGElement>) {
-    if (!isMobileViewport || event.target !== event.currentTarget) {
+    if (event.target !== event.currentTarget) {
       return;
     }
 
+    setSelectedId(null);
+  }
+
+  function handlePreviewDoubleClick(event: MouseEvent<SVGSVGElement>) {
+    if (!isMobileViewport) {
+      return;
+    }
+
+    event.preventDefault();
     setPendingInsertPoint(pointFromPointer(event));
     setIsInsertMenuOpen(true);
   }
@@ -230,12 +240,12 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
   }
 
   return (
-    <section className="map-builder content-panel">
+    <section className={`map-builder content-panel${isMobileViewport && isWidePreviewOpen ? " map-builder-wide-mode" : ""}`}>
       <div className="list-header">
         <span className="eyebrow">Kartbyggare</span>
         <h2>Skapa kartbild i appen</h2>
       </div>
-      <div className="map-builder-layout">
+      <div className={`map-builder-layout${isMobileViewport && isWidePreviewOpen ? " map-builder-layout-wide" : ""}`}>
         <div className="map-builder-tools">
           <div className="map-builder-actions">
             {addableTypes.map((item) => (
@@ -267,11 +277,12 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
             Använd som kartbild
           </button>
         </div>
-        <div className="map-builder-preview">
+        <div className={`map-builder-preview${isMobileViewport && isWidePreviewOpen ? " map-builder-preview-wide" : ""}`}>
           <svg
             aria-label="Redigerbar kartbild"
             className="map-builder-svg"
             onClick={handlePreviewClick}
+            onDoubleClick={handlePreviewDoubleClick}
             onPointerMove={moveDrag}
             onPointerUp={() => {
               dragState.current = null;
@@ -320,6 +331,30 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
             })}
             {selectedElement && <g className="map-builder-controls">{renderElementControls(selectedElement)}</g>}
           </svg>
+          {isMobileViewport && (
+            <button
+              aria-label={isWidePreviewOpen ? "Stäng förstorad karta" : "Förstora karta"}
+              className="map-builder-expand-button"
+              onClick={() => setIsWidePreviewOpen((current) => !current)}
+              title={isWidePreviewOpen ? "Stäng förstorad karta" : "Förstora karta"}
+              type="button"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d={
+                    isWidePreviewOpen
+                      ? "M7 7h4V3M17 17h-4v4M17 7h4v4M7 17H3v-4"
+                      : "M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"
+                  }
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                />
+              </svg>
+            </button>
+          )}
         </div>
       </div>
       {isMobileViewport && isInsertMenuOpen && (

@@ -171,7 +171,7 @@ describe("MapBuilderView", () => {
     expect(fence).toHaveAttribute("points", "18,11 100,11 100,13 18,13");
   });
 
-  it("opens a mobile add menu from the tapped map position and inserts the chosen element there", async () => {
+  it("opens a mobile add menu on double click and inserts the chosen element there", async () => {
     const user = userEvent.setup();
     mockMobileViewport();
     const { container } = render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
@@ -190,6 +190,9 @@ describe("MapBuilderView", () => {
     });
 
     fireEvent.click(svg, { clientX: 300, clientY: 160 });
+    expect(screen.queryByRole("dialog", { name: "Välj objekt att lägga till" })).not.toBeInTheDocument();
+
+    fireEvent.doubleClick(svg, { clientX: 300, clientY: 160 });
 
     const dialog = screen.getByRole("dialog", { name: "Välj objekt att lägga till" });
     expect(dialog).toBeInTheDocument();
@@ -199,6 +202,18 @@ describe("MapBuilderView", () => {
     expect(screen.queryByRole("dialog", { name: "Välj objekt att lägga till" })).not.toBeInTheDocument();
     expect(container.querySelectorAll(".map-builder-element")).toHaveLength(3);
     expect(screen.getByRole("button", { name: "Hus" })).toBeInTheDocument();
+  });
+
+  it("opens the wide mobile preview when the expand button is pressed", async () => {
+    const user = userEvent.setup();
+    mockMobileViewport();
+
+    render(<MapBuilderView gardenState={gardenState} onApplyGardenState={vi.fn()} />);
+
+    await user.click(screen.getByRole("button", { name: "Förstora karta" }));
+
+    expect(screen.getByRole("button", { name: "Stäng förstorad karta" })).toBeInTheDocument();
+    expect(document.body.style.overflow).toBe("hidden");
   });
 
   it("locks body scrolling while the mobile builder is active", () => {
