@@ -212,7 +212,8 @@ describe("MapBuilderView", () => {
 
     await user.click(screen.getByRole("button", { name: "Förstora karta" }));
 
-    expect(screen.getByRole("button", { name: "Stäng förstorad karta" })).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: "Förstorad karta" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Stäng" })).toBeInTheDocument();
     expect(document.body.style.overflow).toBe("hidden");
   });
 

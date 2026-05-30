@@ -309,116 +309,25 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
         <span className="eyebrow">Kartbyggare</span>
         <h2>Skapa kartbild i appen</h2>
       </div>
-      <div className={`map-builder-layout${isMobileViewport && isWidePreviewOpen ? " map-builder-layout-wide" : ""}`}>
-        <div className="map-builder-tools">
-          <div className="map-builder-actions">
-            {addableTypes.map((item) => (
-              <button key={item.type} onClick={() => addElement(item.type)} type="button">
-                {item.label}
-              </button>
-            ))}
-          </div>
-          <div className="map-builder-object-list" aria-label="Kartobjekt">
-            {layout.elements.map((element) => (
-              <button
-                className={element.id === selectedElement?.id ? "active" : ""}
-                key={element.id}
-                onClick={() => setSelectedId(element.id)}
-                type="button"
-              >
-                {element.name}
-              </button>
-            ))}
-          </div>
-          {selectedElement && <ElementEditor element={selectedElement} onChange={saveElement} />}
-          <div className="inline-form">
-            <button className="tool-button" onClick={saveCurrentLayout} type="button">
-              Spara
+      {isMobileViewport && isWidePreviewOpen ? (
+        <div aria-label="Förstorad karta" aria-modal="true" className="map-builder-wide-overlay" role="dialog">
+          <div className="map-builder-wide-header">
+            <strong>Förstorad karta</strong>
+            <button className="tool-button" onClick={() => setIsWidePreviewOpen(false)} type="button">
+              Stäng
             </button>
           </div>
-          {message && <p className="helper-text">{message}</p>}
-          <button className="tool-button primary" onClick={applyAsMapBackground} type="button">
-            Använd som kartbild
-          </button>
-        </div>
-        <div className={`map-builder-preview${isMobileViewport && isWidePreviewOpen ? " map-builder-preview-wide" : ""}`}>
-          <div className="map-builder-preview-shell">
-            <svg
-              aria-label="Redigerbar kartbild"
-              className="map-builder-svg"
-              onClick={handlePreviewClick}
-              onDoubleClick={handlePreviewDoubleClick}
-              onPointerMove={moveDrag}
-              onPointerUp={handlePreviewPointerUp}
-              ref={svgRef}
-              role="img"
-              viewBox="0 0 100 56.82"
-            >
-              <rect width="100" height="56.82" fill="#f5f2e8" />
-              {layout.elements.map((element) => {
-                const center = getMapElementCenter(element);
-                const isSelected = element.id === selectedElement?.id;
-
-                return (
-                  <g key={element.id}>
-                    <polygon
-                      className={isSelected ? "map-builder-element selected" : "map-builder-element"}
-                      fill={element.color}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        setSelectedId(element.id);
-                      }}
-                      onPointerDown={(event) => {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        event.currentTarget.setPointerCapture?.(event.pointerId);
-                        setSelectedId(element.id);
-                        dragState.current = {
-                          elementId: element.id,
-                          original: element,
-                          startPoint: pointFromPointer(event),
-                          type: "element",
-                        };
-                      }}
-                      onPointerMove={moveDrag}
-                      onPointerUp={handlePreviewPointerUp}
-                      points={polygonToSvgPoints(element.points)}
-                    />
-                    <text className="map-builder-label" x={center.x} y={center.y}>
-                      {element.name}
-                    </text>
-                  </g>
-                );
-              })}
-              {selectedElement && <g className="map-builder-controls">{renderElementControls(selectedElement)}</g>}
-            </svg>
-            {isMobileViewport && (
-              <button
-                aria-label={isWidePreviewOpen ? "Stäng förstorad karta" : "Förstora karta"}
-                className="map-builder-expand-button"
-                onClick={() => setIsWidePreviewOpen((current) => !current)}
-                title={isWidePreviewOpen ? "Stäng förstorad karta" : "Förstora karta"}
-                type="button"
-              >
-                <svg aria-hidden="true" viewBox="0 0 24 24">
-                  <path
-                    d={
-                      isWidePreviewOpen
-                        ? "M7 7h4V3M17 17h-4v4M17 7h4v4M7 17H3v-4"
-                        : "M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"
-                    }
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.8"
-                  />
-                </svg>
-              </button>
-            )}
+          <div className="map-builder-wide-body">
+            <aside className="map-builder-wide-info">{renderToolsPane()}</aside>
+            <div className="map-builder-wide-preview">{renderPreviewPane(true)}</div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="map-builder-layout">
+          {renderToolsPane()}
+          {renderPreviewPane(false)}
+        </div>
+      )}
       {isMobileViewport && isInsertMenuOpen && (
         <div aria-label="Välj objekt att lägga till" aria-modal="true" className="map-builder-insert-backdrop" role="dialog">
           <div className="map-builder-insert-sheet">
@@ -447,6 +356,120 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
       )}
     </section>
   );
+
+  function renderToolsPane() {
+    return (
+      <div className="map-builder-tools">
+        <div className="map-builder-actions">
+          {addableTypes.map((item) => (
+            <button key={item.type} onClick={() => addElement(item.type)} type="button">
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div className="map-builder-object-list" aria-label="Kartobjekt">
+          {layout.elements.map((element) => (
+            <button
+              className={element.id === selectedElement?.id ? "active" : ""}
+              key={element.id}
+              onClick={() => setSelectedId(element.id)}
+              type="button"
+            >
+              {element.name}
+            </button>
+          ))}
+        </div>
+        {selectedElement && <ElementEditor element={selectedElement} onChange={saveElement} />}
+        <div className="inline-form">
+          <button className="tool-button" onClick={saveCurrentLayout} type="button">
+            Spara
+          </button>
+        </div>
+        {message && <p className="helper-text">{message}</p>}
+        <button className="tool-button primary" onClick={applyAsMapBackground} type="button">
+          Använd som kartbild
+        </button>
+      </div>
+    );
+  }
+
+  function renderPreviewPane(isWide: boolean) {
+    return (
+      <div className={isWide ? "map-builder-preview map-builder-preview-wide" : "map-builder-preview"}>
+        <div className="map-builder-preview-shell">
+          <svg
+            aria-label="Redigerbar kartbild"
+            className="map-builder-svg"
+            onClick={handlePreviewClick}
+            onDoubleClick={handlePreviewDoubleClick}
+            onPointerMove={moveDrag}
+            onPointerUp={handlePreviewPointerUp}
+            ref={svgRef}
+            role="img"
+            viewBox="0 0 100 56.82"
+          >
+            <rect width="100" height="56.82" fill="#f5f2e8" />
+            {layout.elements.map((element) => {
+              const center = getMapElementCenter(element);
+              const isSelected = element.id === selectedElement?.id;
+
+              return (
+                <g key={element.id}>
+                  <polygon
+                    className={isSelected ? "map-builder-element selected" : "map-builder-element"}
+                    fill={element.color}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      setSelectedId(element.id);
+                    }}
+                    onPointerDown={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      event.currentTarget.setPointerCapture?.(event.pointerId);
+                      setSelectedId(element.id);
+                      dragState.current = {
+                        elementId: element.id,
+                        original: element,
+                        startPoint: pointFromPointer(event),
+                        type: "element",
+                      };
+                    }}
+                    onPointerMove={moveDrag}
+                    onPointerUp={handlePreviewPointerUp}
+                    points={polygonToSvgPoints(element.points)}
+                  />
+                  <text className="map-builder-label" x={center.x} y={center.y}>
+                    {element.name}
+                  </text>
+                </g>
+              );
+            })}
+            {selectedElement && <g className="map-builder-controls">{renderElementControls(selectedElement)}</g>}
+          </svg>
+          {isMobileViewport && !isWide && (
+            <button
+              aria-label="Förstora karta"
+              className="map-builder-expand-button"
+              onClick={() => setIsWidePreviewOpen(true)}
+              title="Förstora karta"
+              type="button"
+            >
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.8"
+                />
+              </svg>
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
 }
 
 function ElementEditor({ element, onChange }: { element: GardenMapElement; onChange: (element: GardenMapElement) => void }) {

@@ -1192,8 +1192,45 @@ button {
   z-index: 130;
 }
 
-.map-builder-wide-mode .map-builder-layout {
+.map-builder-wide-overlay {
+  display: grid;
+  gap: 8px;
+  height: calc(100dvh - 56px);
   min-height: 0;
+}
+
+.map-builder-wide-header {
+  align-items: center;
+  background: rgba(255, 253, 244, 0.98);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+}
+
+.map-builder-wide-body {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  min-height: 0;
+}
+
+.map-builder-wide-info,
+.map-builder-wide-preview {
+  min-height: 0;
+}
+
+.map-builder-wide-info {
+  background: rgba(255, 253, 244, 0.96);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  overflow: auto;
+  padding: 10px;
+}
+
+.map-builder-wide-preview .map-builder-preview {
+  height: 100%;
 }
 
 .map-builder-element {
@@ -1557,10 +1594,6 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .map-builder-layout-wide {
-    grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
-  }
-
   .map-builder-tools {
     max-height: 38dvh;
     overflow: auto;
@@ -1580,26 +1613,28 @@ button {
     max-width: 100%;
   }
 
-  .map-builder-preview-wide {
-    height: min(62dvh, 680px);
+  .map-builder-wide-overlay {
+    height: calc(100dvh - 56px);
+  }
+
+  .map-builder-wide-body {
+    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  }
+
+  .map-builder-wide-preview {
     min-height: 0;
-    overscroll-behavior: contain;
   }
 
-  .map-builder-preview-wide .map-builder-preview-shell {
+  .map-builder-wide-preview .map-builder-preview {
     height: 100%;
   }
 
-  .map-builder-preview-wide .map-builder-svg {
+  .map-builder-wide-preview .map-builder-preview-shell {
     height: 100%;
-    width: auto;
   }
 
-  .map-builder-wide-mode .map-builder-tools {
-    max-height: none;
-  }
-
-  .map-builder-wide-mode .map-builder-layout {
-    height: calc(100dvh - 52px);
+  .map-builder-wide-preview .map-builder-svg {
+    height: 100%;
+    width: 100%;
   }
 }
