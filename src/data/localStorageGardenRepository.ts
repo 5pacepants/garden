@@ -1,5 +1,6 @@
 import type { GardenState, LightCondition } from "../domain/models";
 import { storeBrowserImage } from "./browserImageStore";
+import { getBundledBackgroundImageReference } from "./bundledMedia";
 import { createDefaultGardenState } from "./defaultGardenState";
 import type { GardenRepository } from "./gardenRepository";
 import { exportGardenState, importGardenState } from "./importExport";
@@ -45,9 +46,9 @@ const demoHistoryIds = new Set(["history_echinacea_planted", "history_front_note
 function applyHouseMapDefaults(state: GardenState): GardenState {
   return {
     ...state,
-    map: {
-      ...state.map,
-      backgroundImage: "/bakgrund.png",
+  map: {
+    ...state.map,
+      backgroundImage: getBundledBackgroundImageReference(),
     },
     mapImages: state.mapImages ?? [],
     zones: state.zones

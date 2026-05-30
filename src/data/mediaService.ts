@@ -1,5 +1,6 @@
 import { convertFileSrc, invoke } from "@tauri-apps/api/core";
 import { resolveBrowserImageReference } from "./browserImageStore";
+import { getBundledBackgroundImageReference } from "./bundledMedia";
 
 export type StoredMedia = {
   reference: string;
@@ -51,7 +52,7 @@ function toRenderableMediaUrl(pathOrUrl: string): string {
 
 function legacyBundledMediaFallback(reference: string): string | undefined {
   if (/^appmedia:\/\/bakgrund(?:-\d+)?\.png$/.test(reference)) {
-    return "/bakgrund.png";
+    return getBundledBackgroundImageReference();
   }
 
   return undefined;
