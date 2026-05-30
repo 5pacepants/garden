@@ -493,7 +493,7 @@ export function MapBuilderView({ gardenState, initialLayout, onApplyGardenState,
             })}
             {selectedElement && <g className="map-builder-controls">{renderElementControls(selectedElement)}</g>}
           </svg>
-          {isMobileViewport && !isWide && (
+          {!isWide && (
             <button
               aria-label="Förstora karta"
               className="map-builder-expand-button"
